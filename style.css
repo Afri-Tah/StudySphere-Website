@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -317,4 +321,12 @@
         padding: 15px 30px;
         font-size: 18px;
     }
+}
+.menu li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.menu li a:hover {
+    color: #1e90ff;
 }
