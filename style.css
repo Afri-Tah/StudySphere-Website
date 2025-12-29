@@ -1,0 +1,320 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+    background-color: white;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #1e90ff;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.menu li {
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 120px 20px;
+    background: linear-gradient(to right, #1e90ff, #6fb1fc);
+    color: white;
+}
+
+.hero h1 {
+    font-size: 44px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.hero button {
+    background-color: white;
+    color: #1e90ff;
+    border: none;
+    padding: 12px 28px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* COURSES */
+.courses {
+    padding: 80px 40px;
+    background-color: #f4f6f8;
+    text-align: center;
+}
+
+.courses h2 {
+    font-size: 32px;
+    margin-bottom: 50px;
+    color: #2c3e50;
+}
+
+.course-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.course-card {
+    background-color: white;
+    width: 260px;
+    padding: 30px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.course-card:hover {
+    transform: translateY(-8px);
+    transition: 0.3s;
+}
+
+.course-card h3 {
+    color: #1e90ff;
+    margin-bottom: 10px;
+}
+
+.course-card p {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.course-card span {
+    font-size: 14px;
+    color: #666;
+}
+/* FOUNDER */
+.founder {
+    padding: 80px 40px;
+    background-color: white;
+}
+
+.founder-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.founder-text {
+    max-width: 500px;
+}
+
+.founder-text h2 {
+    color: #1e90ff;
+    margin-bottom: 10px;
+}
+
+.founder-text h3 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.founder-text p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.founder-text ul {
+    list-style: none;
+}
+
+.founder-text li {
+    margin-bottom: 8px;
+}
+
+.founder-image img {
+    width: 260px;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+/* PRICING */
+.pricing {
+    padding: 80px 40px;
+    background-color: #f4f6f8;
+    text-align: center;
+}
+
+.pricing h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.pricing-subtitle {
+    color: #666;
+    margin-bottom: 50px;
+}
+
+.pricing-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.pricing-card {
+    background-color: white;
+    width: 260px;
+    padding: 30px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.pricing-card h3 {
+    color: #1e90ff;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.pricing-card ul {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.pricing-card li {
+    margin-bottom: 8px;
+}
+
+.pricing-card button {
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.featured {
+    border: 2px solid #1e90ff;
+    transform: scale(1.05);
+}
+/* REVIEWS */
+.reviews {
+    padding: 80px 40px;
+    background-color: white;
+    text-align: center;
+}
+
+.reviews h2 {
+    font-size: 32px;
+    margin-bottom: 50px;
+}
+
+.review-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.review-card {
+    background-color: #f4f6f8;
+    width: 280px;
+    padding: 25px 20px;
+    border-radius: 10px;
+}
+
+.review-card p {
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+.review-card h4 {
+    color: #1e90ff;
+}
+/* WHATSAPP FLOATING BUTTON */
+.whatsapp-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+
+.whatsapp-btn:hover {
+    background-color: #128C7E;
+}
+/* MOBILE RESPONSIVENESS */
+@media only screen and (max-width: 768px) {
+
+    /* Navbar menu stack vertically */
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .menu {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Hero section text smaller */
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    /* Courses & Pricing & Reviews stack vertically */
+    .course-container,
+    .pricing-container,
+    .review-container,
+    .founder-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .course-card,
+    .pricing-card,
+    .review-card {
+        width: 90%;
+        max-width: 320px;
+    }
+
+    /* Founder text center */
+    .founder-text {
+        text-align: center;
+    }
+
+    /* Hero button bigger for touch */
+    .hero button {
+        padding: 15px 30px;
+        font-size: 18px;
+    }
+}
