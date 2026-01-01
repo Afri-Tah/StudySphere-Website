@@ -24,10 +24,14 @@
   </nav>
 
   <!-- Hero Section -->
-  <section id="hero">
-    <h1>STUDYSPHERE</h1>
-    <p>New Trusted Platform for All LevelS O LEVEL A Level and University Courses</p>
-    <p>Explore Courses</p>
+  <section id="home">
+    <section id="hero">
+      <h1>STUDYSPHERE</h1>
+      <p>New Trusted Platform for All Levels — O Level, A Level & University Courses</p>
+      <button onclick="document.querySelector('#courses').scrollIntoView({ behavior: 'smooth' })">
+        Explore Courses
+      </button>
+    </section>
   </section>
 
   <!-- About Section -->
@@ -122,18 +126,23 @@
   <!-- Contact Section -->
   <section id="contact">
     <h2>Contact Us</h2>
-    <p>Message us today to book your slot and start learning smarter with StudySphere — where excellence begins.</p>
-    <p>WhatsApp / Contact: <a href="https://wa.me/your-number" target="_blank">+8801558070225</a></p>
+    <p>
+      WhatsApp / Contact:
+      <a href="https://wa.me/8801558070225" target="_blank">
+        +880 1558-070225
+      </a>
+    </p>
   </section>
 
-  <a href="https://wa.me/8801712345678?text=Hello%2C%20I%20want%20to%20enroll%20in%20the%20course." 
-   target="_blank" 
-   id="whatsappButton">
-  <img src="whatsapp-icon.png" alt="Chat with us on WhatsApp">
-</a>
-
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/8801558070225?text=Hello%2C%20I%20want%20to%20know%20more%20about%20StudySphere."
+     target="_blank"
+     id="whatsappButton">
+    <img src="whatsapp-icon.png" alt="Chat with us on WhatsApp">
+  </a>
 
   <!-- JS -->
   <script src="script.js"></script>
+
 </body>
 </html>

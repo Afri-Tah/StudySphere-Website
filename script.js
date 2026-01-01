@@ -1,7 +1,7 @@
 // Function to open WhatsApp with pre-filled message
 function enroll(courseName, price) {
   // Replace your WhatsApp number here
-  const phoneNumber = "8801712345678";
+  const phoneNumber = "8801558070225";
 
   // Construct message
   const message = `Hello, I want to enroll in "${courseName}" priced at BDT ${price}.`;
