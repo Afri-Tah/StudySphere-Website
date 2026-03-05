@@ -858,10 +858,243 @@ button, .btn {
   display: block;
 }
 
+
+/* ==========================
+   Loading Splash Screen
+========================== */
+#splash {
+  position: fixed;
+  inset: 0;
+  background: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+#splash.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.splash-inner {
+  text-align: center;
+}
+
+.splash-logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  animation: splashPop 0.5s ease both;
+}
+
+@keyframes splashPop {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.splash-text {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--primary-color);
+  letter-spacing: 0.15em;
+  margin-bottom: 24px;
+}
+
+.splash-bar {
+  width: 200px;
+  height: 4px;
+  background: rgba(75,31,26,0.2);
+  border-radius: 999px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.splash-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--primary-color);
+  border-radius: 999px;
+  animation: fillBar 1.6s ease forwards;
+}
+
+@keyframes fillBar {
+  to { width: 100%; }
+}
+
+/* ==========================
+   Dark Mode
+========================== */
+body.dark {
+  --primary-color: #f0b67f;
+  --secondary-color: #2a1a17;
+  --text-color: #e8d8d0;
+  --bg-color: #1a0f0c;
+  --btn-bg: #f0b67f;
+  --btn-text: #1a0f0c;
+  --pill-active-bg: #f0b67f;
+  --pill-active-text: #1a0f0c;
+  --pill-inactive-bg: #2a1a17;
+  --pill-inactive-text: #f0b67f;
+  --pill-border: #f0b67f;
+}
+
+body.dark nav {
+  background-color: #0f0806;
+}
+
+body.dark #hero {
+  background-color: #2a1a17;
+}
+
+body.dark #courses,
+body.dark #pricing,
+body.dark #reviews {
+  background-color: #1f1210;
+}
+
+body.dark .course-card,
+body.dark .review-card,
+body.dark .instructor-card {
+  background-color: #2a1a17;
+  color: #e8d8d0;
+}
+
+body.dark .course-card p,
+body.dark .review-card .review-text,
+body.dark .instructor-card p {
+  color: #c4a99e;
+}
+
+body.dark .faq-question {
+  background: #2a1a17;
+  color: #f0b67f;
+}
+
+body.dark .faq-answer {
+  background: #1f1210;
+  color: #c4a99e;
+}
+
+body.dark .faq-item {
+  border-color: #4a2a20;
+}
+
+body.dark .online-badge {
+  background: #0f2a1a;
+  color: #5dbf8a;
+  border-color: #2a6a4a;
+}
+
+body.dark .hero-badge {
+  background: rgba(240,182,127,0.15);
+  color: #f0b67f;
+  border-color: #f0b67f;
+}
+
+body.dark #faq,
+body.dark #about,
+body.dark #contact {
+  background-color: #1a0f0c;
+  color: #e8d8d0;
+}
+
+body.dark .instructors {
+  background-color: #2a1a17;
+}
+
+body.dark .filter-summary span {
+  background: #4a2a20;
+  color: #f0b67f;
+}
+
+body.dark #splash {
+  background: #1a0f0c;
+}
+
+body.dark .splash-text {
+  color: #f0b67f;
+}
+
+#darkToggle {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  margin-left: 8px;
+  vertical-align: middle;
+  transition: transform 0.3s;
+}
+
+#darkToggle:hover {
+  transform: rotate(20deg) scale(1.2);
+}
+
+/* ==========================
+   Back to Top Button
+========================== */
+#backToTop {
+  position: fixed;
+  bottom: 90px;
+  right: 22px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s, transform 0.3s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+#backToTop.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#backToTop:hover {
+  background: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+/* ==========================
+   Scroll Animations
+========================== */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 </style>
   <link rel="icon" type="image/png" href="logo.png">
 </head>
 <body>
+
+  <!-- Loading Splash Screen -->
+  <div id="splash">
+    <div class="splash-inner">
+      <img src="logo.png" alt="StudySphere Logo" class="splash-logo">
+      <div class="splash-text">STUDYSPHERE</div>
+      <div class="splash-bar"><div class="splash-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" onclick="scrollToTop()" title="Back to top">↑</button>
 
   <!-- Navbar -->
   <nav>
@@ -874,6 +1107,7 @@ button, .btn {
       <a href="#pricing">Pricing</a>
       <a href="#reviews">Reviews</a>
       <a href="#contact">Contact</a>
+      <button id="darkToggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
     </div>
   </nav>
 
@@ -883,14 +1117,14 @@ button, .btn {
       <h1>STUDYSPHERE</h1>
       <p>New Trusted Platform for All Levels — O Level, A Level & University Courses</p>
       <div class="hero-badges">
-        <span class="hero-badge"> 50+ Students Tutored</span>
-        <span class="hero-badge"> 5-Star Rated</span>
-        <span class="hero-badge"> 4 Course Types</span>
+        <span class="hero-badge">🎓 50+ Students Tutored</span>
+        <span class="hero-badge">⭐ 5-Star Rated</span>
+        <span class="hero-badge">📚 4 Course Types</span>
       </div>
       <button onclick="document.querySelector('#courses').scrollIntoView({ behavior: 'smooth' })">
         Explore Courses
       </button>
-      <button class="trial-btn" onclick="bookTrial()"> Book a Free Trial</button>
+      <button class="trial-btn" onclick="bookTrial()">✨ Book a Free Trial</button>
     </section>
   </section>
 
@@ -1166,7 +1400,7 @@ button, .btn {
 
       <div class="review-card">
         <div class="stars">⭐⭐⭐⭐⭐</div>
-        <p class="review-text">"Afrida miss's Biology classes are incredibly clear. She explains every concept patiently and the past paper practice really helped."</p>
+        <p class="review-text">"Afrida's Biology classes are incredibly clear. She explains every concept patiently and the past paper practice really helped."</p>
         <div class="reviewer">
           <div class="reviewer-avatar">T</div>
           <div>
@@ -1182,7 +1416,7 @@ button, .btn {
         <div class="reviewer">
           <div class="reviewer-avatar">N</div>
           <div>
-            <strong>Nafisa</strong>
+            <strong>Nadia K.</strong>
             <span>A2 Maths · IAL Student</span>
           </div>
         </div>
@@ -1194,7 +1428,7 @@ button, .btn {
         <div class="reviewer">
           <div class="reviewer-avatar">R</div>
           <div>
-            <strong>Sumaiya </strong>
+            <strong>Rahim H.</strong>
             <span>O-Level Physics &amp; Maths</span>
           </div>
         </div>
@@ -1214,7 +1448,7 @@ button, .btn {
           Do you offer a free trial class? <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>Yes! We offer a free trial session of 30 minutes duration so you can experience our teaching style before committing. Just click "Book a Free Trial" or message us on WhatsApp.</p>
+          <p>Yes! We offer a free trial session so you can experience our teaching style before committing. Just click "Book a Free Trial" or message us on WhatsApp.</p>
         </div>
       </div>
 
@@ -1223,7 +1457,7 @@ button, .btn {
           Are all sessions one-to-one? <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>Yes, all StudySphere sessions are strictly one-to-one via Google Meet. This ensures personalized attention and a pace that suits you. In-Batch sessions are coming soon! </p>
+          <p>Yes, all StudySphere sessions are strictly one-to-one via Google Meet. This ensures personalized attention and a pace that suits you.</p>
         </div>
       </div>
 
@@ -1232,7 +1466,7 @@ button, .btn {
           Which exam board do you follow? <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>We follow the Edexcel board — covering both IGCSE (O-Level) and IAL (A-Level) syllabuses.Cambridge board is starting off shortly.</p>
+          <p>We follow the Edexcel board — covering both IGCSE (O-Level) and IAL (A-Level) syllabuses.</p>
         </div>
       </div>
 
@@ -1435,6 +1669,68 @@ function toggleFaq(btn) {
     icon.style.transform = 'rotate(0deg)';
   }
 }
+
+
+// ==========================
+//  Loading Splash Screen
+// ==========================
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('splash').classList.add('hidden');
+  }, 1800);
+});
+
+// ==========================
+//  Dark Mode Toggle
+// ==========================
+function toggleDark() {
+  document.body.classList.toggle('dark');
+  const btn = document.getElementById('darkToggle');
+  btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+  localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+}
+
+// Restore dark mode preference
+if (localStorage.getItem('darkMode') === 'true') {
+  document.body.classList.add('dark');
+  document.getElementById('darkToggle').textContent = '☀️';
+}
+
+// ==========================
+//  Back to Top Button
+// ==========================
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('backToTop');
+  if (window.scrollY > 400) {
+    btn.classList.add('visible');
+  } else {
+    btn.classList.remove('visible');
+  }
+});
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ==========================
+//  Scroll Reveal Animations
+// ==========================
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.course-card, .instructor-card, .review-card, .faq-item, #about p, .hero-badge').forEach((el, i) => {
+    el.classList.add('scroll-reveal');
+    el.style.transitionDelay = (i % 4) * 0.1 + 's';
+    revealObserver.observe(el);
+  });
+});
 
 </script>
 </body>
