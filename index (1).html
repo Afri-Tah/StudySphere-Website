@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySphere</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="logo.png">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="#home"><img src="logo.png" alt="StudySphere Logo"></a>
+    <div>
+      <a href="#home">Home</a>
+      <a href="#courses">Courses</a>
+      <a href="#about">About</a>
+      <a href="#instructors">Instructors</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home">
+    <section id="hero">
+      <h1>STUDYSPHERE</h1>
+      <p>New Trusted Platform for All Levels — O Level, A Level & University Courses</p>
+      <button onclick="document.querySelector('#courses').scrollIntoView({ behavior: 'smooth' })">
+        Explore Courses
+      </button>
+    </section>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <h2>About StudySphere</h2>
+    <p><strong>StudySphere</strong> is an online education platform focused on providing high-quality <strong>one-to-one tutoring</strong> for Edexcel <strong>IGCSE</strong> and <strong>IAL</strong> students.</p>
+    <p>We believe every student learns differently. That's why our classes are personalized, flexible, and fully focused on individual academic needs.</p>
+    <p>At StudySphere, all sessions are conducted one-to-one to ensure better understanding, effective guidance, and consistent progress.</p>
+  </section>
+
+  <!-- Courses Section -->
+  <section id="courses">
+    <h2>Our Courses</h2>
+    <p class="section-sub">Filter by subject or level to find the right course for you</p>
+
+    <!-- Online Badge -->
+    <div class="online-badge">🌐 All sessions are conducted <strong>100% online</strong> via Google Meet</div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+
+      <div class="filter-group-label">Filter by Level</div>
+      <button class="pill active" data-filter="all" onclick="setFilter('level','all')">
+        <span class="dot"></span> All Levels
+      </button>
+      <button class="pill" data-filter="o-level" onclick="setFilter('level','o-level')">O-Level</button>
+      <button class="pill" data-filter="a-level" onclick="setFilter('level','a-level')">A-Level</button>
+
+      <div class="filter-divider"></div>
+      <div class="filter-group-label">Filter by Subject</div>
+
+      <button class="pill" data-filter="biology"     onclick="setFilter('subject','biology')">🧬 Biology</button>
+      <button class="pill" data-filter="human-biology" onclick="setFilter('subject','human-biology')">🫀 Human Biology</button>
+      <button class="pill" data-filter="chemistry"   onclick="setFilter('subject','chemistry')">⚗️ Chemistry</button>
+      <button class="pill" data-filter="physics"     onclick="setFilter('subject','physics')">⚡ Physics</button>
+      <button class="pill" data-filter="maths-b"     onclick="setFilter('subject','maths-b')">📐 Maths B</button>
+      <button class="pill" data-filter="pure-maths"  onclick="setFilter('subject','pure-maths')">🔢 Pure Maths</button>
+      <button class="pill" data-filter="cs-it"       onclick="setFilter('subject','cs-it')">💻 CS / IT</button>
+      <button class="pill" data-filter="english"     onclick="setFilter('subject','english')">📖 English</button>
+      <button class="pill" data-filter="business"    onclick="setFilter('subject','business')">💼 Business</button>
+      <button class="pill" data-filter="accounting"  onclick="setFilter('subject','accounting')">🧾 Accounting</button>
+      <button class="pill" data-filter="economics"   onclick="setFilter('subject','economics')">📊 Economics</button>
+      <button class="pill" data-filter="bangla"      onclick="setFilter('subject','bangla')">🇧🇩 Bangla</button>
+    </div>
+
+    <!-- Active Filter Summary -->
+    <div class="filter-summary" id="filterSummary">Showing all courses</div>
+
+    <!-- Course Cards Grid -->
+    <div class="course-grid" id="courseGrid">
+
+      <!-- ══ REGULAR COURSE ══ -->
+      <div class="course-card" data-level="o-level"
+           data-subjects="biology human-biology physics maths-b pure-maths cs-it chemistry english business accounting economics bangla">
+        <div class="card-tags">
+          <span class="tag tag-level">O-Level</span>
+          <span class="tag tag-subject">All Subjects</span>
+        </div>
+        <h3>Regular Course</h3>
+        <p><strong>Price:</strong> BDT 3,500</p>
+        <p><strong>Duration:</strong> 1 year – 1 year 5 months</p>
+        <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Regular Course - O-Level', 3500)">Enroll Now (O-Level)</button>
+        </div>
+      </div>
+
+      <div class="course-card" data-level="a-level"
+           data-subjects="biology physics pure-maths cs-it chemistry accounting business economics">
+        <div class="card-tags">
+          <span class="tag tag-level">A-Level</span>
+          <span class="tag tag-subject">AS &amp; A2</span>
+        </div>
+        <h3>Regular Course</h3>
+        <p><strong>Price:</strong> BDT 5,000</p>
+        <p><strong>Duration:</strong> 1 year – 1 year 5 months</p>
+        <p><strong>AS Subjects:</strong> Physics · Chemistry · Maths (P1, P2, M1) · Biology · IT · Accounting · Business Studies · Economics</p>
+        <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Regular Course - A-Level', 5000)">Enroll Now (A-Level)</button>
+        </div>
+      </div>
+
+      <!-- ══ CRASH COURSE ══ -->
+      <div class="course-card" data-level="o-level"
+           data-subjects="biology human-biology physics maths-b pure-maths cs-it chemistry english business accounting economics bangla">
+        <div class="card-tags">
+          <span class="tag tag-level">O-Level</span>
+          <span class="tag tag-subject">All Subjects</span>
+        </div>
+        <h3>Crash Course</h3>
+        <p><strong>Price:</strong> BDT 5,000</p>
+        <p><strong>Duration:</strong> 3 – 5 months</p>
+        <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Crash Course - O-Level', 5000)">Enroll Now (O-Level)</button>
+        </div>
+      </div>
+
+      <div class="course-card" data-level="a-level"
+           data-subjects="biology physics pure-maths cs-it chemistry accounting business economics">
+        <div class="card-tags">
+          <span class="tag tag-level">A-Level</span>
+          <span class="tag tag-subject">AS &amp; A2</span>
+        </div>
+        <h3>Crash Course</h3>
+        <p><strong>Price:</strong> BDT 6,000</p>
+        <p><strong>Duration:</strong> 3 – 5 months</p>
+        <p><strong>AS Subjects:</strong> Physics · Chemistry · Maths (P1, P2, M1) · Biology · IT · Accounting · Business Studies · Economics</p>
+        <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Crash Course - A-Level', 6000)">Enroll Now (A-Level)</button>
+        </div>
+      </div>
+
+      <!-- ══ PAST PAPER SOLVING ══ -->
+      <div class="course-card" data-level="o-level"
+           data-subjects="biology human-biology physics maths-b pure-maths cs-it chemistry english business accounting economics bangla">
+        <div class="card-tags">
+          <span class="tag tag-level">O-Level</span>
+          <span class="tag tag-subject">All Subjects</span>
+        </div>
+        <h3>Past Paper Solving</h3>
+        <p><strong>Price:</strong> BDT 2,500</p>
+        <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
+        <p>Timed practice with real exam papers and detailed answer walkthroughs.</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Past Paper Solving - O-Level', 2500)">Enroll Now (O-Level)</button>
+        </div>
+      </div>
+
+      <div class="course-card" data-level="a-level"
+           data-subjects="biology physics pure-maths cs-it chemistry accounting business economics">
+        <div class="card-tags">
+          <span class="tag tag-level">A-Level</span>
+          <span class="tag tag-subject">AS &amp; A2</span>
+        </div>
+        <h3>Past Paper Solving</h3>
+        <p><strong>Price:</strong> BDT 2,500</p>
+        <p><strong>AS Subjects:</strong> Physics · Chemistry · Maths (P1, P2, M1) · Biology · IT · Accounting · Business Studies · Economics</p>
+        <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
+        <p>Timed practice with real exam papers and detailed answer walkthroughs.</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Past Paper Solving - A-Level', 2500)">Enroll Now (A-Level)</button>
+        </div>
+      </div>
+
+      <!-- ══ HOURLY RATE ══ -->
+      <div class="course-card" data-level="o-level"
+           data-subjects="biology human-biology physics maths-b pure-maths cs-it chemistry english business accounting economics bangla">
+        <div class="card-tags">
+          <span class="tag tag-level">O-Level</span>
+          <span class="tag tag-subject">All Subjects</span>
+        </div>
+        <h3>Hourly Rate Course</h3>
+        <p><strong>Price:</strong> BDT 1,000 / hour</p>
+        <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
+        <p>Flexible one-off sessions. Perfect for quick topic help or exam prep.</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Hourly Rate Course - O-Level', 1000)">Book a Session</button>
+        </div>
+      </div>
+
+      <div class="course-card" data-level="a-level"
+           data-subjects="biology physics pure-maths cs-it chemistry accounting business economics">
+        <div class="card-tags">
+          <span class="tag tag-level">A-Level</span>
+          <span class="tag tag-subject">AS &amp; A2</span>
+        </div>
+        <h3>Hourly Rate Course</h3>
+        <p><strong>Price:</strong> BDT 1,000 / hour</p>
+        <p><strong>AS Subjects:</strong> Physics · Chemistry · Maths (P1, P2, M1) · Biology · IT · Accounting · Business Studies · Economics</p>
+        <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
+        <p>Flexible one-off sessions. Perfect for quick topic help or exam prep.</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Hourly Rate Course - A-Level', 1000)">Book a Session</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- No Results -->
+    <div id="no-results">
+      <div class="no-results-emoji">🔍</div>
+      <p>No courses match your current filter.<br>Try a different subject or level.</p>
+      <button onclick="resetFilters()">Show All Courses</button>
+    </div>
+
+  </section>
+
+  <!-- Instructors Section -->
+  <section id="instructors" class="instructors">
+    <h2>Our Instructors</h2>
+    <div class="instructor-container">
+      <div class="instructor-card">
+        <h3>Afrida Tahsin</h3>
+        <p>Subjects: Biology, Physics, Mathematics, CS/IT</p>
+        <p>University: East West University</p>
+        <p>Experience: 2+ years of teaching</p>
+      </div>
+      <div class="instructor-card">
+        <h3>Ishika Labiba</h3>
+        <p>Subject: Chemistry (O/A Level)</p>
+        <p>University: BRAC University</p>
+        <p>Experience: 2+ years of teaching</p>
+      </div>
+      <div class="instructor-card">
+        <h3>Fawzia Ahmed Samiha</h3>
+        <p>Subject: English</p>
+        <p>University: East West University</p>
+        <p>Experience: 2+ years of teaching</p>
+      </div>
+      <div class="instructor-card">
+        <h3>Tasneem Binte Faruque</h3>
+        <p>Subjects: Business, Accounting, Economics</p>
+        <p>University: North South University</p>
+        <p>Experience: 2+ years of teaching</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing">
+    <h2>Pricing</h2>
+    <p>Flexible pricing based on course type and session duration. Contact us for exact rates!</p>
+  </section>
+
+  <!-- Reviews Section -->
+  <section id="reviews">
+    <h2>Reviews</h2>
+    <p>Our students love the personalized guidance and flexible learning. Join us and experience the difference!</p>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>
+      WhatsApp / Contact:
+      <a href="https://wa.me/8801558070225" target="_blank">+880 1558-070225</a>
+    </p>
+  </section>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/8801558070225?text=Hello%2C%20I%20want%20to%20know%20more%20about%20StudySphere."
+     target="_blank" id="whatsappButton">
+    <img src="whatsapp-icon.png" alt="Chat with us on WhatsApp">
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
