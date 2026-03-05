@@ -51,12 +51,22 @@ nav {
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 nav a {
   color: #FFFFFF;
-  margin: 0 10px;
+  margin: 0 6px;
   font-weight: bold;
+  white-space: nowrap;
+}
+
+nav > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
 }
 
 nav img {
@@ -611,6 +621,13 @@ button, .btn {
 /* ==========================
    Responsive
 ========================== */
+@media (max-width: 900px) {
+  nav a {
+    font-size: 0.8rem;
+    margin: 0 4px;
+  }
+}
+
 @media (max-width: 768px) {
   .instructor-container, .course-card {
     flex-direction: column;
@@ -620,8 +637,31 @@ button, .btn {
 
   #hero h1 { font-size: 2rem; }
 
-  nav { flex-direction: column; }
-  nav div { margin-top: 10px; }
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 16px;
+  }
+  nav > div {
+    margin-top: 8px;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  nav a {
+    font-size: 0.78rem;
+    margin: 2px 3px;
+  }
+  .hero-badges {
+    flex-direction: column;
+    align-items: center;
+  }
+  #hero button, .trial-btn {
+    width: 100%;
+    max-width: 280px;
+    margin: 6px auto;
+    display: block;
+  }
 }
 
 @media (max-width: 600px) {
@@ -1118,14 +1158,14 @@ body.dark .splash-text {
       <h1>STUDYSPHERE</h1>
       <p>New Trusted Platform for All Levels — O Level, A Level & University Courses</p>
       <div class="hero-badges">
-        <span class="hero-badge">🎓 50+ Students Tutored</span>
-        <span class="hero-badge">⭐ 5-Star Rated</span>
-        <span class="hero-badge">📚 4 Course Types</span>
+        <span class="hero-badge">50+ Students Tutored</span>
+        <span class="hero-badge">5-Star Rated</span>
+        <span class="hero-badge">4 Course Types</span>
       </div>
       <button onclick="document.querySelector('#courses').scrollIntoView({ behavior: 'smooth' })">
         Explore Courses
       </button>
-      <button class="trial-btn" onclick="bookTrial()">✨ Book a Free Trial</button>
+      <button class="trial-btn" onclick="bookTrial()">Book a Free Trial</button>
     </section>
   </section>
 
