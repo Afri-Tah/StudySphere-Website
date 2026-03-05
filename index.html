@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySphere</title>
+  <style>
+/* ==========================
+   :root - Color Palette
+========================== */
+:root {
+  --primary-color: #4B1F1A;
+  --secondary-color: #F0B67F;
+  --text-color: #333333;
+  --bg-color: #FFFFFF;
+  --btn-bg: var(--primary-color);
+  --btn-text: #FFFFFF;
+  --pill-active-bg: #4B1F1A;
+  --pill-active-text: #fff;
+  --pill-inactive-bg: #fff;
+  --pill-inactive-text: #4B1F1A;
+  --pill-border: #4B1F1A;
+}
+
+/* ==========================
+   General Styles
+========================== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ==========================
+   Navbar
+========================== */
+nav {
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+nav a {
+  color: #FFFFFF;
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+nav img {
+  height: 50px;
+  vertical-align: middle;
+}
+
+nav a.active {
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 2px;
+}
+
+/* ==========================
+   Hero Section
+========================== */
+#hero {
+  background-color: var(--secondary-color);
+  padding: 100px 20px;
+  color: var(--primary-color);
+  min-height: 80vh;
+}
+
+#hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+#hero p {
+  font-size: 1.2rem;
+}
+
+#hero button {
+  background-color: var(--primary-color);
+  color: var(--btn-text);
+  padding: 12px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-top: 20px;
+  transition: 0.2s;
+}
+
+#hero button:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+/* ==========================
+   About Section
+========================== */
+#about {
+  background-color: var(--bg-color);
+  padding: 60px 20px;
+}
+
+#about h2 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+#about p {
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 0 auto 10px auto;
+  line-height: 1.6;
+}
+
+/* ==========================
+   Courses Section
+========================== */
+#courses {
+  background-color: #f9f9f9;
+  padding: 60px 20px 80px;
+}
+
+#courses h2 {
+  color: var(--primary-color);
+  margin-bottom: 8px;
+}
+
+.section-sub {
+  color: #7a5a55;
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+/* Online Badge */
+.online-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #eaf7ee;
+  color: #1a6b35;
+  border: 1.5px solid #a8d9b8;
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 32px;
+}
+
+.online-badge strong {
+  font-weight: 700;
+}
+
+/* Filter Bar */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.filter-group-label {
+  width: 100%;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9e7060;
+  margin-bottom: 4px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1.5px solid var(--pill-border);
+  background: var(--pill-inactive-bg);
+  color: var(--pill-inactive-text);
+  font-family: Arial, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, transform 0.15s, box-shadow 0.18s;
+  user-select: none;
+}
+
+.pill:hover {
+  background: #f0b67f44;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(75,31,26,0.12);
+}
+
+.pill.active {
+  background: var(--pill-active-bg);
+  color: var(--pill-active-text);
+  box-shadow: 0 4px 12px rgba(75,31,26,0.25);
+  transform: translateY(-2px);
+}
+
+.pill .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.filter-divider {
+  width: 100%;
+  height: 1px;
+  background: #e8d8d0;
+  margin: 6px 0 10px;
+}
+
+/* Filter Summary */
+.filter-summary {
+  font-size: 0.85rem;
+  color: #9e7060;
+  margin-bottom: 28px;
+  min-height: 20px;
+}
+
+.filter-summary span {
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 999px;
+  margin: 0 3px;
+}
+
+/* Course Grid */
+.course-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+}
+
+.course-card {
+  background-color: var(--bg-color);
+  padding: 24px 20px 20px;
+  border-radius: 15px;
+  width: 300px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: left;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.course-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--secondary-color);
+  border-radius: 15px 15px 0 0;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.course-card.hidden {
+  display: none;
+}
+
+.course-card.fade-in {
+  animation: fadeUp 0.3s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Card Tags */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.tag-subject {
+  background: #fdecd7;
+  color: #a0521e;
+}
+
+.tag-level {
+  background: #f3e6e4;
+  color: var(--primary-color);
+}
+
+.course-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.course-card p {
+  font-size: 0.88rem;
+  color: #555;
+  margin: 5px 0;
+  line-height: 1.5;
+}
+
+.course-card p strong {
+  color: var(--primary-color);
+}
+
+.card-buttons {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-buttons button {
+  width: 100%;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 0.88rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.card-buttons button:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+/* No Results */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 50px 20px;
+  color: #9e7060;
+}
+
+.no-results-emoji {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+#no-results p {
+  font-size: 1rem;
+}
+
+#no-results button {
+  margin-top: 16px;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: 0.2s;
+}
+
+#no-results button:hover {
+  background: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+/* ==========================
+   Instructors Panel
+========================== */
+.instructors {
+  background-color: var(--secondary-color);
+  padding: 50px 20px;
+}
+
+.instructors h2 {
+  color: var(--primary-color);
+  margin-bottom: 40px;
+}
+
+.instructor-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.instructor-card {
+  background-color: var(--bg-color);
+  padding: 20px;
+  border-radius: 15px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.instructor-card:hover {
+  transform: translateY(-5px);
+}
+
+.instructor-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.instructor-card p {
+  color: var(--text-color);
+  margin: 5px 0;
+}
+
+/* ==========================
+   Pricing Section
+========================== */
+#pricing {
+  background-color: #f9f9f9;
+  padding: 60px 20px;
+}
+
+#pricing h2 {
+  color: var(--primary-color);
+  margin-bottom: 40px;
+}
+
+/* ==========================
+   Reviews Section
+========================== */
+#reviews {
+  background-color: var(--bg-color);
+  padding: 60px 20px;
+}
+
+#reviews h2 {
+  color: var(--primary-color);
+  margin-bottom: 40px;
+}
+
+/* ==========================
+   Contact Section
+========================== */
+#contact {
+  background-color: var(--bg-color);
+  padding: 60px 20px;
+}
+
+/* ==========================
+   Buttons (General)
+========================== */
+button, .btn {
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+/* ==========================
+   Enrollment Modal
+========================== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: var(--bg-color);
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-content input {
+  width: 90%;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.modal-content button {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.modal-content button:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.close {
+  color: var(--primary-color);
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ==========================
+   Floating WhatsApp Button
+========================== */
+#whatsappButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  border-radius: 50%;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: pulse 2s infinite;
+}
+
+#whatsappButton img {
+  width: 100%;
+  height: 100%;
+}
+
+#whatsappButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.4);
+}
+
+@keyframes pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+#whatsappButton::after {
+  content: "Chat with us";
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  background-color: var(--primary-color);
+  color: var(--btn-text);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+#whatsappButton:hover::after {
+  opacity: 1;
+  bottom: 80px;
+}
+
+/* ==========================
+   Responsive
+========================== */
+@media (max-width: 768px) {
+  .instructor-container, .course-card {
+    flex-direction: column;
+    width: 90%;
+    margin: 10px auto;
+  }
+
+  #hero h1 { font-size: 2rem; }
+
+  nav { flex-direction: column; }
+  nav div { margin-top: 10px; }
+}
+
+@media (max-width: 600px) {
+  #whatsappButton {
+    width: 50px;
+    height: 50px;
+    bottom: 15px;
+    right: 15px;
+  }
+
+  #enrollForm input,
+  #enrollForm button {
+    max-width: 100%;
+  }
+}
+
+</style>
+  <link rel="icon" type="image/png" href="logo.png">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="#home"><img src="logo.png" alt="StudySphere Logo"></a>
+    <div>
+      <a href="#home">Home</a>
+      <a href="#courses">Courses</a>
+      <a href="#about">About</a>
+      <a href="#instructors">Instructors</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home">
+    <section id="hero">
+      <h1>STUDYSPHERE</h1>
+      <p>New Trusted Platform for All Levels — O Level, A Level & University Courses</p>
+      <button onclick="document.querySelector('#courses').scrollIntoView({ behavior: 'smooth' })">
+        Explore Courses
+      </button>
+    </section>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <h2>About StudySphere</h2>
+    <p><strong>StudySphere</strong> is an online education platform focused on providing high-quality <strong>one-to-one tutoring</strong> for Edexcel <strong>IGCSE</strong> and <strong>IAL</strong> students.</p>
+    <p>We believe every student learns differently. That's why our classes are personalized, flexible, and fully focused on individual academic needs.</p>
+    <p>At StudySphere, all sessions are conducted one-to-one to ensure better understanding, effective guidance, and consistent progress.</p>
+  </section>
+
+  <!-- Courses Section -->
+  <section id="courses">
+    <h2>Our Courses</h2>
+    <p class="section-sub">Filter by subject or level to find the right course for you</p>
+
+    <!-- Online Badge -->
+    <div class="online-badge">🌐 All sessions are conducted <strong>100% online</strong> via Google Meet</div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+
+      <div class="filter-group-label">Filter by Level</div>
+      <button class="pill active" data-filter="all" onclick="setFilter('level','all')">
+        <span class="dot"></span> All Levels
+      </button>
+      <button class="pill" data-filter="o-level" onclick="setFilter('level','o-level')">O-Level</button>
+      <button class="pill" data-filter="a-level" onclick="setFilter('level','a-level')">A-Level</button>
+
+      <div class="filter-divider"></div>
+      <div class="filter-group-label">Filter by Subject</div>
+
+      <button class="pill" data-filter="biology"     onclick="setFilter('subject','biology')">🧬 Biology</button>
+      <button class="pill" data-filter="human-biology" onclick="setFilter('subject','human-biology')">🫀 Human Biology</button>
+      <button class="pill" data-filter="chemistry"   onclick="setFilter('subject','chemistry')">⚗️ Chemistry</button>
+      <button class="pill" data-filter="physics"     onclick="setFilter('subject','physics')">⚡ Physics</button>
+      <button class="pill" data-filter="maths-b"     onclick="setFilter('subject','maths-b')">📐 Maths B</button>
+      <button class="pill" data-filter="pure-maths"  onclick="setFilter('subject','pure-maths')">🔢 Pure Maths</button>
+      <button class="pill" data-filter="cs-it"       onclick="setFilter('subject','cs-it')">💻 CS / IT</button>
+      <button class="pill" data-filter="english"     onclick="setFilter('subject','english')">📖 English</button>
+      <button class="pill" data-filter="business"    onclick="setFilter('subject','business')">💼 Business</button>
+      <button class="pill" data-filter="accounting"  onclick="setFilter('subject','accounting')">🧾 Accounting</button>
+      <button class="pill" data-filter="economics"   onclick="setFilter('subject','economics')">📊 Economics</button>
+      <button class="pill" data-filter="bangla"      onclick="setFilter('subject','bangla')">🇧🇩 Bangla</button>
+    </div>
+
+    <!-- Active Filter Summary -->
+    <div class="filter-summary" id="filterSummary">Showing all courses</div>
+
+    <!-- Course Cards Grid -->
+    <div class="course-grid" id="courseGrid">
+
+      <!-- ══ REGULAR COURSE ══ -->
+      <div class="course-card" data-level="o-level"
+           data-subjects="biology human-biology physics maths-b pure-maths cs-it chemistry english business accounting economics bangla">
+        <div class="card-tags">
+          <span class="tag tag-level">O-Level</span>
+          <span class="tag tag-subject">All Subjects</span>
+        </div>
+        <h3>Regular Course</h3>
+        <p><strong>Price:</strong> BDT 3,500</p>
+        <p><strong>Duration:</strong> 1 year – 1 year 5 months</p>
+        <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Regular Course - O-Level', 3500)">Enroll Now (O-Level)</button>
+        </div>
+      </div>
+
+      <div class="course-card" data-level="a-level"
+           data-subjects="biology physics pure-maths cs-it chemistry accounting business economics">
+        <div class="card-tags">
+          <span class="tag tag-level">A-Level</span>
+          <span class="tag tag-subject">AS &amp; A2</span>
+        </div>
+        <h3>Regular Course</h3>
+        <p><strong>Price:</strong> BDT 5,000</p>
+        <p><strong>Duration:</strong> 1 year – 1 year 5 months</p>
+        <p><strong>AS Subjects:</strong> Physics · Chemistry · Maths (P1, P2, M1) · Biology · IT · Accounting · Business Studies · Economics</p>
+        <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Regular Course - A-Level', 5000)">Enroll Now (A-Level)</button>
+        </div>
+      </div>
+
+      <!-- ══ CRASH COURSE ══ -->
+      <div class="course-card" data-level="o-level"
+           data-subjects="biology human-biology physics maths-b pure-maths cs-it chemistry english business accounting economics bangla">
+        <div class="card-tags">
+          <span class="tag tag-level">O-Level</span>
+          <span class="tag tag-subject">All Subjects</span>
+        </div>
+        <h3>Crash Course</h3>
+        <p><strong>Price:</strong> BDT 5,000</p>
+        <p><strong>Duration:</strong> 3 – 5 months</p>
+        <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Crash Course - O-Level', 5000)">Enroll Now (O-Level)</button>
+        </div>
+      </div>
+
+      <div class="course-card" data-level="a-level"
+           data-subjects="biology physics pure-maths cs-it chemistry accounting business economics">
+        <div class="card-tags">
+          <span class="tag tag-level">A-Level</span>
+          <span class="tag tag-subject">AS &amp; A2</span>
+        </div>
+        <h3>Crash Course</h3>
+        <p><strong>Price:</strong> BDT 6,000</p>
+        <p><strong>Duration:</strong> 3 – 5 months</p>
+        <p><strong>AS Subjects:</strong> Physics · Chemistry · Maths (P1, P2, M1) · Biology · IT · Accounting · Business Studies · Economics</p>
+        <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Crash Course - A-Level', 6000)">Enroll Now (A-Level)</button>
+        </div>
+      </div>
+
+      <!-- ══ PAST PAPER SOLVING ══ -->
+      <div class="course-card" data-level="o-level"
+           data-subjects="biology human-biology physics maths-b pure-maths cs-it chemistry english business accounting economics bangla">
+        <div class="card-tags">
+          <span class="tag tag-level">O-Level</span>
+          <span class="tag tag-subject">All Subjects</span>
+        </div>
+        <h3>Past Paper Solving</h3>
+        <p><strong>Price:</strong> BDT 2,500</p>
+        <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
+        <p>Timed practice with real exam papers and detailed answer walkthroughs.</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Past Paper Solving - O-Level', 2500)">Enroll Now (O-Level)</button>
+        </div>
+      </div>
+
+      <div class="course-card" data-level="a-level"
+           data-subjects="biology physics pure-maths cs-it chemistry accounting business economics">
+        <div class="card-tags">
+          <span class="tag tag-level">A-Level</span>
+          <span class="tag tag-subject">AS &amp; A2</span>
+        </div>
+        <h3>Past Paper Solving</h3>
+        <p><strong>Price:</strong> BDT 2,500</p>
+        <p><strong>AS Subjects:</strong> Physics · Chemistry · Maths (P1, P2, M1) · Biology · IT · Accounting · Business Studies · Economics</p>
+        <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
+        <p>Timed practice with real exam papers and detailed answer walkthroughs.</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Past Paper Solving - A-Level', 2500)">Enroll Now (A-Level)</button>
+        </div>
+      </div>
+
+      <!-- ══ HOURLY RATE ══ -->
+      <div class="course-card" data-level="o-level"
+           data-subjects="biology human-biology physics maths-b pure-maths cs-it chemistry english business accounting economics bangla">
+        <div class="card-tags">
+          <span class="tag tag-level">O-Level</span>
+          <span class="tag tag-subject">All Subjects</span>
+        </div>
+        <h3>Hourly Rate Course</h3>
+        <p><strong>Price:</strong> BDT 1,000 / hour</p>
+        <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
+        <p>Flexible one-off sessions. Perfect for quick topic help or exam prep.</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Hourly Rate Course - O-Level', 1000)">Book a Session</button>
+        </div>
+      </div>
+
+      <div class="course-card" data-level="a-level"
+           data-subjects="biology physics pure-maths cs-it chemistry accounting business economics">
+        <div class="card-tags">
+          <span class="tag tag-level">A-Level</span>
+          <span class="tag tag-subject">AS &amp; A2</span>
+        </div>
+        <h3>Hourly Rate Course</h3>
+        <p><strong>Price:</strong> BDT 1,000 / hour</p>
+        <p><strong>AS Subjects:</strong> Physics · Chemistry · Maths (P1, P2, M1) · Biology · IT · Accounting · Business Studies · Economics</p>
+        <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
+        <p>Flexible one-off sessions. Perfect for quick topic help or exam prep.</p>
+        <div class="card-buttons">
+          <button onclick="enroll('Hourly Rate Course - A-Level', 1000)">Book a Session</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- No Results -->
+    <div id="no-results">
+      <div class="no-results-emoji">🔍</div>
+      <p>No courses match your current filter.<br>Try a different subject or level.</p>
+      <button onclick="resetFilters()">Show All Courses</button>
+    </div>
+
+  </section>
+
+  <!-- Instructors Section -->
+  <section id="instructors" class="instructors">
+    <h2>Our Instructors</h2>
+    <div class="instructor-container">
+      <div class="instructor-card">
+        <h3>Afrida Tahsin</h3>
+        <p>Subjects: Biology, Physics, Mathematics, CS/IT</p>
+        <p>University: East West University</p>
+        <p>Experience: 2+ years of teaching</p>
+      </div>
+      <div class="instructor-card">
+        <h3>Ishika Labiba</h3>
+        <p>Subject: Chemistry (O/A Level)</p>
+        <p>University: BRAC University</p>
+        <p>Experience: 2+ years of teaching</p>
+      </div>
+      <div class="instructor-card">
+        <h3>Fawzia Ahmed Samiha</h3>
+        <p>Subject: English</p>
+        <p>University: East West University</p>
+        <p>Experience: 2+ years of teaching</p>
+      </div>
+      <div class="instructor-card">
+        <h3>Tasneem Binte Faruque</h3>
+        <p>Subjects: Business, Accounting, Economics</p>
+        <p>University: North South University</p>
+        <p>Experience: 2+ years of teaching</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing">
+    <h2>Pricing</h2>
+    <p>Flexible pricing based on course type and session duration. Contact us for exact rates!</p>
+  </section>
+
+  <!-- Reviews Section -->
+  <section id="reviews">
+    <h2>Reviews</h2>
+    <p>Our students love the personalized guidance and flexible learning. Join us and experience the difference!</p>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>
+      WhatsApp / Contact:
+      <a href="https://wa.me/8801558070225" target="_blank">+880 1558-070225</a>
+    </p>
+  </section>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/8801558070225?text=Hello%2C%20I%20want%20to%20know%20more%20about%20StudySphere."
+     target="_blank" id="whatsappButton">
+    <img src="whatsapp-icon.png" alt="Chat with us on WhatsApp">
+  </a>
+
+  <script>
+// ==========================
+//  Enroll via WhatsApp
+// ==========================
+function enroll(courseName, price) {
+  const phoneNumber = "8801558070225";
+  const message = `Hello, I want to enroll in "${courseName}" priced at BDT ${price}.`;
+  const encodedMessage = encodeURIComponent(message);
+  window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
+}
+
+// ==========================
+//  Course Filter
+// ==========================
+const filters = { level: 'all', subject: 'all' };
+
+function setFilter(type, value) {
+  if (filters[type] === value && value !== 'all') {
+    filters[type] = 'all';
+  } else {
+    filters[type] = value;
+  }
+  updatePills();
+  applyFilters();
+  updateSummary();
+}
+
+function resetFilters() {
+  filters.level = 'all';
+  filters.subject = 'all';
+  updatePills();
+  applyFilters();
+  updateSummary();
+}
+
+function updatePills() {
+  // Level pills
+  document.querySelectorAll('[data-filter="all"],[data-filter="o-level"],[data-filter="a-level"]').forEach(pill => {
+    pill.classList.toggle('active', pill.dataset.filter === filters.level);
+  });
+
+  // Subject pills
+  document.querySelectorAll('.pill:not([data-filter="all"]):not([data-filter="o-level"]):not([data-filter="a-level"])').forEach(pill => {
+    pill.classList.toggle('active', pill.dataset.filter === filters.subject);
+  });
+
+  // All Levels pill only active when both are 'all'
+  const allPill = document.querySelector('[data-filter="all"]');
+  if (allPill) allPill.classList.toggle('active', filters.level === 'all' && filters.subject === 'all');
+}
+
+function applyFilters() {
+  const cards = document.querySelectorAll('.course-card');
+  let visible = 0;
+
+  cards.forEach(card => {
+    const cardLevel    = card.dataset.level;
+    const cardSubjects = card.dataset.subjects.split(' ');
+
+    const levelMatch   = filters.level   === 'all' || cardLevel === filters.level;
+    const subjectMatch = filters.subject === 'all' || cardSubjects.includes(filters.subject);
+
+    if (levelMatch && subjectMatch) {
+      card.classList.remove('hidden');
+      card.classList.add('fade-in');
+      card.addEventListener('animationend', () => card.classList.remove('fade-in'), { once: true });
+      visible++;
+    } else {
+      card.classList.add('hidden');
+      card.classList.remove('fade-in');
+    }
+  });
+
+  document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+}
+
+function updateSummary() {
+  const summary = document.getElementById('filterSummary');
+  const count   = document.querySelectorAll('.course-card:not(.hidden)').length;
+
+  if (filters.level === 'all' && filters.subject === 'all') {
+    summary.innerHTML = 'Showing all courses';
+    return;
+  }
+
+  let parts = [];
+  if (filters.level   !== 'all') parts.push(`<span>${filters.level.toUpperCase()}</span>`);
+  if (filters.subject !== 'all') {
+    const label = document.querySelector(`[data-filter="${filters.subject}"]`)?.textContent.trim() || filters.subject;
+    parts.push(`<span>${label}</span>`);
+  }
+
+  summary.innerHTML = `Showing ${count} course${count !== 1 ? 's' : ''} for ${parts.join(' + ')}`;
+}
+
+// ==========================
+//  Smooth Scroll Navbar
+// ==========================
+document.querySelectorAll('nav a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+</script>
+</body>
+</html>
