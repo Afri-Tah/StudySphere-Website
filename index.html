@@ -638,6 +638,226 @@ button, .btn {
   }
 }
 
+
+/* ==========================
+   Hero Badges
+========================== */
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.hero-badge {
+  background: rgba(75,31,26,0.15);
+  color: var(--primary-color);
+  border: 1.5px solid var(--primary-color);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.trial-btn {
+  background: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  padding: 12px 24px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-left: 10px;
+  transition: 0.2s;
+}
+
+.trial-btn:hover {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.trial-card-btn {
+  width: 100%;
+  background: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.85rem;
+  transition: 0.2s;
+}
+
+.trial-card-btn:hover {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+/* ==========================
+   Reviews Section
+========================== */
+#reviews {
+  background-color: #f9f5f2;
+  padding: 60px 20px;
+}
+
+#reviews h2 {
+  color: var(--primary-color);
+  margin-bottom: 8px;
+}
+
+.reviews-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 32px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.review-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  width: 280px;
+  text-align: left;
+  box-shadow: 0 4px 16px rgba(75,31,26,0.09);
+  transition: transform 0.2s;
+  position: relative;
+}
+
+.review-card:hover {
+  transform: translateY(-4px);
+}
+
+.review-card::before {
+  content: '"';
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 4rem;
+  color: var(--secondary-color);
+  line-height: 1;
+  font-family: Georgia, serif;
+}
+
+.stars {
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.review-text {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.reviewer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reviewer-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.reviewer strong {
+  display: block;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+}
+
+.reviewer span {
+  font-size: 0.78rem;
+  color: #888;
+}
+
+/* ==========================
+   FAQ Section
+========================== */
+#faq {
+  background: #fff;
+  padding: 60px 20px;
+}
+
+#faq h2 {
+  color: var(--primary-color);
+  margin-bottom: 8px;
+}
+
+.faq-list {
+  max-width: 700px;
+  margin: 32px auto 0;
+  text-align: left;
+}
+
+.faq-item {
+  border: 1.5px solid #e8d8d0;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  background: #fff;
+  border: none;
+  padding: 16px 20px;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.faq-question:hover {
+  background: #fdf6f0;
+}
+
+.faq-icon {
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--primary-color);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.faq-answer {
+  display: none;
+  padding: 0 20px 16px;
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.6;
+  background: #fdf6f0;
+}
+
+.faq-answer.open {
+  display: block;
+}
+
 </style>
   <link rel="icon" type="image/png" href="logo.png">
 </head>
@@ -662,9 +882,15 @@ button, .btn {
     <section id="hero">
       <h1>STUDYSPHERE</h1>
       <p>New Trusted Platform for All Levels — O Level, A Level & University Courses</p>
+      <div class="hero-badges">
+        <span class="hero-badge"> 50+ Students Tutored</span>
+        <span class="hero-badge"> 5-Star Rated</span>
+        <span class="hero-badge"> 4 Course Types</span>
+      </div>
       <button onclick="document.querySelector('#courses').scrollIntoView({ behavior: 'smooth' })">
         Explore Courses
       </button>
+      <button class="trial-btn" onclick="bookTrial()"> Book a Free Trial</button>
     </section>
   </section>
 
@@ -755,6 +981,7 @@ button, .btn {
         <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
         <div class="card-buttons">
           <button onclick="enroll('Regular Course - O-Level', 3500)">Enroll Now (O-Level)</button>
+          <button class="trial-card-btn" onclick="bookTrial()">✨ Free Trial</button>
         </div>
       </div>
 
@@ -771,6 +998,7 @@ button, .btn {
         <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
         <div class="card-buttons">
           <button onclick="enroll('Regular Course - A-Level', 5000)">Enroll Now (A-Level)</button>
+          <button class="trial-card-btn" onclick="bookTrial()">✨ Free Trial</button>
         </div>
       </div>
 
@@ -920,8 +1148,122 @@ button, .btn {
 
   <!-- Reviews Section -->
   <section id="reviews">
-    <h2>Reviews</h2>
-    <p>Our students love the personalized guidance and flexible learning. Join us and experience the difference!</p>
+    <h2>What Our Students Say</h2>
+    <p class="section-sub">Real feedback from real students</p>
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"The one-to-one sessions made such a huge difference. My Chemistry grade went from a D to an A in just 3 months!"</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">S</div>
+          <div>
+            <strong>Sarah R.</strong>
+            <span>AS Chemistry · BRAC University Aspirant</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"Afrida miss's Biology classes are incredibly clear. She explains every concept patiently and the past paper practice really helped."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">T</div>
+          <div>
+            <strong>Tahmid A.</strong>
+            <span>O-Level Biology · IGCSE Student</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"The crash course was exactly what I needed before my exams. Focused, fast and very effective. Highly recommend StudySphere!"</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">N</div>
+          <div>
+            <strong>Nafisa</strong>
+            <span>A2 Maths · IAL Student</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"Best tutoring platform I've tried. The Google Meet sessions are smooth and the instructors are always well prepared."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">R</div>
+          <div>
+            <strong>Sumaiya </strong>
+            <span>O-Level Physics &amp; Maths</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <p class="section-sub">Everything you need to know before enrolling</p>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do you offer a free trial class? <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes! We offer a free trial session of 30 minutes duration so you can experience our teaching style before committing. Just click "Book a Free Trial" or message us on WhatsApp.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Are all sessions one-to-one? <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes, all StudySphere sessions are strictly one-to-one via Google Meet. This ensures personalized attention and a pace that suits you. In-Batch sessions are coming soon! </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Which exam board do you follow? <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>We follow the Edexcel board — covering both IGCSE (O-Level) and IAL (A-Level) syllabuses.Cambridge board is starting off shortly.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How do I enroll? <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Simply click any "Enroll Now" button on the Courses section — it will open a WhatsApp chat with a pre-filled message. We'll get back to you promptly to confirm your slot.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can I choose my preferred instructor? <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Absolutely! Each instructor specializes in specific subjects. You can message us on WhatsApp to request a particular instructor based on your subject needs.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Are sessions flexible in terms of timing? <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes, we offer flexible scheduling. You can discuss your preferred time slots with your instructor and arrange sessions accordingly.</p>
+        </div>
+      </div>
+
+    </div>
   </section>
 
   <!-- Contact Section -->
@@ -1065,6 +1407,34 @@ document.querySelectorAll('nav a').forEach(link => {
     if (target) target.scrollIntoView({ behavior: 'smooth' });
   });
 });
+
+
+// ==========================
+//  Free Trial WhatsApp
+// ==========================
+function bookTrial() {
+  const phoneNumber = "8801558070225";
+  const message = "Hello, I'd like to book a free trial class at StudySphere!";
+  window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
+}
+
+// ==========================
+//  FAQ Toggle
+// ==========================
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const icon = btn.querySelector('.faq-icon');
+  const isOpen = answer.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-icon').forEach(i => { i.textContent = '+'; i.style.transform = ''; });
+  // Open clicked if it was closed
+  if (!isOpen) {
+    answer.classList.add('open');
+    icon.textContent = '×';
+    icon.style.transform = 'rotate(0deg)';
+  }
+}
 
 </script>
 </body>
