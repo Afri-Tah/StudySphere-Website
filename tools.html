@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySphere – Student Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4B1F1A;
+      --peach: #F0B67F;
+      --bg: #fdf8f4;
+      --card: #fff;
+      --text: #2a1510;
+      --muted: #9e7060;
+      --border: #e8d5c8;
+      --green: #2ecc71;
+      --red: #e74c3c;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── TOP NAV ── */
+    .topnav {
+      background: var(--primary);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topnav a {
+      color: var(--peach);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topnav-title {
+      font-family: 'Playfair Display', serif;
+      color: #fff;
+      font-size: 1.2rem;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #7a3a2a 100%);
+      color: #fff;
+      text-align: center;
+      padding: 60px 20px 50px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      margin-bottom: 12px;
+    }
+    .hero p { color: var(--peach); font-size: 1.05rem; }
+
+    /* ── TOOLS GRID ── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 28px;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 24px 60px;
+    }
+
+    .tool-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 4px 20px rgba(75,31,26,0.08);
+      border: 1.5px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .tool-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 32px rgba(75,31,26,0.13);
+    }
+
+    .tool-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .tool-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: var(--peach);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .tool-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--primary);
+    }
+    .tool-header p {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* shared input/button styles */
+    .tool-card input, .tool-card select, .tool-card textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: var(--bg);
+      margin-bottom: 10px;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .tool-card input:focus, .tool-card select:focus, .tool-card textarea:focus {
+      border-color: var(--primary);
+    }
+    .btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      width: 100%;
+      margin-top: 6px;
+    }
+    .btn:hover { background: #7a3a2a; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    .btn-outline:hover { background: var(--primary); color: #fff; }
+    .btn-sm { padding: 7px 14px; font-size: 0.82rem; width: auto; }
+    .btn-peach { background: var(--peach); color: var(--primary); }
+    .btn-peach:hover { background: #e8a060; color: var(--primary); }
+
+    /* ══════════════════════════════
+       1. ASK A QUESTION
+    ══════════════════════════════ */
+    .instructor-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .instructor-btn {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--primary);
+      transition: 0.2s;
+    }
+    .instructor-btn.selected, .instructor-btn:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* ══════════════════════════════
+       2. FLASHCARD BUILDER
+    ══════════════════════════════ */
+    .flashcard {
+      perspective: 1000px;
+      height: 180px;
+      margin: 12px 0;
+      cursor: pointer;
+      user-select: none;
+    }
+    .flashcard-inner {
+      position: relative;
+      width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.5s;
+    }
+    .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+    .flashcard-front, .flashcard-back {
+      position: absolute; inset: 0;
+      border-radius: 16px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 20px;
+      backface-visibility: hidden;
+    }
+    .flashcard-front {
+      background: linear-gradient(135deg, var(--primary), #7a3a2a);
+      color: #fff;
+    }
+    .flashcard-back {
+      background: linear-gradient(135deg, var(--peach), #e8a060);
+      color: var(--primary);
+      transform: rotateY(180deg);
+    }
+    .flashcard-front .fc-label, .flashcard-back .fc-label {
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; opacity: 0.7; margin-bottom: 8px;
+    }
+    .flashcard-front .fc-text, .flashcard-back .fc-text {
+      font-size: 1rem; font-weight: 600; line-height: 1.5;
+    }
+    .flashcard-hint {
+      font-size: 0.75rem; color: var(--muted);
+      text-align: center; margin-bottom: 6px;
+    }
+    .card-nav {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-top: 8px; gap: 8px;
+    }
+    .card-counter { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
+    .fc-progress {
+      display: flex; gap: 3px; margin-bottom: 10px; flex-wrap: wrap;
+    }
+    .fc-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--border); transition: background 0.3s;
+      cursor: pointer;
+    }
+    .fc-dot.known { background: #2ecc71; }
+    .fc-dot.unsure { background: #e74c3c; }
+    .fc-dot.current { background: var(--primary); }
+
+    /* ══════════════════════════════
+       3. EXAM COUNTDOWN
+    ══════════════════════════════ */
+    .countdown-display {
+      text-align: center;
+      margin: 12px 0;
+    }
+    .countdown-ring {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 12px;
+    }
+    .countdown-ring svg {
+      transform: rotate(-90deg);
+    }
+    .countdown-ring .ring-bg {
+      fill: none;
+      stroke: var(--border);
+      stroke-width: 8;
+    }
+    .countdown-ring .ring-fill {
+      fill: none;
+      stroke: var(--primary);
+      stroke-width: 8;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.8s ease;
+    }
+    .countdown-days {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .countdown-days .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .countdown-days .lbl {
+      font-size: 0.7rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .countdown-exam-name {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .countdown-date-str {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* ══════════════════════════════
+       4. SUBJECT QUIZ
+    ══════════════════════════════ */
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+      background: var(--bg);
+      margin-bottom: 12px;
+    }
+    .upload-zone:hover, .upload-zone.dragover {
+      border-color: var(--primary);
+      background: #fdf0e8;
+    }
+    .upload-zone .upload-icon { font-size: 2rem; margin-bottom: 6px; }
+    .upload-zone p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+    .upload-zone strong { color: var(--primary); }
+    .upload-zone input[type=file] { display: none; }
+    .file-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fdf0e8; border: 1.5px solid var(--peach);
+      border-radius: 10px; padding: 8px 12px;
+      font-size: 0.82rem; font-weight: 600; color: var(--primary);
+      margin-bottom: 12px; width: 100%;
+    }
+    .file-badge button {
+      margin-left: auto; background: none; border: none;
+      color: #e74c3c; cursor: pointer; font-size: 1rem;
+    }
+    .quiz-settings {
+      display: flex; gap: 8px; align-items: center;
+      margin-bottom: 12px; flex-wrap: wrap;
+    }
+    .quiz-settings label { font-size: 0.82rem; font-weight: 600; color: var(--muted); }
+    .quiz-settings input, .quiz-settings select {
+      margin: 0; width: auto;
+    }
+    .quiz-generating {
+      text-align: center; padding: 20px;
+      color: var(--muted); font-size: 0.9rem;
+    }
+    .quiz-generating .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 10px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .quiz-question {
+      font-weight: 600; font-size: 0.95rem;
+      margin-bottom: 12px; color: var(--primary); line-height: 1.5;
+    }
+    .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+    .quiz-opt {
+      padding: 10px 14px; border-radius: 10px;
+      border: 1.5px solid var(--border); background: var(--bg);
+      cursor: pointer; font-size: 0.88rem; font-weight: 500;
+      transition: 0.2s; text-align: left;
+    }
+    .quiz-opt:hover { border-color: var(--primary); background: #fdf0e8; }
+    .quiz-opt.correct { background: #d4f5e2; border-color: #2ecc71; color: #1a7a40; }
+    .quiz-opt.wrong   { background: #fde8e8; border-color: #e74c3c; color: #7a1a1a; }
+    .quiz-explanation {
+      margin-top: 10px; padding: 12px 14px;
+      background: #fff8f0; border-left: 3px solid var(--peach);
+      border-radius: 0 10px 10px 0;
+      font-size: 0.85rem; color: var(--text); line-height: 1.6;
+    }
+    .quiz-explanation strong { color: var(--primary); }
+    .quiz-next-btn {
+      margin-top: 10px; width: 100%;
+    }
+    .quiz-progress { display: flex; gap: 4px; margin-bottom: 14px; }
+    .quiz-dot {
+      flex: 1; height: 4px; border-radius: 999px;
+      background: var(--border); transition: background 0.3s;
+    }
+    .quiz-dot.done { background: var(--primary); }
+    .quiz-dot.wrong-dot { background: #e74c3c; }
+    .quiz-score { text-align: center; padding: 16px; }
+    .quiz-score .score-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; color: var(--primary);
+    }
+    .quiz-score p { color: var(--muted); font-size: 0.9rem; margin-top: 6px; }
+    .quiz-review { margin-top: 14px; text-align: left; }
+    .quiz-review-item {
+      border: 1.5px solid var(--border); border-radius: 10px;
+      padding: 10px 12px; margin-bottom: 8px; font-size: 0.83rem;
+    }
+    .quiz-review-item.correct-item { border-color: #2ecc71; background: #f0fdf6; }
+    .quiz-review-item.wrong-item   { border-color: #e74c3c; background: #fdf0f0; }
+
+    /* ══════════════════════════════
+       5. STUDY STREAK
+    ══════════════════════════════ */
+    .streak-display {
+      display: flex; align-items: center; justify-content: center;
+      gap: 20px; margin-bottom: 14px;
+    }
+    .streak-flame { font-size: 2.2rem; animation: flicker 1.5s infinite alternate; }
+    @keyframes flicker {
+      from { transform: scale(1) rotate(-3deg); }
+      to   { transform: scale(1.1) rotate(3deg); }
+    }
+    .streak-stat { text-align: center; }
+    .streak-count {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; color: var(--primary); line-height: 1;
+    }
+    .streak-label { color: var(--muted); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; }
+
+    /* Calendar */
+    .cal-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .cal-nav button {
+      background: none; border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 4px 10px; cursor: pointer;
+      color: var(--primary); font-weight: 700; font-size: 1rem;
+      transition: 0.15s;
+    }
+    .cal-nav button:hover { background: var(--peach); }
+    .cal-month-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; color: var(--primary); font-weight: 700;
+    }
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 4px; margin-bottom: 12px;
+    }
+    .cal-dow {
+      text-align: center; font-size: 0.68rem; font-weight: 700;
+      color: var(--muted); padding: 2px 0;
+    }
+    .cal-day {
+      aspect-ratio: 1; border-radius: 8px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 600;
+      cursor: pointer; border: 1.5px solid transparent;
+      transition: 0.15s; position: relative;
+      background: var(--bg); color: var(--muted);
+    }
+    .cal-day:hover { border-color: var(--peach); }
+    .cal-day.today { border-color: var(--primary); color: var(--primary); }
+    .cal-day.has-data { background: var(--primary); color: #fff; }
+    .cal-day.has-data.light { background: #f5e0cc; color: var(--primary); }
+    .cal-day.has-data.medium { background: #e8a060; color: #fff; }
+    .cal-day.empty { background: none; cursor: default; }
+    .cal-day .cal-hrs {
+      font-size: 0.6rem; font-weight: 400; opacity: 0.85; line-height: 1;
+    }
+
+    /* Log session form */
+    .log-form { background: #fdf0e8; border-radius: 12px; padding: 14px; margin-top: 10px; }
+    .log-form-title { font-weight: 700; color: var(--primary); font-size: 0.9rem; margin-bottom: 10px; }
+    .session-row {
+      display: flex; gap: 6px; align-items: center; margin-bottom: 8px;
+    }
+    .session-row input, .session-row select { margin: 0; }
+    .session-list { margin-top: 8px; }
+    .session-item {
+      display: flex; justify-content: space-between; align-items: center;
+      background: #fff; border-radius: 8px; padding: 6px 10px;
+      margin-bottom: 5px; font-size: 0.82rem;
+    }
+    .session-item strong { color: var(--primary); }
+    .session-item button {
+      background: none; border: none; color: #e74c3c;
+      cursor: pointer; font-size: 0.9rem;
+    }
+
+    /* Day detail panel */
+    .day-detail {
+      background: #fdf8f4; border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 14px; margin-top: 10px;
+    }
+    .day-detail-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem; color: var(--primary); margin-bottom: 8px;
+    }
+
+    /* ══════════════════════════════
+       6. SPIN THE WHEEL
+    ══════════════════════════════ */
+    .wheel-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .wheel-container {
+      position: relative;
+      width: 200px; height: 200px;
+    }
+    .wheel-arrow {
+      position: absolute;
+      top: -12px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.5rem;
+      z-index: 2;
+    }
+    canvas#wheelCanvas {
+      border-radius: 50%;
+      box-shadow: 0 4px 20px rgba(75,31,26,0.2);
+    }
+    .wheel-result {
+      text-align: center;
+      min-height: 48px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: #fdf0e8;
+      border-radius: 10px;
+      padding: 10px 14px;
+      width: 100%;
+    }
+
+    /* ══════════════════════════════
+       7. POMODORO TIMER
+    ══════════════════════════════ */
+    .pomo-display {
+      text-align: center;
+      margin: 12px 0;
+    }
+    .pomo-time {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      color: var(--primary);
+      letter-spacing: 0.05em;
+    }
+    .pomo-mode {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .pomo-ring {
+      position: relative;
+      width: 150px; height: 150px;
+      margin: 0 auto 8px;
+    }
+    .pomo-ring svg { transform: rotate(-90deg); }
+    .pomo-ring .pr-bg { fill: none; stroke: var(--border); stroke-width: 8; }
+    .pomo-ring .pr-fill {
+      fill: none; stroke: var(--primary);
+      stroke-width: 8; stroke-linecap: round;
+      transition: stroke-dashoffset 1s linear;
+    }
+    .pomo-ring .pomo-time-inside {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--primary);
+    }
+    .pomo-controls { display: flex; gap: 8px; }
+    .pomo-controls .btn { flex: 1; }
+    .pomo-sessions {
+      display: flex; justify-content: center; gap: 6px; margin-top: 10px;
+    }
+    .pomo-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--border);
+      transition: background 0.3s;
+    }
+    .pomo-dot.done { background: var(--primary); }
+
+    /* ══════════════════════════════
+       8. STUDY PLANNER
+    ══════════════════════════════ */
+    .planner-step { margin-bottom: 10px; }
+    .planner-step label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .task-input-row {
+      display: flex; gap: 8px; margin-bottom: 8px; align-items: center;
+    }
+    .task-input-row input { margin: 0; flex: 1; }
+    .task-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 10px; border-radius: 8px;
+      font-size: 0.78rem; font-weight: 600;
+      margin: 3px;
+    }
+    .task-badge.high   { background: #fde8e8; color: #7a1a1a; border: 1px solid #f5b8b8; }
+    .task-badge.medium { background: #fdf0e8; color: #7a4a10; border: 1px solid #f5d5a8; }
+    .task-badge.low    { background: #e8f5ee; color: #1a5a30; border: 1px solid #a8d8b8; }
+    .task-badge button {
+      background: none; border: none; cursor: pointer;
+      font-size: 0.85rem; color: inherit; padding: 0; line-height: 1;
+    }
+    .planner-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.75rem; margin-top: 10px;
+    }
+    .planner-table th {
+      background: var(--primary); color: #fff;
+      padding: 7px 4px; text-align: center; font-weight: 600;
+    }
+    .planner-table td {
+      border: 1px solid var(--border);
+      padding: 5px 4px; text-align: center;
+      color: var(--muted); font-size: 0.72rem;
+      vertical-align: top; min-width: 60px;
+    }
+    .planner-table td.has-task {
+      background: #fdf0e8; color: var(--primary);
+      font-weight: 600; cursor: pointer;
+    }
+    .planner-table td.has-task:hover { background: #f5e0cc; }
+    .planner-table td.high-task { background: #fde8e8; color: #7a1a1a; font-weight: 700; cursor: pointer; }
+    .planner-table td.low-task  { background: #e8f5ee; color: #1a5a30; font-weight: 600; cursor: pointer; }
+    .planner-table td.rest-cell { background: #f5f5f5; color: #aaa; font-style: italic; }
+    .edit-cell-modal {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 999;
+    }
+    .edit-cell-inner {
+      background: #fff; border-radius: 16px;
+      padding: 24px; width: 90%; max-width: 360px;
+    }
+    .edit-cell-inner h3 {
+      color: var(--primary); margin-bottom: 14px;
+      font-family: 'Playfair Display', serif;
+    }
+    .edit-cell-inner input {
+      width: 100%; margin-bottom: 10px;
+    }
+    .edit-cell-btns { display: flex; gap: 8px; }
+
+    .rest-day-btn {
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--primary);
+      transition: 0.2s;
+    }
+    .rest-day-btn.rest-active {
+      background: #fde8e8;
+      color: #7a1a1a;
+      border-color: #f5b8b8;
+    }
+
+    /* ── FOOTER ── */
+    .tools-footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+    .tools-footer a { color: var(--primary); font-weight: 600; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .tools-grid { grid-template-columns: 1fr; padding: 0 16px 40px; }
+      .hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html">← Back to StudySphere</a>
+  <span class="topnav-title">Student Tools</span>
+  <span></span>
+</nav>
+
+<div class="hero">
+  <h1>🛠 Student Tools</h1>
+  <p>Everything you need to study smarter — all in one place</p>
+</div>
+
+<div class="tools-grid">
+
+  <!-- ══ 1. ASK A QUESTION ══ -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-icon">💬</div>
+      <div><h2>Ask an Instructor</h2><p>Your question goes straight to the right teacher</p></div>
+    </div>
+    <div class="instructor-btns" id="instrBtns">
+      <button class="instructor-btn" onclick="selectInstr(this,'Afrida Tahsin','Biology, Physics, Maths, CS/IT','8801558070225')">Afrida<br><small>Bio·Phy·Maths·IT</small></button>
+      <button class="instructor-btn" onclick="selectInstr(this,'Ishika Labiba','Chemistry','8801558070225')">Ishika<br><small>Chemistry</small></button>
+      <button class="instructor-btn" onclick="selectInstr(this,'Fawzia Ahmed Samiha','English','8801558070225')">Fawzia<br><small>English</small></button>
+      <button class="instructor-btn" onclick="selectInstr(this,'Tasneem Binte Faruque','Business, Accounting, Economics','8801558070225')">Tasneem<br><small>Bus·Acc·Eco</small></button>
+    </div>
+    <textarea id="studentQ" rows="3" placeholder="Type your question here..."></textarea>
+    <input type="text" id="studentName" placeholder="Your name (optional)">
+    <button class="btn" onclick="sendQuestion()">📲 Send via WhatsApp</button>
+  </div>
+
+  <!-- ══ 2. FLASHCARD BUILDER ══ -->
+  <div class="tool-card" style="grid-column: span 2;">
+    <div class="tool-header">
+      <div class="tool-icon">🃏</div>
+      <div><h2>AI Flashcard Builder</h2><p>Upload notes — get instant flashcards, or add your own</p></div>
+    </div>
+
+    <!-- Upload + manual tabs -->
+    <div style="display:flex;gap:8px;margin-bottom:14px">
+      <button class="btn btn-sm" id="fcTabAI" onclick="switchFcTab('ai')" style="flex:1">📄 Upload File</button>
+      <button class="btn btn-sm btn-outline" id="fcTabManual" onclick="switchFcTab('manual')" style="flex:1">✏️ Add Manually</button>
+    </div>
+
+    <!-- AI Upload tab -->
+    <div id="fcAITab">
+      <div class="upload-zone" id="fcUploadZone" onclick="document.getElementById('fcFileInput').click()"
+        ondragover="event.preventDefault();this.classList.add('dragover')"
+        ondragleave="this.classList.remove('dragover')"
+        ondrop="handleFcDrop(event)">
+        <div class="upload-icon">📄</div>
+        <p><strong>Click to upload</strong> or drag & drop</p>
+        <p style="margin-top:4px">PDF · Word (.docx) · PowerPoint (.pptx)</p>
+        <input type="file" id="fcFileInput" accept=".pdf,.docx,.pptx" onchange="handleFcSelect(event)">
+      </div>
+      <div id="fcFileBadge" style="display:none"></div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap">
+        <label style="font-size:0.82rem;font-weight:600;color:var(--muted)">Number of cards:</label>
+        <input type="number" id="fcCount" value="10" min="3" max="50" style="width:65px;margin:0">
+        <label style="font-size:0.82rem;font-weight:600;color:var(--muted);margin-left:8px">Focus on:</label>
+        <select id="fcFocus" style="width:auto;margin:0;padding:8px 10px">
+          <option value="key concepts">Key Concepts</option>
+          <option value="definitions">Definitions & Terms</option>
+          <option value="formulas and equations">Formulas & Equations</option>
+          <option value="dates and facts">Dates & Facts</option>
+          <option value="everything">Everything</option>
+        </select>
+      </div>
+      <button class="btn btn-peach" id="generateFcBtn" onclick="generateAICards()" disabled>✨ Generate Flashcards</button>
+    </div>
+
+    <!-- Manual tab -->
+    <div id="fcManualTab" style="display:none">
+      <input type="text" id="fcFront" placeholder="Front — question or term">
+      <input type="text" id="fcBack" placeholder="Back — answer or definition">
+      <button class="btn btn-outline" onclick="addFlashcard()">+ Add Card</button>
+    </div>
+
+    <!-- Card display -->
+    <div id="fcDeck" style="display:none;margin-top:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:0.82rem;font-weight:700;color:var(--primary)" id="fcDeckTitle">My Deck</span>
+        <div style="display:flex;gap:6px">
+          <span style="font-size:0.75rem;color:var(--muted)" id="fcKnownCount"></span>
+          <button class="btn btn-sm btn-outline" style="padding:4px 10px;font-size:0.75rem" onclick="shuffleCards()">🔀 Shuffle</button>
+          <button class="btn btn-sm btn-outline" style="padding:4px 10px;font-size:0.75rem;color:#e74c3c;border-color:#e74c3c" onclick="clearCards()">✕ Clear</button>
+        </div>
+      </div>
+      <div class="fc-progress" id="fcProgress"></div>
+      <div class="flashcard-hint">👆 Click card to flip &nbsp;·&nbsp; ✅ Known &nbsp; ❌ Still learning</div>
+      <div class="flashcard" id="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <div class="fc-label">Question</div>
+            <div class="fc-text" id="fcFrontDisplay">?</div>
+          </div>
+          <div class="flashcard-back">
+            <div class="fc-label">Answer</div>
+            <div class="fc-text" id="fcBackDisplay">?</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-nav">
+        <button class="btn btn-sm btn-outline" onclick="prevCard()">← Prev</button>
+        <span class="card-counter" id="fcCounter">1 / 1</span>
+        <button class="btn btn-sm" onclick="nextCard()">Next →</button>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn btn-sm" style="flex:1;background:#2ecc71;border:none" onclick="markCard(true)">✅ Known</button>
+        <button class="btn btn-sm" style="flex:1;background:#e74c3c;border:none" onclick="markCard(false)">❌ Still learning</button>
+      </div>
+    </div>
+
+    <!-- Generating state -->
+    <div id="fcGenerating" style="display:none" class="quiz-generating">
+      <div class="spinner"></div>
+      <span id="fcGenMsg">Generating flashcards from your notes...</span>
+    </div>
+  </div>
+
+  <!-- ══ 3. EXAM COUNTDOWN ══ -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-icon">📅</div>
+      <div><h2>Exam Countdown</h2><p>Track days to your exam</p></div>
+    </div>
+    <input type="text" id="examName" placeholder="Exam name (e.g. AS Physics P1)">
+    <input type="date" id="examDate">
+    <button class="btn" onclick="startCountdown()">Set Countdown</button>
+    <div class="countdown-display" id="countdownDisplay" style="display:none">
+      <div class="countdown-ring">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle class="ring-bg" cx="70" cy="70" r="58"/>
+          <circle class="ring-fill" id="cdRing" cx="70" cy="70" r="58"
+            stroke-dasharray="364.4" stroke-dashoffset="364.4"/>
+        </svg>
+        <div class="countdown-days">
+          <div class="num" id="cdDays">0</div>
+          <div class="lbl">days</div>
+        </div>
+      </div>
+      <div class="countdown-exam-name" id="cdName"></div>
+      <div class="countdown-date-str" id="cdDateStr"></div>
+    </div>
+  </div>
+
+  <!-- ══ 4. SUBJECT QUIZ ══ -->
+  <div class="tool-card" style="grid-column: span 2;">
+    <div class="tool-header">
+      <div class="tool-icon">🧠</div>
+      <div><h2>AI Quiz Generator</h2><p>Upload your notes — get a quiz based exactly on them</p></div>
+    </div>
+
+    <!-- Upload zone -->
+    <div id="quizUploadArea">
+      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('quizFileInput').click()"
+        ondragover="event.preventDefault();this.classList.add('dragover')"
+        ondragleave="this.classList.remove('dragover')"
+        ondrop="handleFileDrop(event)">
+        <div class="upload-icon">📄</div>
+        <p><strong>Click to upload</strong> or drag & drop</p>
+        <p style="margin-top:4px">PDF · Word (.docx) · PowerPoint (.pptx)</p>
+        <input type="file" id="quizFileInput" accept=".pdf,.docx,.pptx"
+          onchange="handleFileSelect(event)">
+      </div>
+      <div id="fileBadge" style="display:none"></div>
+
+      <div class="quiz-settings">
+        <label>Number of questions:</label>
+        <input type="number" id="quizCount" value="5" min="1" max="30" style="width:65px">
+        <label style="margin-left:8px">Difficulty:</label>
+        <select id="quizDifficulty" style="width:auto;padding:8px 10px">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <button class="btn" id="generateQuizBtn" onclick="generateAIQuiz()" disabled>
+        🧠 Generate Quiz
+      </button>
+    </div>
+
+    <!-- Quiz area -->
+    <div class="quiz-progress" id="quizProgress"></div>
+    <div id="quizArea"></div>
+  </div>
+
+  <!-- ══ 5. STUDY STREAK ══ -->
+  <div class="tool-card" style="grid-column: span 2;">
+    <div class="tool-header">
+      <div class="tool-icon">🔥</div>
+      <div><h2>Study Tracker</h2><p>Log subjects & sessions — view your full month's progress</p></div>
+    </div>
+
+    <!-- Stats row -->
+    <div class="streak-display">
+      <span class="streak-flame">🔥</span>
+      <div class="streak-stat">
+        <div class="streak-count" id="streakCount">0</div>
+        <div class="streak-label">Day Streak</div>
+      </div>
+      <div class="streak-stat">
+        <div class="streak-count" id="monthHours">0</div>
+        <div class="streak-label">Month Hours</div>
+      </div>
+      <div class="streak-stat">
+        <div class="streak-count" id="studyDays">0</div>
+        <div class="streak-label">Days Studied</div>
+      </div>
+    </div>
+
+    <!-- Calendar -->
+    <div class="cal-nav">
+      <button onclick="calPrev()">‹</button>
+      <span class="cal-month-title" id="calTitle"></span>
+      <button onclick="calNext()">›</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+
+    <!-- Log for today -->
+    <div class="log-form">
+      <div class="log-form-title">📝 Log a study session — <span id="logDateLabel"></span></div>
+      <div class="session-row">
+        <input type="text" id="sessionSubject" placeholder="Subject (e.g. Biology)" style="flex:2">
+        <input type="number" id="sessionHours" placeholder="hrs" min="0.5" max="12" step="0.5" style="width:65px">
+        <input type="number" id="sessionMins" placeholder="min" min="0" max="59" step="5" style="width:65px">
+        <button class="btn btn-sm btn-peach" onclick="addSession()" style="flex-shrink:0;margin:0">+ Add</button>
+      </div>
+      <div class="session-list" id="sessionList"></div>
+      <button class="btn" onclick="saveDay()" style="margin-top:8px">💾 Save Today</button>
+    </div>
+
+    <!-- Day detail view -->
+    <div class="day-detail" id="dayDetail" style="display:none">
+      <div class="day-detail-title" id="dayDetailTitle"></div>
+      <div id="dayDetailContent"></div>
+    </div>
+  </div>
+
+  <!-- ══ 6. SPIN THE WHEEL ══ -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-icon">🎯</div>
+      <div><h2>Spin the Wheel</h2><p>Get a random study tip or challenge</p></div>
+    </div>
+    <div class="wheel-wrap">
+      <div class="wheel-container">
+        <div class="wheel-arrow">▼</div>
+        <canvas id="wheelCanvas" width="200" height="200"></canvas>
+      </div>
+      <button class="btn" onclick="spinWheel()">🎰 Spin!</button>
+      <div class="wheel-result" id="wheelResult">Spin to get your study challenge!</div>
+    </div>
+  </div>
+
+  <!-- ══ 7. POMODORO TIMER ══ -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-icon">⏱️</div>
+      <div><h2>Pomodoro Timer</h2><p>25 min focus · 5 min break</p></div>
+    </div>
+    <div class="pomo-display">
+      <div class="pomo-mode" id="pomoMode">FOCUS TIME</div>
+      <div class="pomo-ring">
+        <svg width="150" height="150" viewBox="0 0 150 150">
+          <circle class="pr-bg" cx="75" cy="75" r="62"/>
+          <circle class="pr-fill" id="pomoRing" cx="75" cy="75" r="62"
+            stroke-dasharray="389.6" stroke-dashoffset="0"/>
+        </svg>
+        <div class="pomo-time-inside" id="pomoTimeInside">25:00</div>
+      </div>
+    </div>
+    <div class="pomo-controls">
+      <button class="btn btn-outline btn-sm" onclick="resetPomo()">↺ Reset</button>
+      <button class="btn btn-sm" id="pomoBtn" onclick="togglePomo()">▶ Start</button>
+    </div>
+    <div class="pomo-sessions" id="pomoSessions">
+      <div class="pomo-dot"></div>
+      <div class="pomo-dot"></div>
+      <div class="pomo-dot"></div>
+      <div class="pomo-dot"></div>
+    </div>
+    <div style="text-align:center;font-size:0.78rem;color:var(--muted);margin-top:6px" id="pomoSessionCount">Session 1 of 4</div>
+  </div>
+
+  <!-- ══ 8. STUDY PLANNER ══ -->
+  <div class="tool-card" style="grid-column: 1 / -1;">
+    <div class="tool-header">
+      <div class="tool-icon">📋</div>
+      <div><h2>Weekly Study Planner</h2><p>Enter tasks by priority with hours — get a time-blocked weekly schedule</p></div>
+    </div>
+
+    <!-- Step 1: Add tasks -->
+    <div class="planner-step">
+      <label>📌 Step 1 — Add your tasks (highest priority first)</label>
+      <div class="task-input-row">
+        <input type="text" id="taskInput" placeholder="e.g. Biology past paper, Maths P1 revision...">
+        <select id="taskPriority" style="width:auto;margin:0;padding:10px 8px;flex-shrink:0">
+          <option value="high">🔴 High</option>
+          <option value="medium">🟡 Medium</option>
+          <option value="low">🟢 Low</option>
+        </select>
+        <input type="number" id="taskHours" min="0.5" max="20" step="0.5" value="2"
+          style="width:70px;margin:0;flex-shrink:0" placeholder="hrs">
+        <span style="font-size:0.78rem;color:var(--muted);flex-shrink:0">hrs/wk</span>
+        <button class="btn btn-sm" style="flex-shrink:0;margin:0" onclick="addTask()">+ Add</button>
+      </div>
+      <div id="taskList" style="margin-top:8px;min-height:28px"></div>
+    </div>
+
+    <!-- Step 2: Study window -->
+    <div class="planner-step">
+      <label>🕐 Step 2 — Set your daily study window</label>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-size:0.85rem;color:var(--muted)">From</span>
+          <input type="time" id="studyStart" value="09:00" style="width:110px;margin:0">
+        </div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-size:0.85rem;color:var(--muted)">To</span>
+          <input type="time" id="studyEnd" value="21:00" style="width:110px;margin:0">
+        </div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-size:0.85rem;color:var(--muted)">Slot size</span>
+          <select id="slotSize" style="width:auto;margin:0;padding:8px">
+            <option value="60">1 hour</option>
+            <option value="90" selected>1.5 hours</option>
+            <option value="120">2 hours</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Rest days -->
+    <div class="planner-step">
+      <label>😴 Step 3 — Pick your rest days (click to toggle)</label>
+      <div style="display:flex;flex-wrap:wrap;gap:8px" id="restDayBtns">
+        <button class="rest-day-btn" data-day="Mon" onclick="toggleRestDay(this)">Mon</button>
+        <button class="rest-day-btn" data-day="Tue" onclick="toggleRestDay(this)">Tue</button>
+        <button class="rest-day-btn" data-day="Wed" onclick="toggleRestDay(this)">Wed</button>
+        <button class="rest-day-btn" data-day="Thu" onclick="toggleRestDay(this)">Thu</button>
+        <button class="rest-day-btn" data-day="Fri" onclick="toggleRestDay(this)">Fri</button>
+        <button class="rest-day-btn" data-day="Sat" onclick="toggleRestDay(this)">Sat</button>
+        <button class="rest-day-btn" data-day="Sun" onclick="toggleRestDay(this)">Sun</button>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px">
+      <button class="btn btn-peach" onclick="generatePlan()" style="flex:1;min-width:140px">📅 Build My Planner</button>
+      <button class="btn btn-outline" onclick="clearPlan()" style="flex:1;min-width:100px">✕ Clear All</button>
+    </div>
+
+    <div id="plannerOutput" style="overflow-x:auto"></div>
+  </div>
+
+</div>
+
+<div class="tools-footer">
+  <a href="index.html">← Back to StudySphere</a> &nbsp;·&nbsp; Made with ❤️ by StudySphere
+</div>
+
+<script>
+// ══════════════════════════════
+//  1. ASK A QUESTION
+// ══════════════════════════════
+let selectedInstr = null;
+
+function selectInstr(btn, name, subjects, phone) {
+  document.querySelectorAll('.instructor-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedInstr = { name, subjects, phone };
+}
+
+function sendQuestion() {
+  const q = document.getElementById('studentQ').value.trim();
+  const name = document.getElementById('studentName').value.trim();
+  if (!q) { alert('Please type your question!'); return; }
+  if (!selectedInstr) { alert('Please select an instructor first!'); return; }
+  const msg = `Hello ${selectedInstr.name}! ${name ? `I'm ${name}. ` : ''}I have a question about ${selectedInstr.subjects}:\n\n"${q}"`;
+  window.open(`https://wa.me/${selectedInstr.phone}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// ══════════════════════════════
+// ══════════════════════════════
+//  2. AI FLASHCARD BUILDER
+// ══════════════════════════════
+let cards = [], cardIdx = 0, cardStatus = []; // 'known','unsure','unseen'
+let fcFileData = null;
+
+function switchFcTab(tab) {
+  document.getElementById('fcAITab').style.display = tab === 'ai' ? 'block' : 'none';
+  document.getElementById('fcManualTab').style.display = tab === 'manual' ? 'block' : 'none';
+  document.getElementById('fcTabAI').className = tab === 'ai' ? 'btn btn-sm' : 'btn btn-sm btn-outline';
+  document.getElementById('fcTabManual').className = tab === 'manual' ? 'btn btn-sm' : 'btn btn-sm btn-outline';
+}
+
+function handleFcDrop(e) {
+  e.preventDefault();
+  document.getElementById('fcUploadZone').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) processFcFile(file);
+}
+
+function handleFcSelect(e) {
+  const file = e.target.files[0];
+  if (file) processFcFile(file);
+}
+
+function processFcFile(file) {
+  if (!file.name.match(/\.(pdf|docx|pptx)$/i)) {
+    alert('Please upload a PDF, Word (.docx), or PowerPoint (.pptx) file.'); return;
+  }
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const base64 = e.target.result.split(',')[1];
+    const mediaType = file.name.endsWith('.pdf') ? 'application/pdf' : 'application/octet-stream';
+    fcFileData = { base64, mediaType, name: file.name };
+    const ext = file.name.split('.').pop().toUpperCase();
+    const icons = { PDF: '📕', DOCX: '📘', PPTX: '📙' };
+    document.getElementById('fcFileBadge').style.display = 'flex';
+    document.getElementById('fcFileBadge').innerHTML = `
+      <div class="file-badge">
+        ${icons[ext] || '📄'} ${file.name}
+        <button onclick="clearFcFile()">✕</button>
+      </div>`;
+    document.getElementById('fcUploadZone').style.display = 'none';
+    document.getElementById('generateFcBtn').disabled = false;
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearFcFile() {
+  fcFileData = null;
+  document.getElementById('fcFileBadge').style.display = 'none';
+  document.getElementById('fcUploadZone').style.display = 'block';
+  document.getElementById('generateFcBtn').disabled = true;
+  document.getElementById('fcFileInput').value = '';
+}
+
+async function generateAICards() {
+  if (!fcFileData) return;
+  const count = parseInt(document.getElementById('fcCount').value) || 10;
+  const focus = document.getElementById('fcFocus').value;
+
+  document.getElementById('fcGenerating').style.display = 'block';
+  document.getElementById('fcGenMsg').textContent = `Generating ${count} flashcards focused on ${focus}...`;
+  document.getElementById('fcDeck').style.display = 'none';
+  document.getElementById('generateFcBtn').disabled = true;
+
+  const prompt = `You are a flashcard generator. Read the document and create exactly ${count} flashcards focused on "${focus}" from this document.
+
+Return ONLY a JSON array, no markdown, no backticks, just raw JSON:
+[
+  {
+    "front": "Question or term here",
+    "back": "Answer or definition here — keep it concise but complete"
+  }
+]
+
+Rules:
+- Front: a clear question, term, or concept
+- Back: concise but complete answer/explanation (2-4 sentences max)
+- Focus specifically on: ${focus}
+- Cover diverse parts of the document, not just the beginning
+- Make cards genuinely useful for exam revision`;
+
+  try {
+    const contentArray = fcFileData.mediaType === 'application/pdf'
+      ? [
+          { type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: fcFileData.base64 } },
+          { type: 'text', text: prompt }
+        ]
+      : [{ type: 'text', text: prompt + '\n\n[File: ' + fcFileData.name + ']' }];
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4000,
+        messages: [{ role: 'user', content: contentArray }]
+      })
+    });
+
+    const data = await response.json();
+    const raw = data.content.map(c => c.text || '').join('');
+    const clean = raw.replace(/```json|```/g, '').trim();
+    const generated = JSON.parse(clean);
+    if (!Array.isArray(generated) || !generated.length) throw new Error('Invalid response');
+
+    cards = generated;
+    cardIdx = 0;
+    cardStatus = Array(cards.length).fill('unseen');
+    document.getElementById('fcGenerating').style.display = 'none';
+    document.getElementById('generateFcBtn').disabled = false;
+    document.getElementById('fcDeckTitle').textContent = `📄 ${fcFileData.name} — ${cards.length} cards`;
+    showCard();
+
+  } catch (err) {
+    document.getElementById('fcGenerating').style.display = 'none';
+    document.getElementById('generateFcBtn').disabled = false;
+    alert('Could not generate flashcards. Please try again.\n' + err.message);
+  }
+}
+
+// Manual add
+function addFlashcard() {
+  const f = document.getElementById('fcFront').value.trim();
+  const b = document.getElementById('fcBack').value.trim();
+  if (!f || !b) { alert('Fill in both front and back!'); return; }
+  cards.push({ front: f, back: b });
+  cardStatus.push('unseen');
+  document.getElementById('fcFront').value = '';
+  document.getElementById('fcBack').value = '';
+  cardIdx = cards.length - 1;
+  document.getElementById('fcDeckTitle').textContent = `My Deck — ${cards.length} cards`;
+  showCard();
+}
+
+function showCard() {
+  if (!cards.length) return;
+  document.getElementById('fcDeck').style.display = 'block';
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('fcFrontDisplay').textContent = cards[cardIdx].front;
+  document.getElementById('fcBackDisplay').textContent = cards[cardIdx].back;
+  document.getElementById('fcCounter').textContent = `${cardIdx + 1} / ${cards.length}`;
+  renderFcProgress();
+  updateKnownCount();
+}
+
+function renderFcProgress() {
+  document.getElementById('fcProgress').innerHTML = cards.map((_, i) => {
+    const s = cardStatus[i];
+    const cls = i === cardIdx ? 'current' : s === 'known' ? 'known' : s === 'unsure' ? 'unsure' : '';
+    return `<div class="fc-dot ${cls}" onclick="jumpCard(${i})" title="Card ${i+1}"></div>`;
+  }).join('');
+}
+
+function updateKnownCount() {
+  const known = cardStatus.filter(s => s === 'known').length;
+  const unsure = cardStatus.filter(s => s === 'unsure').length;
+  document.getElementById('fcKnownCount').textContent =
+    `✅ ${known} known · ❌ ${unsure} learning`;
+}
+
+function markCard(known) {
+  cardStatus[cardIdx] = known ? 'known' : 'unsure';
+  updateKnownCount();
+  renderFcProgress();
+  // Auto-advance
+  if (cardIdx < cards.length - 1) { cardIdx++; showCard(); }
+  else {
+    // End of deck summary
+    const knownCount = cardStatus.filter(s => s === 'known').length;
+    if (knownCount === cards.length) {
+      setTimeout(() => alert(`🎉 Amazing! You know all ${cards.length} cards!`), 200);
+    } else {
+      const unsure = cardStatus.filter(s => s === 'unsure').length;
+      setTimeout(() => {
+        if (confirm(`Deck complete!\n✅ Known: ${knownCount}\n❌ Still learning: ${unsure}\n\nRestart with only the ones you're still learning?`)) {
+          const reviewCards = cards.filter((_, i) => cardStatus[i] === 'unsure');
+          if (reviewCards.length) {
+            cards = reviewCards;
+            cardStatus = Array(cards.length).fill('unseen');
+            cardIdx = 0;
+            showCard();
+          }
+        }
+      }, 200);
+    }
+  }
+}
+
+function jumpCard(i) { cardIdx = i; showCard(); }
+function nextCard() { if (cardIdx < cards.length - 1) { cardIdx++; showCard(); } }
+function prevCard() { if (cardIdx > 0) { cardIdx--; showCard(); } }
+function shuffleCards() {
+  const combined = cards.map((c, i) => ({ card: c, status: cardStatus[i] }));
+  combined.sort(() => Math.random() - 0.5);
+  cards = combined.map(c => c.card);
+  cardStatus = combined.map(c => c.status);
+  cardIdx = 0; showCard();
+}
+function clearCards() {
+  if (!confirm('Clear all flashcards?')) return;
+  cards = []; cardStatus = []; cardIdx = 0;
+  document.getElementById('fcDeck').style.display = 'none';
+  clearFcFile();
+}
+
+// ══════════════════════════════
+//  3. EXAM COUNTDOWN
+// ══════════════════════════════
+function startCountdown() {
+  const name = document.getElementById('examName').value.trim() || 'Your Exam';
+  const dateVal = document.getElementById('examDate').value;
+  if (!dateVal) { alert('Please pick a date!'); return; }
+  const examDate = new Date(dateVal);
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const diff = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
+  const totalDays = 365;
+  const progress = Math.max(0, Math.min(1, 1 - diff / totalDays));
+  const circumference = 364.4;
+
+  document.getElementById('countdownDisplay').style.display = 'block';
+  document.getElementById('cdDays').textContent = diff > 0 ? diff : 0;
+  document.getElementById('cdName').textContent = name;
+  document.getElementById('cdDateStr').textContent = examDate.toDateString();
+  document.getElementById('cdRing').style.strokeDashoffset = circumference - (progress * circumference);
+}
+
+// ══════════════════════════════
+//  4. AI QUIZ GENERATOR
+// ══════════════════════════════
+let quizFileData = null;   // { base64, mediaType, name }
+let currentQuiz = [];
+let quizIdx = 0, quizScore = 0, quizAnswered = false;
+let quizResults = [];      // { correct: bool, explanation, q, opts, ans, chosen }
+
+function handleFileDrop(e) {
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) processQuizFile(file);
+}
+
+function handleFileSelect(e) {
+  const file = e.target.files[0];
+  if (file) processQuizFile(file);
+}
+
+function processQuizFile(file) {
+  const allowed = ['application/pdf',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation'];
+  const extOk = file.name.match(/\.(pdf|docx|pptx)$/i);
+  if (!extOk) { alert('Please upload a PDF, Word (.docx), or PowerPoint (.pptx) file.'); return; }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const base64 = e.target.result.split(',')[1];
+    const mediaType = file.name.endsWith('.pdf') ? 'application/pdf' : 'application/octet-stream';
+    quizFileData = { base64, mediaType, name: file.name };
+
+    // Show badge
+    const ext = file.name.split('.').pop().toUpperCase();
+    const icons = { PDF: '📕', DOCX: '📘', PPTX: '📙' };
+    document.getElementById('fileBadge').style.display = 'flex';
+    document.getElementById('fileBadge').innerHTML = `
+      <div class="file-badge">
+        ${icons[ext] || '📄'} ${file.name}
+        <button onclick="clearQuizFile()">✕</button>
+      </div>`;
+    document.getElementById('uploadZone').style.display = 'none';
+    document.getElementById('generateQuizBtn').disabled = false;
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearQuizFile() {
+  quizFileData = null;
+  document.getElementById('fileBadge').style.display = 'none';
+  document.getElementById('uploadZone').style.display = 'block';
+  document.getElementById('generateQuizBtn').disabled = true;
+  document.getElementById('quizFileInput').value = '';
+  document.getElementById('quizProgress').innerHTML = '';
+  document.getElementById('quizArea').innerHTML = '';
+}
+
+async function generateAIQuiz() {
+  if (!quizFileData) return;
+  const count = parseInt(document.getElementById('quizCount').value) || 5;
+  const difficulty = document.getElementById('quizDifficulty').value;
+
+  document.getElementById('quizArea').innerHTML = `
+    <div class="quiz-generating">
+      <div class="spinner"></div>
+      Generating ${count} ${difficulty} questions from your notes...
+    </div>`;
+  document.getElementById('quizProgress').innerHTML = '';
+  document.getElementById('generateQuizBtn').disabled = true;
+
+  const prompt = `You are a quiz generator. Read the document and create exactly ${count} multiple choice questions at ${difficulty} difficulty level based ONLY on the content in this document.
+
+Return ONLY a JSON array, no markdown, no explanation, just the raw JSON:
+[
+  {
+    "q": "Question text here?",
+    "opts": ["Option A", "Option B", "Option C", "Option D"],
+    "ans": 0,
+    "explanation": "Clear explanation of why the correct answer is right, and why the wrong ones are wrong. Reference the document content."
+  }
+]
+
+Rules:
+- "ans" is the index (0-3) of the correct option
+- All 4 options must be plausible
+- Questions must be based strictly on the uploaded document
+- Explanations must be clear, detailed, and educational
+- ${difficulty === 'hard' ? 'Use tricky, detail-oriented questions that require deep understanding' : difficulty === 'easy' ? 'Use straightforward recall questions' : 'Mix recall and understanding questions'}`;
+
+  try {
+    // For PDF use document type, for others send as text extraction note
+    const contentArray = quizFileData.mediaType === 'application/pdf'
+      ? [
+          { type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: quizFileData.base64 } },
+          { type: 'text', text: prompt }
+        ]
+      : [
+          { type: 'text', text: prompt + '\n\n[Note: The file is a ' + quizFileData.name.split('.').pop().toUpperCase() + ' file. Base64 data: ' + quizFileData.base64.substring(0, 500) + '... Please generate relevant quiz questions based on the file type and any context available.]' }
+        ];
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4000,
+        messages: [{ role: 'user', content: contentArray }]
+      })
+    });
+
+    const data = await response.json();
+    const raw = data.content.map(c => c.text || '').join('');
+    const clean = raw.replace(/```json|```/g, '').trim();
+    currentQuiz = JSON.parse(clean);
+
+    if (!Array.isArray(currentQuiz) || !currentQuiz.length) throw new Error('Invalid response');
+
+    quizIdx = 0; quizScore = 0; quizResults = [];
+    document.getElementById('generateQuizBtn').disabled = false;
+    renderAIQuestion();
+
+  } catch (err) {
+    document.getElementById('quizArea').innerHTML = `
+      <div style="color:#e74c3c;font-size:0.88rem;padding:12px;background:#fde8e8;border-radius:10px">
+        ⚠️ Could not generate quiz. Please try again or use a different file.<br>
+        <small style="color:#999">${err.message}</small>
+      </div>`;
+    document.getElementById('generateQuizBtn').disabled = false;
+  }
+}
+
+function renderAIQuestion() {
+  const prog = document.getElementById('quizProgress');
+  prog.innerHTML = currentQuiz.map((_, i) => {
+    let cls = 'quiz-dot';
+    if (i < quizIdx) cls += quizResults[i]?.correct ? ' done' : ' wrong-dot';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+
+  if (quizIdx >= currentQuiz.length) {
+    renderQuizScore();
+    return;
+  }
+
+  const q = currentQuiz[quizIdx];
+  quizAnswered = false;
+  document.getElementById('quizArea').innerHTML = `
+    <div class="quiz-question">Q${quizIdx + 1} / ${currentQuiz.length} &nbsp;·&nbsp; ${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((opt, i) =>
+        `<button class="quiz-opt" onclick="answerAIQuiz(${i})">${opt}</button>`
+      ).join('')}
+    </div>
+    <div id="quizExplanation"></div>`;
+}
+
+function answerAIQuiz(chosen) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const q = currentQuiz[quizIdx];
+  const correct = chosen === q.ans;
+  if (correct) quizScore++;
+
+  quizResults.push({ correct, q: q.q, opts: q.opts, ans: q.ans, chosen, explanation: q.explanation });
+
+  const btns = document.querySelectorAll('.quiz-opt');
+  btns.forEach((b, i) => {
+    if (i === q.ans) b.classList.add('correct');
+    else if (i === chosen) b.classList.add('wrong');
+    b.disabled = true;
+  });
+
+  // Show explanation
+  document.getElementById('quizExplanation').innerHTML = `
+    <div class="quiz-explanation">
+      ${correct
+        ? `<strong>✅ Correct!</strong>`
+        : `<strong>❌ Incorrect.</strong> The correct answer is: <strong>"${q.opts[q.ans]}"</strong>`}
+      <br><br>${q.explanation}
+    </div>
+    <button class="btn quiz-next-btn" onclick="nextAIQuestion()">
+      ${quizIdx + 1 < currentQuiz.length ? 'Next Question →' : 'See Results 🎯'}
+    </button>`;
+}
+
+function nextAIQuestion() {
+  quizIdx++;
+  renderAIQuestion();
+}
+
+function renderQuizScore() {
+  const pct = Math.round((quizScore / currentQuiz.length) * 100);
+  const msg = pct === 100 ? '🎉 Perfect! Outstanding!' : pct >= 80 ? '🌟 Excellent work!' : pct >= 60 ? '👍 Good job!' : pct >= 40 ? '📚 Keep studying!' : '💪 Don\'t give up!';
+
+  let reviewHtml = currentQuiz.map((q, i) => {
+    const r = quizResults[i];
+    const cls = r.correct ? 'correct-item' : 'wrong-item';
+    return `<div class="quiz-review-item ${cls}">
+      <div style="font-weight:700;margin-bottom:4px">${r.correct ? '✅' : '❌'} Q${i+1}: ${q.q}</div>
+      ${!r.correct ? `<div style="color:#e74c3c;font-size:0.8rem">Your answer: ${q.opts[r.chosen]}</div>
+      <div style="color:#2ecc71;font-size:0.8rem">Correct: ${q.opts[q.ans]}</div>` : ''}
+      <div style="color:var(--muted);font-size:0.8rem;margin-top:4px">${q.explanation}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('quizProgress').innerHTML = currentQuiz.map((_, i) =>
+    `<div class="quiz-dot ${quizResults[i]?.correct ? 'done' : 'wrong-dot'}"></div>`
+  ).join('');
+
+  document.getElementById('quizArea').innerHTML = `
+    <div class="quiz-score">
+      <div class="score-num">${quizScore}/${currentQuiz.length}</div>
+      <div style="font-size:1.4rem;margin:4px 0">${pct}%</div>
+      <p>${msg}</p>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap">
+        <button class="btn btn-sm" onclick="quizIdx=0;quizScore=0;quizResults=[];renderAIQuestion()">↺ Retake</button>
+        <button class="btn btn-sm btn-outline" onclick="generateAIQuiz()">🔀 New Questions</button>
+        <button class="btn btn-sm btn-outline" onclick="clearQuizFile()">📄 New File</button>
+      </div>
+    </div>
+    <div class="quiz-review">
+      <div style="font-weight:700;color:var(--primary);margin-bottom:10px">📋 Full Review</div>
+      ${reviewHtml}
+    </div>`;
+}
+
+// ══════════════════════════════
+//  5. STUDY TRACKER (Calendar)
+// ══════════════════════════════
+// Data structure: studyData[YYYY-MM-DD] = [ {subject, hours} ]
+let studyData = JSON.parse(localStorage.getItem('ss_studyData') || '{}');
+let calYear, calMonth;
+let todaySessions = []; // unsaved sessions for today
+let selectedLogDate; // which date we're logging for
+
+const MONTH_NAMES = ['January','February','March','April','May','June',
+  'July','August','September','October','November','December'];
+const DOW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+function saveStudyData() {
+  localStorage.setItem('ss_studyData', JSON.stringify(studyData));
+}
+
+function getDateKey(y, m, d) {
+  return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+}
+
+function getTodayKey() {
+  const n = new Date();
+  return getDateKey(n.getFullYear(), n.getMonth(), n.getDate());
+}
+
+function getDayTotal(key) {
+  if (!studyData[key]) return 0;
+  return studyData[key].reduce((s, e) => s + (e.hours || 0), 0);
+}
+
+function initCalendar() {
+  const now = new Date();
+  calYear = now.getFullYear();
+  calMonth = now.getMonth();
+  selectedLogDate = getTodayKey();
+  document.getElementById('logDateLabel').textContent = 'Today';
+  // Load today's saved sessions into todaySessions
+  todaySessions = studyData[getTodayKey()] ? [...studyData[getTodayKey()]] : [];
+  renderSessionList();
+  renderCalendar();
+  renderStats();
+}
+
+function calPrev() {
+  calMonth--;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar();
+}
+
+function calNext() {
+  calMonth++;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  renderCalendar();
+}
+
+function renderCalendar() {
+  document.getElementById('calTitle').textContent = `${MONTH_NAMES[calMonth]} ${calYear}`;
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  const todayKey = getTodayKey();
+
+  let html = DOW.map(d => `<div class="cal-dow">${d}</div>`).join('');
+
+  // Empty cells before first day
+  for (let i = 0; i < firstDay; i++) html += `<div class="cal-day empty"></div>`;
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const key = getDateKey(calYear, calMonth, d);
+    const total = getDayTotal(key);
+    const isToday = key === todayKey;
+    let cls = 'cal-day';
+    if (isToday) cls += ' today';
+    if (total > 0) {
+      cls += total >= 4 ? ' has-data' : total >= 2 ? ' has-data medium' : ' has-data light';
+    }
+    const hrsLabel = total > 0 ? `<span class="cal-hrs">${total.toFixed(1)}h</span>` : '';
+    html += `<div class="${cls}" onclick="selectCalDay(${d})">${d}${hrsLabel}</div>`;
+  }
+
+  document.getElementById('calGrid').innerHTML = html;
+}
+
+function selectCalDay(d) {
+  const key = getDateKey(calYear, calMonth, d);
+  const todayKey = getTodayKey();
+
+  if (key === todayKey) {
+    // Selecting today — update log form
+    selectedLogDate = key;
+    document.getElementById('logDateLabel').textContent = 'Today';
+    todaySessions = studyData[key] ? [...studyData[key]] : [];
+    renderSessionList();
+    document.getElementById('dayDetail').style.display = 'none';
+  } else if (studyData[key] && studyData[key].length > 0) {
+    // Past day with data — show detail
+    showDayDetail(key, d);
+  } else {
+    // Past day, no data
+    document.getElementById('dayDetail').style.display = 'block';
+    document.getElementById('dayDetailTitle').textContent =
+      `${MONTH_NAMES[calMonth]} ${d}, ${calYear}`;
+    document.getElementById('dayDetailContent').innerHTML =
+      `<p style="color:var(--muted);font-size:0.85rem">No sessions logged for this day.</p>`;
+  }
+}
+
+function showDayDetail(key, d) {
+  const sessions = studyData[key] || [];
+  const total = getDayTotal(key);
+  document.getElementById('dayDetail').style.display = 'block';
+  document.getElementById('dayDetailTitle').textContent =
+    `📅 ${MONTH_NAMES[calMonth]} ${d}, ${calYear} — ${total.toFixed(1)} hrs total`;
+
+  let html = sessions.map(s =>
+    `<div class="session-item">
+      <span>📚 <strong>${s.subject}</strong></span>
+      <span style="color:var(--muted)">${s.hours}h</span>
+    </div>`
+  ).join('');
+
+  // Subject breakdown
+  const subjMap = {};
+  sessions.forEach(s => subjMap[s.subject] = (subjMap[s.subject] || 0) + s.hours);
+  html += `<div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px">` +
+    Object.entries(subjMap).map(([s, h]) =>
+      `<span class="task-badge medium" style="margin:0">${s}: <strong>${h}h</strong></span>`
+    ).join('') + `</div>`;
+
+  document.getElementById('dayDetailContent').innerHTML = html;
+}
+
+function addSession() {
+  const subj = document.getElementById('sessionSubject').value.trim();
+  const h = parseFloat(document.getElementById('sessionHours').value) || 0;
+  const m = parseInt(document.getElementById('sessionMins').value) || 0;
+  if (!subj) { alert('Enter a subject!'); return; }
+  if (h === 0 && m === 0) { alert('Enter hours or minutes!'); return; }
+  const totalHrs = h + m / 60;
+  todaySessions.push({ subject: subj, hours: parseFloat(totalHrs.toFixed(2)) });
+  document.getElementById('sessionSubject').value = '';
+  document.getElementById('sessionHours').value = '';
+  document.getElementById('sessionMins').value = '';
+  renderSessionList();
+}
+
+function removeSession(i) {
+  todaySessions.splice(i, 1);
+  renderSessionList();
+}
+
+function renderSessionList() {
+  const list = document.getElementById('sessionList');
+  if (!todaySessions.length) {
+    list.innerHTML = `<p style="font-size:0.8rem;color:var(--muted)">No sessions added yet.</p>`;
+    return;
+  }
+  list.innerHTML = todaySessions.map((s, i) =>
+    `<div class="session-item">
+      <span>📚 <strong>${s.subject}</strong> — ${s.hours}h</span>
+      <button onclick="removeSession(${i})">✕</button>
+    </div>`
+  ).join('');
+}
+
+function saveDay() {
+  if (!todaySessions.length) { alert('Add at least one session first!'); return; }
+  const key = getTodayKey();
+  studyData[key] = [...todaySessions];
+  saveStudyData();
+  renderCalendar();
+  renderStats();
+  document.getElementById('dayDetail').style.display = 'none';
+  alert(`✅ Saved! ${todaySessions.length} session(s) logged for today.`);
+}
+
+function renderStats() {
+  // Calculate streak
+  let streak = 0;
+  const today = new Date();
+  for (let i = 0; i < 365; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+    const key = getDateKey(d.getFullYear(), d.getMonth(), d.getDate());
+    if (getDayTotal(key) > 0) streak++;
+    else if (i > 0) break;
+  }
+
+  // Month hours and days
+  let monthHrs = 0, daysStudied = 0;
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  for (let d = 1; d <= daysInMonth; d++) {
+    const key = getDateKey(calYear, calMonth, d);
+    const t = getDayTotal(key);
+    if (t > 0) { monthHrs += t; daysStudied++; }
+  }
+
+  document.getElementById('streakCount').textContent = streak;
+  document.getElementById('monthHours').textContent = monthHrs.toFixed(1);
+  document.getElementById('studyDays').textContent = daysStudied;
+}
+
+initCalendar();
+
+// ══════════════════════════════
+//  6. SPIN THE WHEEL
+// ══════════════════════════════
+const wheelItems = [
+  "Read notes",
+  "Past papers",
+  "Mind map",
+  "Timed practice",
+  "Revise topic",
+  "Explain aloud",
+  "Key formulas",
+  "Mock question",
+];
+const wheelColors = ['#4B1F1A','#7a3a2a','#a05030','#c87848','#F0B67F','#e8a060','#d48040','#b06028'];
+let spinning = false;
+let wheelAngle = 0;
+const wheelFullText = [
+  "📖 Read 2 pages of your notes",
+  "✏️ Solve 5 past paper questions",
+  "🧠 Make a mind map of a topic",
+  "⏱️ 15 min timed practice",
+  "🔁 Revise yesterday's topic",
+  "💬 Explain a concept out loud",
+  "📝 Write out key formulas x3",
+  "🎯 Do a full mock exam question",
+];
+
+function drawWheel(angle) {
+  const canvas = document.getElementById('wheelCanvas');
+  const ctx = canvas.getContext('2d');
+  const cx = 100, cy = 100, r = 95;
+  const slice = (2 * Math.PI) / wheelItems.length;
+  // Offset so segment 0 starts at top (arrow position = -PI/2)
+  const offset = -Math.PI / 2;
+  ctx.clearRect(0, 0, 200, 200);
+  wheelItems.forEach((item, i) => {
+    const start = offset + angle + i * slice;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, r, start, start + slice);
+    ctx.closePath();
+    ctx.fillStyle = wheelColors[i];
+    ctx.fill();
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    // Draw text at midpoint of segment
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(start + slice / 2);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 10px DM Sans, Arial';
+    ctx.fillText(item, r - 8, 4);
+    ctx.restore();
+  });
+  // Center circle
+  ctx.beginPath();
+  ctx.arc(cx, cy, 14, 0, 2 * Math.PI);
+  ctx.fillStyle = '#fff';
+  ctx.fill();
+  ctx.strokeStyle = '#e8d5c8';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+}
+
+drawWheel(0);
+
+function spinWheel() {
+  if (spinning) return;
+  spinning = true;
+  document.getElementById('wheelResult').textContent = '🎰 Spinning...';
+  const extraSpins = 5 + Math.random() * 5;
+  const finalAngle = wheelAngle + extraSpins * 2 * Math.PI + Math.random() * 2 * Math.PI;
+  const duration = 3000;
+  const start = performance.now();
+  const startAngle = wheelAngle;
+
+  function animate(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    wheelAngle = startAngle + (finalAngle - startAngle) * ease;
+    drawWheel(wheelAngle);
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      spinning = false;
+      const slice = (2 * Math.PI) / wheelItems.length;
+      // Arrow is at top = -PI/2 offset in canvas coords.
+      // Segment i occupies angles: [angle + i*slice, angle + (i+1)*slice] (after offset)
+      // Arrow points to angle=0 in the offset frame, so we need:
+      // which segment contains (-wheelAngle) mod (2*PI)?
+      const norm = ((-wheelAngle) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
+      const idx = Math.floor(norm / slice) % wheelItems.length;
+      document.getElementById('wheelResult').textContent = '🎯 ' + wheelFullText[idx];
+    }
+  }
+  requestAnimationFrame(animate);
+}
+
+// ══════════════════════════════
+//  7. POMODORO TIMER
+// ══════════════════════════════
+let pomoRunning = false, pomoInterval = null;
+let pomoSeconds = 25 * 60, pomoIsBreak = false, pomoSession = 0;
+const POMO_WORK = 25 * 60, POMO_BREAK = 5 * 60;
+const CIRCUMFERENCE = 389.6;
+
+function formatTime(s) {
+  return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+}
+
+function updatePomoUI() {
+  const total = pomoIsBreak ? POMO_BREAK : POMO_WORK;
+  const progress = pomoSeconds / total;
+  document.getElementById('pomoTimeInside').textContent = formatTime(pomoSeconds);
+  document.getElementById('pomoRing').style.strokeDashoffset = CIRCUMFERENCE * (1 - progress);
+  document.getElementById('pomoMode').textContent = pomoIsBreak ? 'BREAK TIME ☕' : 'FOCUS TIME 🧠';
+  document.getElementById('pomoSessionCount').textContent = `Session ${pomoSession + 1} of 4`;
+  const dots = document.querySelectorAll('.pomo-dot');
+  dots.forEach((d, i) => d.classList.toggle('done', i < pomoSession));
+}
+
+function togglePomo() {
+  if (pomoRunning) {
+    clearInterval(pomoInterval);
+    pomoRunning = false;
+    document.getElementById('pomoBtn').textContent = '▶ Resume';
+  } else {
+    pomoRunning = true;
+    document.getElementById('pomoBtn').textContent = '⏸ Pause';
+    pomoInterval = setInterval(() => {
+      pomoSeconds--;
+      if (pomoSeconds <= 0) {
+        clearInterval(pomoInterval);
+        pomoRunning = false;
+        if (!pomoIsBreak) {
+          pomoSession = Math.min(pomoSession + 1, 4);
+          pomoIsBreak = true;
+          pomoSeconds = POMO_BREAK;
+          try { new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg').play(); } catch(e){}
+          document.getElementById('pomoBtn').textContent = '▶ Start Break';
+        } else {
+          pomoIsBreak = false;
+          pomoSeconds = POMO_WORK;
+          document.getElementById('pomoBtn').textContent = '▶ Start Focus';
+        }
+      }
+      updatePomoUI();
+    }, 1000);
+  }
+}
+
+function resetPomo() {
+  clearInterval(pomoInterval);
+  pomoRunning = false; pomoIsBreak = false;
+  pomoSeconds = POMO_WORK; pomoSession = 0;
+  document.getElementById('pomoBtn').textContent = '▶ Start';
+  updatePomoUI();
+}
+
+updatePomoUI();
+
+// ══════════════════════════════
+//  8. STUDY PLANNER
+// ══════════════════════════════
+let plannerTasks = []; // { text, priority, hours }
+let plannerGrid = {};  // { 'Mon-09:00': { text, priority } }
+let currentDays = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+let currentSlots = [];
+let currentRestDays = [];
+
+// Rest day toggle — separate from subject buttons
+function toggleRestDay(btn) {
+  btn.classList.toggle('rest-active');
+}
+
+function addTask() {
+  const val = document.getElementById('taskInput').value.trim();
+  const pri = document.getElementById('taskPriority').value;
+  const hrs = parseFloat(document.getElementById('taskHours').value) || 2;
+  if (!val) { alert('Enter a task name!'); return; }
+  plannerTasks.push({ text: val, priority: pri, hours: hrs });
+  document.getElementById('taskInput').value = '';
+  document.getElementById('taskHours').value = '2';
+  renderTaskList();
+}
+
+function removeTask(i) {
+  plannerTasks.splice(i, 1);
+  renderTaskList();
+}
+
+function renderTaskList() {
+  const priOrder = { high: 0, medium: 1, low: 2 };
+  const sorted = [...plannerTasks].map((t, i) => ({ ...t, origIdx: i }))
+    .sort((a, b) => priOrder[a.priority] - priOrder[b.priority]);
+  const icons = { high: '🔴', medium: '🟡', low: '🟢' };
+  document.getElementById('taskList').innerHTML = sorted.length
+    ? sorted.map(t =>
+        `<span class="task-badge ${t.priority}">${icons[t.priority]} ${t.text} · ${t.hours}h/wk
+          <button onclick="removeTask(${t.origIdx})">✕</button>
+        </span>`
+      ).join('')
+    : '<span style="font-size:0.8rem;color:var(--muted)">No tasks yet</span>';
+}
+
+function generatePlan() {
+  if (!plannerTasks.length) { alert('Add at least one task first!'); return; }
+
+  const startTime = document.getElementById('studyStart').value || '09:00';
+  const endTime   = document.getElementById('studyEnd').value   || '21:00';
+  const slotMins  = parseInt(document.getElementById('slotSize').value) || 90;
+
+  currentRestDays = [...document.querySelectorAll('.rest-day-btn.rest-active')].map(b => b.dataset.day);
+
+  // Build time slots from start to end
+  currentSlots = [];
+  let [sh, sm] = startTime.split(':').map(Number);
+  let [eh, em] = endTime.split(':').map(Number);
+  let cur = sh * 60 + sm;
+  const end = eh * 60 + em;
+  while (cur + slotMins <= end) {
+    const h1 = String(Math.floor(cur / 60)).padStart(2, '0');
+    const m1 = String(cur % 60).padStart(2, '0');
+    const h2 = String(Math.floor((cur + slotMins) / 60)).padStart(2, '0');
+    const m2 = String((cur + slotMins) % 60).padStart(2, '0');
+    currentSlots.push(`${h1}:${m1}–${h2}:${m2}`);
+    cur += slotMins;
+  }
+
+  if (!currentSlots.length) { alert('Study window is too short for even one slot!'); return; }
+
+  // Sort tasks by priority, then expand into individual hourly slots
+  const priOrder = { high: 0, medium: 1, low: 2 };
+  const sorted = [...plannerTasks].sort((a, b) => priOrder[a.priority] - priOrder[b.priority]);
+
+  // Build a queue: repeat each task proportionally to its hours
+  const slotDurationHrs = slotMins / 60;
+  let queue = [];
+  sorted.forEach(task => {
+    const slotsNeeded = Math.max(1, Math.round(task.hours / slotDurationHrs));
+    for (let i = 0; i < slotsNeeded; i++) queue.push(task);
+  });
+
+  // Distribute across grid
+  plannerGrid = {};
+  let qIdx = 0;
+  currentDays.forEach(day => {
+    currentSlots.forEach(slot => {
+      const key = `${day}||${slot}`;
+      if (currentRestDays.includes(day)) {
+        plannerGrid[key] = { text: '😴 Rest', priority: 'rest' };
+      } else {
+        plannerGrid[key] = queue[qIdx % queue.length];
+        qIdx++;
+      }
+    });
+  });
+
+  renderPlannerTable();
+}
+
+function renderPlannerTable() {
+  if (!currentSlots.length) return;
+
+  let html = `<div style="font-size:0.78rem;color:var(--muted);margin-bottom:8px">
+    💡 <strong>Click any cell</strong> to edit it &nbsp;·&nbsp;
+    🔴 High &nbsp;🟡 Medium &nbsp;🟢 Low &nbsp;😴 Rest
+  </div>`;
+
+  html += `<table class="planner-table"><thead><tr><th>Time</th>`;
+  currentDays.forEach(d => {
+    const isRest = currentRestDays.includes(d);
+    html += `<th style="${isRest ? 'background:#c0a0a0' : ''}">${d}${isRest ? ' 😴' : ''}</th>`;
+  });
+  html += `</tr></thead><tbody>`;
+
+  currentSlots.forEach(slot => {
+    html += `<tr><td style="font-weight:600;white-space:nowrap;font-size:0.72rem">${slot}</td>`;
+    currentDays.forEach(day => {
+      const key = `${day}||${slot}`;
+      const entry = plannerGrid[key];
+      if (!entry) { html += `<td>-</td>`; return; }
+      if (entry.priority === 'rest') {
+        html += `<td class="rest-cell">😴</td>`;
+      } else {
+        const bgMap = { high: 'high-task', medium: 'has-task', low: 'low-task' };
+        const cls = bgMap[entry.priority] || 'has-task';
+        const safeKey = encodeURIComponent(key);
+        html += `<td class="${cls}" onclick="editCell('${safeKey}')" title="${entry.text}">${entry.text}</td>`;
+      }
+    });
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+
+  // Hours summary
+  const hoursMap = {};
+  Object.values(plannerGrid).forEach(e => {
+    if (e && e.priority !== 'rest') {
+      hoursMap[e.text] = (hoursMap[e.text] || 0) + 1;
+    }
+  });
+  const slotHrs = (parseInt(document.getElementById('slotSize').value) || 90) / 60;
+  html += `<div style="margin-top:14px">
+    <div style="font-size:0.8rem;font-weight:700;color:var(--primary);margin-bottom:6px">📊 Weekly Hours Breakdown</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">`;
+  Object.entries(hoursMap).forEach(([name, slots]) => {
+    html += `<span class="task-badge medium" style="margin:0">${name}: <strong>${(slots * slotHrs).toFixed(1)}h</strong></span>`;
+  });
+  html += `</div></div>`;
+
+  document.getElementById('plannerOutput').innerHTML = html;
+}
+
+function editCell(safeKey) {
+  const key = decodeURIComponent(safeKey);
+  const entry = plannerGrid[key];
+  if (!entry) return;
+
+  const taskOptions = plannerTasks.map((t, i) =>
+    `<option value="${i}" ${entry.text === t.text ? 'selected' : ''}>${t.text}</option>`
+  ).join('');
+
+  const modal = document.createElement('div');
+  modal.className = 'edit-cell-modal';
+  modal.innerHTML = `
+    <div class="edit-cell-inner">
+      <h3>✏️ Edit Slot</h3>
+      <div style="font-size:0.8rem;color:var(--muted);margin-bottom:10px">${key.replace('||',' · ')}</div>
+      <label style="font-size:0.82rem;font-weight:600;color:var(--muted);display:block;margin-bottom:6px">Change to:</label>
+      <select id="editTaskSelect" style="width:100%;margin-bottom:10px;padding:10px">
+        ${taskOptions}
+        <option value="rest">😴 Mark as Rest</option>
+        <option value="custom">✏️ Custom text...</option>
+      </select>
+      <input type="text" id="editCustomText" placeholder="Type custom task..." style="display:none">
+      <div class="edit-cell-btns">
+        <button class="btn btn-outline btn-sm" style="width:auto" onclick="closeEditModal()">Cancel</button>
+        <button class="btn btn-sm" style="width:auto" onclick="saveEditCell('${safeKey}')">Save ✓</button>
+      </div>
+    </div>`;
+
+  modal.querySelector('#editTaskSelect').addEventListener('change', function() {
+    document.getElementById('editCustomText').style.display =
+      this.value === 'custom' ? 'block' : 'none';
+  });
+
+  document.body.appendChild(modal);
+}
+
+function closeEditModal() {
+  const m = document.querySelector('.edit-cell-modal');
+  if (m) m.remove();
+}
+
+function saveEditCell(safeKey) {
+  const key = decodeURIComponent(safeKey);
+  const sel = document.getElementById('editTaskSelect').value;
+  if (sel === 'rest') {
+    plannerGrid[key] = { text: '😴 Rest', priority: 'rest' };
+  } else if (sel === 'custom') {
+    const custom = document.getElementById('editCustomText').value.trim();
+    if (!custom) { alert('Enter custom text!'); return; }
+    plannerGrid[key] = { text: custom, priority: 'medium', hours: 1 };
+  } else {
+    plannerGrid[key] = plannerTasks[parseInt(sel)];
+  }
+  closeEditModal();
+  renderPlannerTable();
+}
+
+function clearPlan() {
+  plannerTasks = [];
+  plannerGrid = {};
+  currentSlots = [];
+  currentRestDays = [];
+  renderTaskList();
+  document.getElementById('plannerOutput').innerHTML = '';
+  document.querySelectorAll('.rest-day-btn.rest-active').forEach(b => b.classList.remove('rest-active'));
+}
+</script>
+</body>
+</html>
