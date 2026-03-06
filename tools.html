@@ -1128,45 +1128,44 @@ async function extractTextFromFile(file) {
   });
 }
 
-// ── Shared: call Gemini free tier with model fallback ──
-const GEMINI_KEYS = [
-  'AIzaSyCBl7CIzYE9tKBE_j7WeceeD8ZxyCeFKNQ',  // key 1 ...FKNQ
-  'AIzaSyAhtUprGjSIcjNXp69Qz3MAaFJDNMH_U60'   // key 2 ...U60
-];
-// Free-tier models in order of preference
-const GEMINI_MODELS = [
-  'gemini-1.5-flash',
-  'gemini-1.5-flash-8b',
-  'gemini-1.0-pro'
+// ── Shared: call AI via OpenRouter (free, no CORS issues) ──
+const OR_KEY = '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';
+// Free models on OpenRouter — tried in order until one works
+const OR_MODELS = [
+  'meta-llama/llama-3.3-70b-instruct:free',
+  'mistralai/mistral-7b-instruct:free',
+  'google/gemma-3-27b-it:free',
+  'microsoft/phi-3-mini-128k-instruct:free'
 ];
 
 async function callClaude(userPrompt) {
   const errors = [];
-  for (const key of GEMINI_KEYS) {
-    for (const model of GEMINI_MODELS) {
-      try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: userPrompt }] }],
-            generationConfig: { temperature: 0.4, maxOutputTokens: 4096 }
-          })
-        });
-        const data = await res.json();
-        if (data.error) {
-          errors.push(`${model}: ${data.error.message}`);
-          continue; // try next model/key
-        }
-        const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-        if (text) return text;
-      } catch(e) {
-        errors.push(`${model}: ${e.message}`);
-      }
+  for (const model of OR_MODELS) {
+    try {
+      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${OR_KEY}`,
+          'HTTP-Referer': 'https://afri-tah.github.io',
+          'X-Title': 'StudySphere'
+        },
+        body: JSON.stringify({
+          model: model,
+          messages: [{ role: 'user', content: userPrompt }],
+          temperature: 0.4,
+          max_tokens: 4096
+        })
+      });
+      const data = await res.json();
+      if (data.error) { errors.push(`${model}: ${data.error.message}`); continue; }
+      const text = data.choices?.[0]?.message?.content || '';
+      if (text) return text;
+    } catch(e) {
+      errors.push(`${model}: ${e.message}`);
     }
   }
-  throw new Error('All models failed. Please try again in a moment.\n' + errors.slice(0,2).join('\n'));
+  throw new Error('Could not reach AI. Please try again.\n' + errors.slice(0,2).join('\n'));
 }
 
 function processFcFile(file) {
