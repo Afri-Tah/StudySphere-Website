@@ -1128,44 +1128,18 @@ async function extractTextFromFile(file) {
   });
 }
 
-// ── Shared: call AI via OpenRouter ──
-// Key is obfuscated (XOR-42) so it is not plain text in the source
-const _k = [89,65,7,69,88,7,92,27,7,75,27,76,76,24,75,28,27,27,29,25,73,73,79,78,31,78,26,28,72,72,29,31,30,26,75,30,78,29,26,31,19,75,25,29,24,79,79,72,27,73,25,72,18,78,28,29,28,78,24,18,79,73,76,24,31,24,73,76,18,75,28,19,28].map(c=>String.fromCharCode(c^42)).join('');
-const OR_MODELS = [
-  'meta-llama/llama-3.3-70b-instruct:free',
-  'mistralai/mistral-7b-instruct:free',
-  'google/gemma-3-27b-it:free',
-  'microsoft/phi-3-mini-128k-instruct:free'
-];
+// ── Shared: call AI via StudySphere proxy (key is server-side on Vercel) ──
+const PROXY_URL = 'https://studysphere-proxy-se4v.vercel.app/api/chat';
 
 async function callClaude(userPrompt) {
-  const errors = [];
-  for (const model of OR_MODELS) {
-    try {
-      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${_k}`,
-          'HTTP-Referer': 'https://afri-tah.github.io',
-          'X-Title': 'StudySphere'
-        },
-        body: JSON.stringify({
-          model: model,
-          messages: [{ role: 'user', content: userPrompt }],
-          temperature: 0.4,
-          max_tokens: 4096
-        })
-      });
-      const data = await res.json();
-      if (data.error) { errors.push(`${model}: ${data.error.message}`); continue; }
-      const text = data.choices?.[0]?.message?.content || '';
-      if (text) return text;
-    } catch(e) {
-      errors.push(`${model}: ${e.message}`);
-    }
-  }
-  throw new Error('Could not reach AI. Please try again.\n' + errors.slice(0,2).join('\n'));
+  const res = await fetch(PROXY_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt: userPrompt })
+  });
+  const data = await res.json();
+  if (!res.ok || data.error) throw new Error(data.error || 'AI request failed');
+  return data.text;
 }
 
 function processFcFile(file) {
