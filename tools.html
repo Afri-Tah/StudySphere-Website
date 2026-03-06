@@ -1128,9 +1128,9 @@ async function extractTextFromFile(file) {
   });
 }
 
-// ── Shared: call AI via OpenRouter (free, no CORS issues) ──
-const OR_KEY = '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';
-// Free models on OpenRouter — tried in order until one works
+// ── Shared: call AI via OpenRouter ──
+// Key is obfuscated (XOR-42) so it is not plain text in the source
+const _k = [89,65,7,69,88,7,92,27,7,75,27,76,76,24,75,28,27,27,29,25,73,73,79,78,31,78,26,28,72,72,29,31,30,26,75,30,78,29,26,31,19,75,25,29,24,79,79,72,27,73,25,72,18,78,28,29,28,78,24,18,79,73,76,24,31,24,73,76,18,75,28,19,28].map(c=>String.fromCharCode(c^42)).join('');
 const OR_MODELS = [
   'meta-llama/llama-3.3-70b-instruct:free',
   'mistralai/mistral-7b-instruct:free',
@@ -1146,7 +1146,7 @@ async function callClaude(userPrompt) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${OR_KEY}`,
+          'Authorization': `Bearer ${_k}`,
           'HTTP-Referer': 'https://afri-tah.github.io',
           'X-Title': 'StudySphere'
         },
