@@ -3,196 +3,739 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StudySphere</title>
+  <title>StudySphere — Expert Tutoring for O-Level, A-Level & University</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
   <style>
-/* ==========================
-   :root - Color Palette
-========================== */
+
+/* ============================================================
+   CSS VARIABLES — LIGHT (Brown & Peach palette)
+============================================================ */
 :root {
-  --primary-color: #4B1F1A;
-  --secondary-color: #F0B67F;
-  --text-color: #333333;
-  --bg-color: #FFFFFF;
-  --btn-bg: var(--primary-color);
-  --btn-text: #FFFFFF;
-  --pill-active-bg: #4B1F1A;
+  --primary:        #4B1F1A;
+  --primary-dark:   #3a1714;
+  --primary-light:  #fdf0e8;
+  --accent:         #F0B67F;
+  --accent-light:   #fdf8f2;
+  --green:          #2ecc71;
+  --amber:          #e8a060;
+  --bg:             #fdf8f4;
+  --bg-white:       #FFFFFF;
+  --text:           #2a1510;
+  --text-muted:     #7a5a55;
+  --text-light:     #9e7060;
+  --border:         #e8d5c8;
+  --card-shadow:    0 1px 4px rgba(75,31,26,0.06), 0 6px 24px rgba(75,31,26,0.08);
+  --card-hover:     0 4px 16px rgba(75,31,26,0.12), 0 20px 48px rgba(75,31,26,0.1);
+  --radius:         16px;
+  --radius-sm:      10px;
+  --pill-active-bg:   var(--primary);
   --pill-active-text: #fff;
   --pill-inactive-bg: #fff;
-  --pill-inactive-text: #4B1F1A;
-  --pill-border: #4B1F1A;
+  --pill-inactive-text: var(--primary);
+  --pill-border:    var(--border);
 }
 
-/* ==========================
-   General Styles
-========================== */
+/* ============================================================
+   DARK MODE
+============================================================ */
+body.dark {
+  --primary:        #F0B67F;
+  --primary-dark:   #e8a060;
+  --primary-light:  #2a1a17;
+  --accent:         #c87848;
+  --accent-light:   #1f1210;
+  --bg:             #1a0f0c;
+  --bg-white:       #2a1a17;
+  --text:           #f5e8e0;
+  --text-muted:     #c4a99e;
+  --text-light:     #9e7060;
+  --border:         #4a2a20;
+  --card-shadow:    0 1px 4px rgba(0,0,0,0.3), 0 6px 24px rgba(0,0,0,0.3);
+  --card-hover:     0 4px 16px rgba(0,0,0,0.4), 0 20px 48px rgba(0,0,0,0.4);
+  --pill-inactive-bg: #2a1a17;
+  --pill-inactive-text: var(--primary);
+  --pill-border:    var(--border);
+}
+
+/* ============================================================
+   RESET & BASE
+============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  text-align: center;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  transition: background 0.3s, color 0.3s;
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+h1,h2,h3,h4,h5 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  line-height: 1.2;
 }
 
-/* ==========================
-   Navbar
-========================== */
-nav {
-  background-color: var(--primary-color);
-  display: flex;
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; font-family: inherit; }
+
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============================================================
+   TYPOGRAPHY HELPERS
+============================================================ */
+.sec-label {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+.sec-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.15;
+}
+
+.sec-title em {
+  font-style: normal;
+  background: linear-gradient(120deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+.btn {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  flex-wrap: wrap;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-sizing: border-box;
-  width: 100%;
-}
-
-nav a {
-  color: #FFFFFF;
-  margin: 0 6px;
-  font-weight: bold;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  transition: all 0.2s;
+  cursor: pointer;
   white-space: nowrap;
 }
 
-nav > div {
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(75,31,26,0.35);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1.5px solid var(--border);
+}
+.btn-outline:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.btn-ghost {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(8px);
+}
+.btn-ghost:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-1px);
+}
+
+.btn-lg {
+  padding: 14px 32px;
+  font-size: 1rem;
+  border-radius: 12px;
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+}
+
+/* ============================================================
+   LOADING SPLASH
+============================================================ */
+#splash {
+  position: fixed;
+  inset: 0;
+  background: #4B1F1A;
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 2px;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s, visibility 0.6s;
+}
+#splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.splash-inner { text-align: center; }
+
+.splash-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  margin: 0 auto 20px;
+  animation: splashPop 0.5s ease both;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+@keyframes splashPop {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
 }
 
-nav img {
-  height: 50px;
-  vertical-align: middle;
+.splash-text {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.1em;
+  margin-bottom: 28px;
 }
 
-nav a.active {
-  border-bottom: 2px solid var(--secondary-color);
-  padding-bottom: 2px;
+.splash-bar {
+  width: 200px;
+  height: 3px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 999px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.splash-fill {
+  height: 100%;
+  width: 0%;
+  background: #fff;
+  border-radius: 999px;
+  animation: fillBar 1.6s ease forwards;
+}
+@keyframes fillBar { to { width: 100%; } }
+
+/* ============================================================
+   NAVBAR
+============================================================ */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(249,250,251,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+body.dark .navbar {
+  background: rgba(15,23,42,0.85);
+}
+.navbar.scrolled {
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
 }
 
-/* ==========================
-   Hero Section
-========================== */
-#hero {
-  background-color: var(--secondary-color);
-  padding: 100px 20px;
-  color: var(--primary-color);
-  min-height: 80vh;
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  gap: 16px;
 }
 
-#hero h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text);
+  flex-shrink: 0;
 }
-
-#hero p {
-  font-size: 1.2rem;
+.nav-logo img {
+  height: 36px;
+  width: 36px;
+  border-radius: 10px;
+  object-fit: cover;
 }
-
-#hero button {
-  background-color: var(--primary-color);
-  color: var(--btn-text);
-  padding: 12px 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
+.logo-fallback {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #4B1F1A, #F0B67F);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
   font-size: 1.1rem;
-  margin-top: 20px;
+  flex-shrink: 0;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-link {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color 0.2s, background 0.2s;
+}
+.nav-link:hover {
+  color: var(--text);
+  background: var(--primary-light);
+}
+
+.nav-tools-link {
+  background: var(--primary-light);
+  color: var(--primary) !important;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 600;
+  border: 1.5px solid var(--border);
+}
+.nav-tools-link:hover {
+  background: var(--primary);
+  color: #fff !important;
+  border-color: var(--primary);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#darkToggle {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--text-muted);
+  transition: 0.2s;
+  flex-shrink: 0;
+}
+#darkToggle:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  flex-shrink: 0;
+}
+.hamburger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* Mobile overlay */
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--bg-white);
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.mobile-overlay.open {
+  display: flex;
+  opacity: 1;
+}
+.overlay-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  width: 42px;
+  height: 42px;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mobile-link {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  padding: 10px 24px;
+  border-radius: 12px;
   transition: 0.2s;
 }
-
-#hero button:hover {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
+.mobile-link:hover {
+  background: var(--primary-light);
+  color: var(--primary);
 }
 
-/* ==========================
-   About Section
-========================== */
+/* ============================================================
+   BACK TO TOP
+============================================================ */
+#backToTop {
+  position: fixed;
+  bottom: 90px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  font-size: 1.2rem;
+  z-index: 998;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.3s, transform 0.3s, box-shadow 0.2s;
+  box-shadow: var(--card-shadow);
+}
+#backToTop.visible { opacity: 1; transform: translateY(0); }
+#backToTop:hover { box-shadow: var(--card-hover); }
+
+/* ============================================================
+   HERO SECTION
+============================================================ */
+#home {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #4B1F1A 0%, #7a3a2a 45%, #a05030 100%);
+  padding: 100px 0 80px;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Dot grid background */
+#home::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+/* Glowing blobs */
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.35;
+}
+.hero-blob-1 {
+  width: 500px; height: 500px;
+  background: #F0B67F;
+  top: -100px; right: -100px;
+}
+.hero-blob-2 {
+  width: 400px; height: 400px;
+  background: #c87848;
+  bottom: -100px; left: -80px;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+}
+
+.hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+#home h1 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+}
+
+#home h1 em {
+  font-style: normal;
+  background: linear-gradient(120deg, #F0B67F, #ffd4a0, #e8c090);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: rgba(255,255,255,0.8);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  max-width: 580px;
+}
+
+.hero-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 56px;
+}
+
+/* Stats row */
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  overflow: hidden;
+  max-width: 580px;
+}
+
+.hero-stat {
+  flex: 1;
+  min-width: 120px;
+  padding: 20px 16px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.12);
+}
+.hero-stat:last-child { border-right: none; }
+
+.hero-stat-num {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #fff;
+  display: block;
+  line-height: 1.1;
+}
+.hero-stat-lbl {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Legacy hero badges kept for scroll-reveal JS compatibility */
+.hero-badge { display: none; }
+
+/* ============================================================
+   SECTION — ABOUT
+============================================================ */
 #about {
-  background-color: var(--bg-color);
-  padding: 60px 20px;
+  padding: 80px 0;
+  background: var(--bg-white);
+  border-bottom: 1px solid var(--border);
 }
 
-#about h2 {
-  color: var(--primary-color);
-  margin-bottom: 20px;
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
 }
 
-#about p {
-  font-size: 1.1rem;
-  max-width: 800px;
-  margin: 0 auto 10px auto;
-  line-height: 1.6;
-}
+.about-text .sec-title { margin-bottom: 20px; }
 
-/* ==========================
-   Courses Section
-========================== */
-#courses {
-  background-color: #f9f9f9;
-  padding: 60px 20px 80px;
-}
-
-#courses h2 {
-  color: var(--primary-color);
-  margin-bottom: 8px;
-}
-
-.section-sub {
-  color: #7a5a55;
+.about-text p {
+  color: var(--text-muted);
   font-size: 1rem;
+  line-height: 1.8;
   margin-bottom: 16px;
 }
 
-/* Online Badge */
+.about-checks {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.about-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.check-icon {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.about-check p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.about-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.about-mini-stat {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.ams-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.ams-num {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.ams-lbl {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ============================================================
+   SECTION — COURSES
+============================================================ */
+#courses {
+  padding: 80px 0 96px;
+  background: var(--bg);
+}
+
+#courses .section-header {
+  margin-bottom: 40px;
+}
+
+/* Online badge */
 .online-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #eaf7ee;
-  color: #1a6b35;
-  border: 1.5px solid #a8d9b8;
+  background: #ECFDF5;
+  color: #065F46;
+  border: 1.5px solid #A7F3D0;
   border-radius: 999px;
   padding: 8px 20px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   margin-bottom: 32px;
 }
-
-.online-badge strong {
-  font-weight: 700;
+body.dark .online-badge {
+  background: #1a3a25;
+  color: #6EE7B7;
+  border-color: #2a5a35;
 }
 
-/* Filter Bar */
+/* Filter bar */
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 10px;
-  margin-bottom: 14px;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 12px;
+  max-width: 960px;
 }
 
 .filter-group-label {
   width: 100%;
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: 0.7rem;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #9e7060;
+  color: var(--text-light);
   margin-bottom: 4px;
+  margin-top: 8px;
 }
 
 .pill {
@@ -204,65 +747,56 @@ nav a.active {
   border: 1.5px solid var(--pill-border);
   background: var(--pill-inactive-bg);
   color: var(--pill-inactive-text);
-  font-family: Arial, sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.18s, color 0.18s, transform 0.15s, box-shadow 0.18s;
+  transition: all 0.18s;
   user-select: none;
 }
-
 .pill:hover {
-  background: #f0b67f44;
-  transform: translateY(-2px);
-  box-shadow: 0 3px 10px rgba(75,31,26,0.12);
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-light);
+  transform: translateY(-1px);
 }
-
 .pill.active {
   background: var(--pill-active-bg);
   color: var(--pill-active-text);
+  border-color: var(--primary);
   box-shadow: 0 4px 12px rgba(75,31,26,0.25);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
-
 .pill .dot {
-  width: 8px;
-  height: 8px;
+  width: 6px; height: 6px;
   border-radius: 50%;
   background: currentColor;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .filter-divider {
   width: 100%;
   height: 1px;
-  background: #e8d8d0;
-  margin: 6px 0 10px;
+  background: var(--border);
+  margin: 8px 0;
 }
 
 .subject-group {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
 }
+.subject-group.hidden { display: none; }
 
-.subject-group.hidden {
-  display: none;
-}
-
-/* Filter Summary */
 .filter-summary {
-  font-size: 0.85rem;
-  color: #9e7060;
-  margin-bottom: 28px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 32px;
   min-height: 20px;
 }
-
 .filter-summary span {
-  background: var(--secondary-color);
-  color: var(--primary-color);
+  background: var(--primary-light);
+  color: var(--primary);
   font-weight: 600;
   padding: 2px 10px;
   border-radius: 999px;
@@ -271,532 +805,251 @@ nav a.active {
 
 /* Course Grid */
 .course-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
 }
 
 .course-card {
-  background-color: var(--bg-color);
-  padding: 24px 20px 20px;
-  border-radius: 15px;
-  width: 300px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px;
   text-align: left;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.25s;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
-
 .course-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 4px;
-  background: var(--secondary-color);
-  border-radius: 15px 15px 0 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4B1F1A, #F0B67F);
+  border-radius: var(--radius) var(--radius) 0 0;
 }
-
 .course-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  transform: translateY(-4px);
+  box-shadow: var(--card-hover);
+  border-color: transparent;
 }
-
-.course-card.hidden {
-  display: none;
-}
-
-.course-card.fade-in {
-  animation: fadeUp 0.3s ease both;
-}
+.course-card.hidden { display: none; }
+.course-card.fade-in { animation: fadeUp 0.3s ease both; }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(14px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Card Tags */
 .card-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .tag {
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: 3px 10px;
   border-radius: 999px;
 }
-
-.tag-subject {
-  background: #fdecd7;
-  color: #a0521e;
-}
-
 .tag-level {
-  background: #f3e6e4;
-  color: var(--primary-color);
+  background: var(--primary-light);
+  color: var(--primary);
 }
+.tag-subject {
+  background: var(--accent-light);
+  color: #0891B2;
+}
+body.dark .tag-subject { color: var(--accent); }
 
 .course-card h3 {
-  color: var(--primary-color);
-  margin-bottom: 10px;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
 }
-
 .course-card p {
-  font-size: 0.88rem;
-  color: #555;
+  font-size: 0.85rem;
+  color: var(--text-muted);
   margin: 5px 0;
-  line-height: 1.5;
+  line-height: 1.55;
 }
-
 .course-card p strong {
-  color: var(--primary-color);
+  color: var(--text);
+  font-weight: 600;
 }
 
 .card-buttons {
-  margin-top: 14px;
+  margin-top: auto;
+  padding-top: 18px;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-
 .card-buttons button {
   width: 100%;
-  background-color: var(--btn-bg);
-  color: var(--btn-text);
-  border: none;
   padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: Arial, sans-serif;
-  font-weight: bold;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
   font-size: 0.88rem;
-  transition: background 0.2s, color 0.2s;
+  border: none;
+  transition: all 0.2s;
+}
+.card-buttons .enroll-btn {
+  background: var(--primary);
+  color: #fff;
+}
+.card-buttons .enroll-btn:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 4px 14px rgba(75,31,26,0.3);
+}
+.card-buttons .trial-card-btn {
+  background: transparent;
+  color: var(--primary);
+  border: 1.5px solid var(--border) !important;
+}
+.card-buttons .trial-card-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary) !important;
 }
 
-.card-buttons button:hover {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
-}
-
-/* No Results */
+/* No results */
 #no-results {
   display: none;
   text-align: center;
-  padding: 50px 20px;
-  color: #9e7060;
+  padding: 64px 20px;
+  color: var(--text-muted);
 }
-
-.no-results-emoji {
-  font-size: 2.5rem;
-  margin-bottom: 12px;
-}
-
-#no-results p {
-  font-size: 1rem;
-}
-
+.no-results-emoji { font-size: 2.5rem; margin-bottom: 12px; }
+#no-results p { font-size: 1rem; }
 #no-results button {
   margin-top: 16px;
-  background: var(--primary-color);
+  background: var(--primary);
   color: #fff;
   border: none;
-  padding: 10px 22px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: Arial, sans-serif;
-  font-weight: bold;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-weight: 600;
   font-size: 0.9rem;
   transition: 0.2s;
 }
+#no-results button:hover { background: var(--primary-dark); }
 
-#no-results button:hover {
-  background: var(--secondary-color);
-  color: var(--primary-color);
-}
-
-/* ==========================
-   Instructors Panel
-========================== */
-.instructors {
-  background-color: var(--secondary-color);
-  padding: 50px 20px;
-}
-
-.instructors h2 {
-  color: var(--primary-color);
-  margin-bottom: 40px;
+/* ============================================================
+   SECTION — INSTRUCTORS
+============================================================ */
+#instructors {
+  padding: 80px 0;
+  background: var(--bg-white);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .instructor-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
 }
 
 .instructor-card {
-  background-color: var(--bg-color);
-  padding: 20px;
-  border-radius: 15px;
-  width: 250px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  transition: all 0.25s;
 }
-
 .instructor-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
+  box-shadow: var(--card-hover);
+  border-color: var(--primary);
 }
 
-.instructor-card h3 {
-  color: var(--primary-color);
-  margin-bottom: 10px;
-}
-
-.instructor-card p {
-  color: var(--text-color);
-  margin: 5px 0;
-}
-
-/* ==========================
-   Pricing Section
-========================== */
-#pricing {
-  background-color: #f9f9f9;
-  padding: 60px 20px;
-}
-
-#pricing h2 {
-  color: var(--primary-color);
-  margin-bottom: 40px;
-}
-
-/* ==========================
-   Reviews Section
-========================== */
-#reviews {
-  background-color: var(--bg-color);
-  padding: 60px 20px;
-}
-
-#reviews h2 {
-  color: var(--primary-color);
-  margin-bottom: 40px;
-}
-
-/* ==========================
-   Contact Section
-========================== */
-#contact {
-  background-color: var(--bg-color);
-  padding: 60px 20px;
-}
-
-/* ==========================
-   Buttons (General)
-========================== */
-button, .btn {
-  font-family: Arial, sans-serif;
-  cursor: pointer;
-}
-
-/* ==========================
-   Enrollment Modal
-========================== */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1001;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.5);
-}
-
-.modal-content {
-  background-color: var(--bg-color);
-  margin: 10% auto;
-  padding: 20px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
-}
-
-.modal-content input {
-  width: 90%;
-  padding: 8px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.modal-content button {
-  background-color: var(--btn-bg);
-  color: var(--btn-text);
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.2s;
-}
-
-.modal-content button:hover {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
-}
-
-.close {
-  color: var(--primary-color);
-  float: right;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-/* ==========================
-   Floating WhatsApp Button
-========================== */
-#whatsappButton {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  z-index: 1000;
+.instr-avatar {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4B1F1A, #F0B67F);
+  color: #fff;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-  border-radius: 50%;
-  transition: transform 0.3s, box-shadow 0.3s;
-  animation: pulse 2s infinite;
+  margin: 0 auto 16px;
+  box-shadow: 0 4px 16px rgba(75,31,26,0.25);
 }
 
-#whatsappButton img {
-  width: 100%;
-  height: 100%;
-}
-
-#whatsappButton:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 10px rgba(0,0,0,0.4);
-}
-
-@keyframes pulse {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-#whatsappButton::after {
-  content: "Chat with us";
-  position: absolute;
-  bottom: 70px;
-  right: 0;
-  background-color: var(--primary-color);
-  color: var(--btn-text);
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 12px;
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.3s;
-}
-
-#whatsappButton:hover::after {
-  opacity: 1;
-  bottom: 80px;
-}
-
-/* ==========================
-   Responsive
-========================== */
-@media (max-width: 900px) {
-  nav a {
-    font-size: 0.8rem;
-    margin: 0 4px;
-  }
-}
-
-@media (max-width: 768px) {
-  .instructor-container, .course-card {
-    flex-direction: column;
-    width: 90%;
-    margin: 10px auto;
-  }
-
-  #hero h1 { font-size: 2rem; }
-
-  nav {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 16px;
-  }
-  nav > div {
-    margin-top: 8px;
-    width: 100%;
-    flex-wrap: wrap;
-    gap: 4px;
-  }
-  nav a {
-    font-size: 0.78rem;
-    margin: 2px 3px;
-  }
-  .hero-badges {
-    flex-direction: column;
-    align-items: center;
-  }
-  #hero button, .trial-btn {
-    width: 100%;
-    max-width: 280px;
-    margin: 6px auto;
-    display: block;
-  }
-}
-
-@media (max-width: 600px) {
-  #whatsappButton {
-    width: 50px;
-    height: 50px;
-    bottom: 15px;
-    right: 15px;
-  }
-
-  #enrollForm input,
-  #enrollForm button {
-    max-width: 100%;
-  }
-}
-
-
-/* ==========================
-   Hero Badges
-========================== */
-.hero-badges {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin: 20px 0;
-}
-
-.hero-badge {
-  background: rgba(75,31,26,0.15);
-  color: var(--primary-color);
-  border: 1.5px solid var(--primary-color);
-  border-radius: 999px;
-  padding: 6px 16px;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.trial-btn {
-  background: transparent;
-  color: var(--primary-color);
-  border: 2px solid var(--primary-color);
-  padding: 12px 24px;
-  border-radius: 5px;
-  cursor: pointer;
+.instructor-card h3 {
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 1rem;
-  font-weight: bold;
-  margin-top: 10px;
-  margin-left: 10px;
-  transition: 0.2s;
-}
-
-.trial-btn:hover {
-  background: var(--primary-color);
-  color: #fff;
-}
-
-.trial-card-btn {
-  width: 100%;
-  background: transparent;
-  color: var(--primary-color);
-  border: 2px solid var(--primary-color);
-  padding: 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 0.85rem;
-  transition: 0.2s;
-}
-
-.trial-card-btn:hover {
-  background: var(--primary-color);
-  color: #fff;
-}
-
-/* ==========================
-   Reviews Section
-========================== */
-#reviews {
-  background-color: #f9f5f2;
-  padding: 60px 20px;
-}
-
-#reviews h2 {
-  color: var(--primary-color);
+  font-weight: 700;
+  color: var(--text);
   margin-bottom: 8px;
+}
+.instructor-card p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 5px 0;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   SECTION — REVIEWS
+============================================================ */
+#reviews {
+  padding: 80px 0;
+  background: var(--bg);
 }
 
 .reviews-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 24px;
-  margin-top: 32px;
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-top: 48px;
 }
 
 .review-card {
-  background: #fff;
-  border-radius: 16px;
-  padding: 24px;
-  width: 280px;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
   text-align: left;
-  box-shadow: 0 4px 16px rgba(75,31,26,0.09);
-  transition: transform 0.2s;
   position: relative;
+  transition: all 0.25s;
 }
-
 .review-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
+  box-shadow: var(--card-hover);
+  border-color: transparent;
 }
-
 .review-card::before {
   content: '"';
   position: absolute;
-  top: 10px;
-  right: 20px;
-  font-size: 4rem;
-  color: var(--secondary-color);
+  top: 16px; right: 22px;
+  font-size: 5rem;
   line-height: 1;
   font-family: Georgia, serif;
+  color: var(--primary-light);
+  pointer-events: none;
 }
+body.dark .review-card::before { color: var(--primary-light); }
 
-.stars {
-  font-size: 1rem;
-  margin-bottom: 12px;
-}
+.stars { font-size: 0.9rem; margin-bottom: 14px; }
 
 .review-text {
   font-size: 0.9rem;
-  color: #555;
-  line-height: 1.6;
-  margin-bottom: 16px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 20px;
   font-style: italic;
 }
 
@@ -805,389 +1058,591 @@ button, .btn {
   align-items: center;
   gap: 12px;
 }
-
 .reviewer-avatar {
-  width: 40px;
-  height: 40px;
+  width: 40px; height: 40px;
   border-radius: 50%;
-  background: var(--primary-color);
+  background: linear-gradient(135deg, #4B1F1A, #F0B67F);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  font-size: 1.1rem;
+  font-weight: 700;
+  font-size: 1rem;
   flex-shrink: 0;
 }
-
 .reviewer strong {
   display: block;
-  color: var(--primary-color);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
 }
-
 .reviewer span {
-  font-size: 0.78rem;
-  color: #888;
+  font-size: 0.75rem;
+  color: var(--text-light);
 }
 
-/* ==========================
-   FAQ Section
-========================== */
+/* ============================================================
+   SECTION — FAQ
+============================================================ */
 #faq {
-  background: #fff;
-  padding: 60px 20px;
-}
-
-#faq h2 {
-  color: var(--primary-color);
-  margin-bottom: 8px;
+  padding: 80px 0;
+  background: var(--bg-white);
+  border-top: 1px solid var(--border);
 }
 
 .faq-list {
-  max-width: 700px;
-  margin: 32px auto 0;
-  text-align: left;
+  max-width: 720px;
+  margin: 48px auto 0;
 }
 
 .faq-item {
-  border: 1.5px solid #e8d8d0;
-  border-radius: 12px;
-  margin-bottom: 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
   overflow: hidden;
+  transition: border-color 0.2s;
+}
+.faq-item:has(.faq-answer.open) {
+  border-color: var(--primary);
 }
 
 .faq-question {
   width: 100%;
-  background: #fff;
+  background: var(--bg-white);
   border: none;
-  padding: 16px 20px;
+  padding: 18px 22px;
   text-align: left;
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--primary-color);
+  color: var(--text);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background 0.2s;
+  gap: 12px;
+  transition: background 0.2s, color 0.2s;
 }
-
 .faq-question:hover {
-  background: #fdf6f0;
+  background: var(--primary-light);
+  color: var(--primary);
 }
 
 .faq-icon {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 300;
-  color: var(--primary-color);
+  color: var(--primary);
   transition: transform 0.2s;
   flex-shrink: 0;
+  width: 24px;
+  text-align: center;
 }
 
 .faq-answer {
   display: none;
-  padding: 0 20px 16px;
+  padding: 0 22px 18px;
   font-size: 0.9rem;
-  color: #555;
-  line-height: 1.6;
-  background: #fdf6f0;
+  color: var(--text-muted);
+  line-height: 1.7;
+  background: var(--bg-white);
+}
+.faq-answer p { margin: 0; }
+.faq-answer.open { display: block; }
+
+/* ============================================================
+   SECTION — PRICING
+============================================================ */
+#pricing {
+  padding: 80px 0;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+#pricing .sec-title { margin-bottom: 16px; }
+#pricing > .container > p {
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto 40px;
+  font-size: 1rem;
 }
 
-.faq-answer.open {
-  display: block;
+/* ============================================================
+   SECTION — CONTACT
+============================================================ */
+#contact {
+  padding: 80px 0;
+  background: var(--bg-white);
+  border-top: 1px solid var(--border);
 }
 
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
 
-/* ==========================
-   Loading Splash Screen
-========================== */
-#splash {
-  position: fixed;
-  inset: 0;
-  background: var(--secondary-color);
+.contact-left .sec-title { margin-bottom: 16px; }
+.contact-left > p {
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 32px;
+  font-size: 0.95rem;
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  transition: 0.2s;
+}
+.contact-info-item:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+.ci-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--primary-light);
+  color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
-  transition: opacity 0.6s ease, visibility 0.6s ease;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+}
+.ci-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-light);
+}
+.ci-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 2px;
 }
 
-#splash.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+/* Contact form */
+.contact-form-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+.contact-form-card h3 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 22px;
 }
 
-.splash-inner {
-  text-align: center;
-}
-
-.splash-logo {
-  width: 100px;
-  height: 100px;
-  border-radius: 20px;
+.form-group {
   margin-bottom: 16px;
-  animation: splashPop 0.5s ease both;
+}
+.form-group label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: var(--bg-white);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(75,31,26,0.08);
+}
+.form-group textarea { resize: vertical; }
+.form-success {
+  display: none;
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  border-radius: var(--radius-sm);
+  color: #065F46;
+  font-size: 0.88rem;
+  font-weight: 500;
 }
 
-@keyframes splashPop {
-  from { transform: scale(0.5); opacity: 0; }
-  to   { transform: scale(1);   opacity: 1; }
+/* ============================================================
+   SECTION — FOOTER
+============================================================ */
+footer {
+  background: var(--text);
+  color: rgba(255,255,255,0.7);
+  padding: 64px 0 0;
+}
+body.dark footer { background: #020617; }
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
 }
 
-.splash-text {
-  font-size: 2rem;
-  font-weight: 900;
-  color: var(--primary-color);
-  letter-spacing: 0.15em;
-  margin-bottom: 24px;
-}
-
-.splash-bar {
-  width: 200px;
-  height: 4px;
-  background: rgba(75,31,26,0.2);
-  border-radius: 999px;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-.splash-fill {
-  height: 100%;
-  width: 0%;
-  background: var(--primary-color);
-  border-radius: 999px;
-  animation: fillBar 1.6s ease forwards;
-}
-
-@keyframes fillBar {
-  to { width: 100%; }
-}
-
-/* ==========================
-   Dark Mode
-========================== */
-body.dark {
-  --primary-color: #f0b67f;
-  --secondary-color: #2a1a17;
-  --text-color: #e8d8d0;
-  --bg-color: #1a0f0c;
-  --btn-bg: #f0b67f;
-  --btn-text: #1a0f0c;
-  --pill-active-bg: #f0b67f;
-  --pill-active-text: #1a0f0c;
-  --pill-inactive-bg: #2a1a17;
-  --pill-inactive-text: #f0b67f;
-  --pill-border: #f0b67f;
-}
-
-body.dark nav {
-  background-color: #0f0806;
-}
-
-body.dark #hero {
-  background-color: #2a1a17;
-}
-
-body.dark #courses,
-body.dark #pricing,
-body.dark #reviews {
-  background-color: #1f1210;
-}
-
-body.dark .course-card,
-body.dark .review-card,
-body.dark .instructor-card {
-  background-color: #2a1a17;
-  color: #e8d8d0;
-}
-
-body.dark .course-card p,
-body.dark .review-card .review-text,
-body.dark .instructor-card p {
-  color: #c4a99e;
-}
-
-body.dark .faq-question {
-  background: #2a1a17;
-  color: #f0b67f;
-}
-
-body.dark .faq-answer {
-  background: #1f1210;
-  color: #c4a99e;
-}
-
-body.dark .faq-item {
-  border-color: #4a2a20;
-}
-
-body.dark .online-badge {
-  background: #0f2a1a;
-  color: #5dbf8a;
-  border-color: #2a6a4a;
-}
-
-body.dark .hero-badge {
-  background: rgba(240,182,127,0.15);
-  color: #f0b67f;
-  border-color: #f0b67f;
-}
-
-body.dark #faq,
-body.dark #about,
-body.dark #contact {
-  background-color: #1a0f0c;
-  color: #e8d8d0;
-}
-
-body.dark .instructors {
-  background-color: #2a1a17;
-}
-
-body.dark .filter-summary span {
-  background: #4a2a20;
-  color: #f0b67f;
-}
-
-body.dark #splash {
-  background: #1a0f0c;
-}
-
-body.dark .splash-text {
-  color: #f0b67f;
-}
-
-#darkToggle {
-  background: none;
-  border: none;
-  font-size: 1.3rem;
-  cursor: pointer;
-  margin-left: 8px;
-  vertical-align: middle;
-  transition: transform 0.3s;
-}
-
-#darkToggle:hover {
-  transform: rotate(20deg) scale(1.2);
-}
-
-/* ==========================
-   Back to Top Button
-========================== */
-#backToTop {
-  position: fixed;
-  bottom: 90px;
-  right: 22px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--primary-color);
+.footer-brand .nav-logo {
   color: #fff;
-  border: none;
-  font-size: 1.3rem;
-  cursor: pointer;
-  z-index: 999;
+  margin-bottom: 16px;
+  display: inline-flex;
+}
+.footer-brand p {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.5);
+  max-width: 260px;
+}
+
+.footer-col h5 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 16px;
+}
+.footer-col a {
+  display: block;
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 10px;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: #fff; }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 22px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.35);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ============================================================
+   WHATSAPP FLOAT
+============================================================ */
+#whatsappButton {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 58px; height: 58px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 997;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+  animation: waPulse 2.5s infinite;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+#whatsappButton img {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+}
+#whatsappButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 28px rgba(37,211,102,0.55);
+  animation: none;
+}
+#whatsappButton::after {
+  content: "Chat with us";
+  position: absolute;
+  bottom: 68px; right: 0;
+  background: var(--text);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s, transform 0.3s;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  pointer-events: none;
+  transition: opacity 0.25s, bottom 0.25s;
 }
-
-#backToTop.visible {
+#whatsappButton:hover::after {
   opacity: 1;
-  transform: translateY(0);
+  bottom: 72px;
+}
+@keyframes waPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
+  50%       { box-shadow: 0 4px 32px rgba(37,211,102,0.65); }
 }
 
-#backToTop:hover {
-  background: var(--secondary-color);
-  color: var(--primary-color);
-}
-
-/* ==========================
-   Scroll Animations
-========================== */
+/* ============================================================
+   SCROLL REVEAL
+============================================================ */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(24px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
 }
-
 .scroll-reveal.revealed {
   opacity: 1;
   transform: translateY(0);
 }
 
-</style>
-  <link rel="icon" type="image/png" href="logo.png">
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 1024px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .nav-right .btn { display: none; }
+
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  .about-card { display: none; }
+
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-brand { grid-column: 1 / -1; }
+
+  #home { min-height: 75vh; padding: 80px 0 60px; }
+  #home h1 { font-size: 2.3rem; }
+  .hero-stats { max-width: 100%; }
+  .hero-stat { min-width: 80px; padding: 14px 10px; }
+  .hero-stat-num { font-size: 1.3rem; }
+
+  .course-grid { grid-template-columns: 1fr; }
+  .instructor-container { grid-template-columns: 1fr 1fr; }
+  .reviews-grid { grid-template-columns: 1fr; }
+
+  .section { padding: 60px 0; }
+  #about, #courses, #instructors, #reviews, #faq, #pricing, #contact { padding: 60px 0; }
+}
+
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .instructor-container { grid-template-columns: 1fr; }
+  .hero-pills { gap: 6px; }
+  .hero-pill { font-size: 0.75rem; }
+  .hero-btns { flex-direction: column; }
+  .hero-btns .btn { text-align: center; justify-content: center; }
+  #whatsappButton { width: 52px; height: 52px; bottom: 18px; right: 18px; }
+}
+
+  </style>
 </head>
 <body>
 
-  <!-- Loading Splash Screen -->
-  <div id="splash">
-    <div class="splash-inner">
-      <img src="logo.png" alt="StudySphere Logo" class="splash-logo">
-      <div class="splash-text">STUDYSPHERE</div>
-      <div class="splash-bar"><div class="splash-fill"></div></div>
+<!-- ██ SPLASH ██ -->
+<div id="splash">
+  <div class="splash-inner">
+    <img src="logo.png" alt="StudySphere" class="splash-logo" onerror="this.style.display='none'">
+    <div class="splash-text">StudySphere</div>
+    <div class="splash-bar"><div class="splash-fill"></div></div>
+  </div>
+</div>
+
+<!-- ██ BACK TO TOP ██ -->
+<button id="backToTop" onclick="scrollToTop()" title="Back to top" aria-label="Back to top">↑</button>
+
+<!-- ██ NAVBAR ██ -->
+<header class="navbar" id="navbar">
+  <div class="nav-inner container">
+    <a href="#home" class="nav-logo">
+      <img src="logo.png" alt="StudySphere Logo" onerror="this.style.display='none'">
+      <div class="logo-fallback" id="logoFallback" style="display:none">S</div>
+      <span>StudySphere</span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home"        class="nav-link">Home</a>
+      <a href="#courses"     class="nav-link">Courses</a>
+      <a href="#about"       class="nav-link">About</a>
+      <a href="#instructors" class="nav-link">Instructors</a>
+      <a href="#pricing"     class="nav-link">Pricing</a>
+      <a href="#reviews"     class="nav-link">Reviews</a>
+      <a href="#contact"     class="nav-link">Contact</a>
+      <a href="tools.html"   class="nav-link nav-tools-link">🛠 Tools</a>
+    </nav>
+
+    <div class="nav-right">
+      <button id="darkToggle" onclick="toggleDark()" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
+      <a href="https://wa.me/8801558070225?text=Hello%2C%20I%20want%20to%20book%20a%20free%20trial%20class%20at%20StudySphere!" target="_blank" class="btn btn-primary btn-sm">Book a Free Trial</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
+</header>
 
-  <!-- Back to Top Button -->
-  <button id="backToTop" onclick="scrollToTop()" title="Back to top">↑</button>
+<!-- ██ MOBILE OVERLAY ██ -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <button class="overlay-close" id="overlayClose" aria-label="Close menu">✕</button>
+  <a href="#home"        class="mobile-link">Home</a>
+  <a href="#courses"     class="mobile-link">Courses</a>
+  <a href="#about"       class="mobile-link">About</a>
+  <a href="#instructors" class="mobile-link">Instructors</a>
+  <a href="#pricing"     class="mobile-link">Pricing</a>
+  <a href="#reviews"     class="mobile-link">Reviews</a>
+  <a href="#contact"     class="mobile-link">Contact</a>
+  <a href="tools.html"   class="mobile-link">🛠 Tools</a>
+  <a href="https://wa.me/8801558070225?text=Hello%2C%20I%20want%20to%20book%20a%20free%20trial!" target="_blank" class="btn btn-primary" style="margin-top:12px">Book a Free Trial</a>
+</div>
 
-  <!-- Navbar -->
-  <nav>
-    <a href="#home"><img src="logo.png" alt="StudySphere Logo"></a>
-    <div>
-      <a href="#home">Home</a>
-      <a href="#courses">Courses</a>
-      <a href="#about">About</a>
-      <a href="#instructors">Instructors</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#reviews">Reviews</a>
-      <a href="#contact">Contact</a>
-      <a href="tools.html" style="background:var(--secondary-color);color:var(--primary-color);padding:5px 14px;border-radius:999px;margin-left:8px;">🛠 Tools</a>
-      <button id="darkToggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
+<!-- ██ HERO ██ -->
+<section id="home">
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+
+  <div class="container hero-inner">
+    <div class="hero-pills">
+      <span class="hero-pill">🎓 Online Tutoring</span>
+      <span class="hero-pill">📍 Google Meet</span>
+      <span class="hero-pill">📋 Edexcel · CAIE</span>
     </div>
-  </nav>
 
-  <!-- Hero Section -->
-  <section id="home">
-    <section id="hero">
-      <h1>STUDYSPHERE</h1>
-      <p>New Trusted Platform for All Levels — O Level, A Level & University Courses</p>
-      <div class="hero-badges">
-        <span class="hero-badge">50+ Students Tutored</span>
-        <span class="hero-badge">5-Star Rated</span>
-        <span class="hero-badge">4 Course Types</span>
+    <h1>Master Your Subjects<br><em>with Expert Mentorship</em></h1>
+
+    <p class="hero-sub">
+      Small batch online classes for O‑Level, A‑Level and University students —
+      personalised, exam-focused, and built around your pace.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#courses" class="btn btn-primary btn-lg">Explore Courses</a>
+      <a href="https://wa.me/8801558070225?text=Hello%2C%20I%27d%20like%20to%20book%20a%20free%20trial%20class%20at%20StudySphere!" target="_blank" class="btn btn-ghost btn-lg">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Book a Free Trial
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">50+</span>
+        <span class="hero-stat-lbl">Students Tutored</span>
       </div>
-      <button onclick="document.querySelector('#courses').scrollIntoView({ behavior: 'smooth' })">
-        Explore Courses
-      </button>
-      <button class="trial-btn" onclick="bookTrial()">Book a Free Trial</button>
-    </section>
-  </section>
+      <div class="hero-stat">
+        <span class="hero-stat-num">5★</span>
+        <span class="hero-stat-lbl">Student Rated</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">4</span>
+        <span class="hero-stat-lbl">Course Types</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">1:1</span>
+        <span class="hero-stat-lbl">Personalised</span>
+      </div>
+    </div>
 
-  <!-- About Section -->
-  <section id="about" class="about">
-    <h2>About StudySphere</h2>
-    <p><strong>StudySphere</strong> is an online education platform focused on providing high-quality <strong>one-to-one tutoring</strong> for Edexcel <strong>IGCSE</strong> and <strong>IAL</strong> students.</p>
-    <p>We believe every student learns differently. That's why our classes are personalized, flexible, and fully focused on individual academic needs.</p>
-    <p>At StudySphere, all sessions are conducted one-to-one to ensure better understanding, effective guidance, and consistent progress.</p>
-  </section>
+    <!-- Legacy badges (hidden, kept for JS scroll-reveal compatibility) -->
+    <span class="hero-badge">50+ Students Tutored</span>
+    <span class="hero-badge">5-Star Rated</span>
+    <span class="hero-badge">4 Course Types</span>
+  </div>
+</section>
 
-  <!-- Courses Section -->
-  <section id="courses">
-    <h2>Our Courses</h2>
-    <p class="section-sub">Filter by subject or level to find the right course for you</p>
+<!-- ██ ABOUT ██ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="sec-label">About StudySphere</div>
+        <h2 class="sec-title">Learning that's<br><em>built around you</em></h2>
+        <p><strong>StudySphere</strong> is an online education platform focused on providing high-quality <strong>one-to-one tutoring</strong> for Edexcel <strong>IGCSE</strong> and <strong>IAL</strong> students.</p>
+        <p>We believe every student learns differently. That's why our classes are personalised, flexible, and fully focused on individual academic needs.</p>
+        <p>All sessions are conducted one-to-one to ensure better understanding, effective guidance, and consistent progress.</p>
+        <div class="about-checks">
+          <div class="about-check">
+            <div class="check-icon">✓</div>
+            <p>100% online via Google Meet — join from anywhere</p>
+          </div>
+          <div class="about-check">
+            <div class="check-icon">✓</div>
+            <p>Edexcel IGCSE & IAL specialist instructors</p>
+          </div>
+          <div class="about-check">
+            <div class="check-icon">✓</div>
+            <p>Flexible scheduling around your school timetable</p>
+          </div>
+          <div class="about-check">
+            <div class="check-icon">✓</div>
+            <p>Past paper practice with detailed walkthroughs</p>
+          </div>
+        </div>
+      </div>
+      <div class="about-card scroll-reveal">
+        <div class="about-mini-stat">
+          <div class="ams-icon" style="background:#fdf0e8">🎓</div>
+          <div>
+            <div class="ams-num">50+</div>
+            <div class="ams-lbl">Students mentored successfully</div>
+          </div>
+        </div>
+        <div class="about-mini-stat">
+          <div class="ams-icon" style="background:#fdf8f2">🌐</div>
+          <div>
+            <div class="ams-num">100%</div>
+            <div class="ams-lbl">Online via Google Meet</div>
+          </div>
+        </div>
+        <div class="about-mini-stat">
+          <div class="ams-icon" style="background:#fef9e8">⭐</div>
+          <div>
+            <div class="ams-num">5.0</div>
+            <div class="ams-lbl">Average student rating</div>
+          </div>
+        </div>
+        <div class="about-mini-stat">
+          <div class="ams-icon" style="background:#edf7f0">✏️</div>
+          <div>
+            <div class="ams-num">4</div>
+            <div class="ams-lbl">Dedicated subject instructors</div>
+          </div>
+        </div>
+        <a href="https://wa.me/8801558070225?text=Hello%2C%20I%27d%20like%20to%20book%20a%20free%20trial%20class!" target="_blank" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px;box-shadow:0 4px 14px rgba(75,31,26,0.3)">Book a Free Trial →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Online Badge -->
-    <div class="online-badge">🌐 All sessions are conducted <strong>100% online</strong> via Google Meet</div>
+<!-- ██ COURSES ██ -->
+<section id="courses">
+  <div class="container">
+    <div class="section-header">
+      <div class="sec-label">Our Courses</div>
+      <h2 class="sec-title" style="margin-bottom:0">Find the right class<br><em>for your level</em></h2>
+    </div>
+
+    <div class="online-badge">🌐 All sessions are conducted <strong>&nbsp;100% online&nbsp;</strong> via Google Meet</div>
 
     <!-- Filter Bar -->
     <div class="filter-bar">
-
       <div class="filter-group-label">Filter by Level</div>
       <button class="pill active" data-filter="all" onclick="setFilter('level','all')">
         <span class="dot"></span> All Levels
@@ -1237,13 +1692,11 @@ body.dark .splash-text {
       </div>
     </div>
 
-    <!-- Active Filter Summary -->
     <div class="filter-summary" id="filterSummary">Showing all courses</div>
 
-    <!-- Course Cards Grid -->
+    <!-- Course Cards -->
     <div class="course-grid" id="courseGrid">
 
-      <!-- ══ REGULAR COURSE ══ -->
       <div class="course-card" data-level="o-level"
            data-subjects="biology human-biology physics maths-b pure-maths cs-it chemistry english business accounting economics bangla">
         <div class="card-tags">
@@ -1255,7 +1708,7 @@ body.dark .splash-text {
         <p><strong>Duration:</strong> 1 year – 1 year 5 months</p>
         <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
         <div class="card-buttons">
-          <button onclick="enroll('Regular Course - O-Level', 3500)">Enroll Now (O-Level)</button>
+          <button class="enroll-btn" onclick="enroll('Regular Course - O-Level', 3500)">Enroll Now (O-Level)</button>
           <button class="trial-card-btn" onclick="bookTrial()">✨ Free Trial</button>
         </div>
       </div>
@@ -1272,12 +1725,11 @@ body.dark .splash-text {
         <p><strong>AS Subjects:</strong> Physics · Chemistry · Maths (P1, P2, M1) · Biology · IT · Accounting · Business Studies · Economics</p>
         <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
         <div class="card-buttons">
-          <button onclick="enroll('Regular Course - A-Level', 5000)">Enroll Now (A-Level)</button>
+          <button class="enroll-btn" onclick="enroll('Regular Course - A-Level', 5000)">Enroll Now (A-Level)</button>
           <button class="trial-card-btn" onclick="bookTrial()">✨ Free Trial</button>
         </div>
       </div>
 
-      <!-- ══ CRASH COURSE ══ -->
       <div class="course-card" data-level="o-level"
            data-subjects="biology human-biology physics maths-b pure-maths cs-it chemistry english business accounting economics bangla">
         <div class="card-tags">
@@ -1289,7 +1741,7 @@ body.dark .splash-text {
         <p><strong>Duration:</strong> 3 – 5 months</p>
         <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
         <div class="card-buttons">
-          <button onclick="enroll('Crash Course - O-Level', 5000)">Enroll Now (O-Level)</button>
+          <button class="enroll-btn" onclick="enroll('Crash Course - O-Level', 5000)">Enroll Now (O-Level)</button>
         </div>
       </div>
 
@@ -1305,11 +1757,10 @@ body.dark .splash-text {
         <p><strong>AS Subjects:</strong> Physics · Chemistry · Maths (P1, P2, M1) · Biology · IT · Accounting · Business Studies · Economics</p>
         <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
         <div class="card-buttons">
-          <button onclick="enroll('Crash Course - A-Level', 6000)">Enroll Now (A-Level)</button>
+          <button class="enroll-btn" onclick="enroll('Crash Course - A-Level', 6000)">Enroll Now (A-Level)</button>
         </div>
       </div>
 
-      <!-- ══ PAST PAPER SOLVING ══ -->
       <div class="course-card" data-level="o-level"
            data-subjects="biology human-biology physics maths-b pure-maths cs-it chemistry english business accounting economics bangla">
         <div class="card-tags">
@@ -1321,7 +1772,7 @@ body.dark .splash-text {
         <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
         <p>Timed practice with real exam papers and detailed answer walkthroughs.</p>
         <div class="card-buttons">
-          <button onclick="enroll('Past Paper Solving - O-Level', 2500)">Enroll Now (O-Level)</button>
+          <button class="enroll-btn" onclick="enroll('Past Paper Solving - O-Level', 2500)">Enroll Now (O-Level)</button>
         </div>
       </div>
 
@@ -1337,11 +1788,10 @@ body.dark .splash-text {
         <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
         <p>Timed practice with real exam papers and detailed answer walkthroughs.</p>
         <div class="card-buttons">
-          <button onclick="enroll('Past Paper Solving - A-Level', 2500)">Enroll Now (A-Level)</button>
+          <button class="enroll-btn" onclick="enroll('Past Paper Solving - A-Level', 2500)">Enroll Now (A-Level)</button>
         </div>
       </div>
 
-      <!-- ══ HOURLY RATE ══ -->
       <div class="course-card" data-level="o-level"
            data-subjects="biology human-biology physics maths-b pure-maths cs-it chemistry english business accounting economics bangla">
         <div class="card-tags">
@@ -1353,7 +1803,7 @@ body.dark .splash-text {
         <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
         <p>Flexible one-off sessions. Perfect for quick topic help or exam prep.</p>
         <div class="card-buttons">
-          <button onclick="enroll('Hourly Rate Course - O-Level', 1000)">Book a Session</button>
+          <button class="enroll-btn" onclick="enroll('Hourly Rate Course - O-Level', 1000)">Book a Session</button>
         </div>
       </div>
 
@@ -1369,64 +1819,65 @@ body.dark .splash-text {
         <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
         <p>Flexible one-off sessions. Perfect for quick topic help or exam prep.</p>
         <div class="card-buttons">
-          <button onclick="enroll('Hourly Rate Course - A-Level', 1000)">Book a Session</button>
+          <button class="enroll-btn" onclick="enroll('Hourly Rate Course - A-Level', 1000)">Book a Session</button>
         </div>
       </div>
 
     </div>
 
-    <!-- No Results -->
     <div id="no-results">
       <div class="no-results-emoji">🔍</div>
       <p>No courses match your current filter.<br>Try a different subject or level.</p>
       <button onclick="resetFilters()">Show All Courses</button>
     </div>
+  </div>
+</section>
 
-  </section>
-
-  <!-- Instructors Section -->
-  <section id="instructors" class="instructors">
-    <h2>Our Instructors</h2>
+<!-- ██ INSTRUCTORS ██ -->
+<section id="instructors">
+  <div class="container">
+    <div class="sec-label">The Team</div>
+    <h2 class="sec-title">Our <em>Instructors</em></h2>
     <div class="instructor-container">
       <div class="instructor-card">
+        <div class="instr-avatar">A</div>
         <h3>Afrida Tahsin</h3>
-        <p>Subjects: Biology, Physics, Mathematics, CS/IT</p>
+        <p><strong>Subjects:</strong> Biology, Physics, Mathematics, CS/IT</p>
         <p>University: East West University</p>
         <p>Experience: 2+ years of teaching</p>
       </div>
       <div class="instructor-card">
+        <div class="instr-avatar">I</div>
         <h3>Ishika Labiba</h3>
-        <p>Subject: Chemistry (O/A Level)</p>
+        <p><strong>Subject:</strong> Chemistry (O/A Level)</p>
         <p>University: BRAC University</p>
         <p>Experience: 2+ years of teaching</p>
       </div>
       <div class="instructor-card">
+        <div class="instr-avatar">F</div>
         <h3>Fawzia Ahmed Samiha</h3>
-        <p>Subject: English</p>
+        <p><strong>Subject:</strong> English</p>
         <p>University: East West University</p>
         <p>Experience: 2+ years of teaching</p>
       </div>
       <div class="instructor-card">
+        <div class="instr-avatar">T</div>
         <h3>Tasneem Binte Faruque</h3>
-        <p>Subjects: Business, Accounting, Economics</p>
+        <p><strong>Subjects:</strong> Business, Accounting, Economics</p>
         <p>University: North South University</p>
         <p>Experience: 2+ years of teaching</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Pricing Section -->
-  <section id="pricing">
-    <h2>Pricing</h2>
-    <p>Flexible pricing based on course type and session duration. Contact us for exact rates!</p>
-  </section>
-
-  <!-- Reviews Section -->
-  <section id="reviews">
-    <h2>What Our Students Say</h2>
-    <p class="section-sub">Real feedback from real students</p>
+<!-- ██ REVIEWS ██ -->
+<section id="reviews">
+  <div class="container">
+    <div class="sec-label">Student Reviews</div>
+    <h2 class="sec-title">What our <em>students say</em></h2>
+    <p class="section-sub" style="color:var(--text-muted);margin-top:12px;font-size:0.95rem">Real feedback from real students</p>
     <div class="reviews-grid">
-
       <div class="review-card">
         <div class="stars">⭐⭐⭐⭐⭐</div>
         <p class="review-text">"The one-to-one sessions made such a huge difference. My Chemistry grade went from a D to an A in just 3 months!"</p>
@@ -1438,10 +1889,9 @@ body.dark .splash-text {
           </div>
         </div>
       </div>
-
       <div class="review-card">
         <div class="stars">⭐⭐⭐⭐⭐</div>
-        <p class="review-text">"Afrida's Biology classes are incredibly clear. She explains every concept patiently and the past paper practice really helped."</p>
+        <p class="review-text">"Afrida ma'am's Biology classes are incredibly clear. She explains every concept patiently and the past paper practice really helped."</p>
         <div class="reviewer">
           <div class="reviewer-avatar">T</div>
           <div>
@@ -1450,7 +1900,6 @@ body.dark .splash-text {
           </div>
         </div>
       </div>
-
       <div class="review-card">
         <div class="stars">⭐⭐⭐⭐⭐</div>
         <p class="review-text">"The crash course was exactly what I needed before my exams. Focused, fast and very effective. Highly recommend StudySphere!"</p>
@@ -1462,28 +1911,30 @@ body.dark .splash-text {
           </div>
         </div>
       </div>
-
       <div class="review-card">
         <div class="stars">⭐⭐⭐⭐⭐</div>
         <p class="review-text">"Best tutoring platform I've tried. The Google Meet sessions are smooth and the instructors are always well prepared."</p>
         <div class="reviewer">
-          <div class="reviewer-avatar">R</div>
+          <div class="reviewer-avatar">S</div>
           <div>
             <strong>Sumaiya H.</strong>
             <span>O-Level Physics &amp; Maths</span>
           </div>
         </div>
       </div>
-
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FAQ Section -->
-  <section id="faq">
-    <h2>Frequently Asked Questions</h2>
-    <p class="section-sub">Everything you need to know before enrolling</p>
+<!-- ██ FAQ ██ -->
+<section id="faq">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:0">
+      <div class="sec-label">FAQ</div>
+      <h2 class="sec-title">Frequently asked <em>questions</em></h2>
+      <p style="color:var(--text-muted);margin-top:12px;font-size:0.95rem">Everything you need to know before enrolling</p>
+    </div>
     <div class="faq-list">
-
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           Do you offer a free trial class? <span class="faq-icon">+</span>
@@ -1492,16 +1943,14 @@ body.dark .splash-text {
           <p>Yes! We offer a free trial session so you can experience our teaching style before committing. Just click "Book a Free Trial" or message us on WhatsApp.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           Are all sessions one-to-one? <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>Yes, all StudySphere sessions are strictly one-to-one via Google Meet. This ensures personalized attention and a pace that suits you.</p>
+          <p>Yes, all StudySphere sessions are strictly one-to-one via Google Meet. This ensures personalised attention and a pace that suits you.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           Which exam board do you follow? <span class="faq-icon">+</span>
@@ -1510,7 +1959,6 @@ body.dark .splash-text {
           <p>We follow the Edexcel board — covering both IGCSE (O-Level) and IAL (A-Level) syllabuses.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           How do I enroll? <span class="faq-icon">+</span>
@@ -1519,16 +1967,14 @@ body.dark .splash-text {
           <p>Simply click any "Enroll Now" button on the Courses section — it will open a WhatsApp chat with a pre-filled message. We'll get back to you promptly to confirm your slot.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           Can I choose my preferred instructor? <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>Absolutely! Each instructor specializes in specific subjects. You can message us on WhatsApp to request a particular instructor based on your subject needs.</p>
+          <p>Absolutely! Each instructor specialises in specific subjects. You can message us on WhatsApp to request a particular instructor based on your subject needs.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           Are sessions flexible in terms of timing? <span class="faq-icon">+</span>
@@ -1537,39 +1983,226 @@ body.dark .splash-text {
           <p>Yes, we offer flexible scheduling. You can discuss your preferred time slots with your instructor and arrange sessions accordingly.</p>
         </div>
       </div>
-
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Contact Section -->
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <p>
-      WhatsApp / Contact:
-      <a href="https://wa.me/8801558070225" target="_blank">+880 1558-070225</a>
-    </p>
-  </section>
+<!-- ██ PRICING ██ -->
+<section id="pricing">
+  <div class="container" style="text-align:center">
+    <div class="sec-label">Pricing</div>
+    <h2 class="sec-title">Flexible &amp; <em>affordable</em></h2>
+    <p style="color:var(--text-muted);margin-top:12px;max-width:500px;margin-left:auto;margin-right:auto">Flexible pricing based on course type and session duration. Contact us directly for the latest rates!</p>
+    <div style="margin-top:32px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="https://wa.me/8801558070225?text=Hello%2C%20I%27d%20like%20to%20know%20about%20pricing%20at%20StudySphere!" target="_blank" class="btn btn-primary btn-lg">Ask About Pricing →</a>
+      <a href="#courses" class="btn btn-outline btn-lg">View Courses</a>
+    </div>
+  </div>
+</section>
 
-  <!-- Floating WhatsApp Button -->
-  <a href="https://wa.me/8801558070225?text=Hello%2C%20I%20want%20to%20know%20more%20about%20StudySphere."
-     target="_blank" id="whatsappButton">
-    <img src="whatsapp-icon.png" alt="Chat with us on WhatsApp">
-  </a>
+<!-- ██ CONTACT ██ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-left scroll-reveal">
+        <div class="sec-label">Get in Touch</div>
+        <h2 class="sec-title">Let's get you<br><em>started today</em></h2>
+        <p style="color:var(--text-muted);margin-top:16px;line-height:1.8">Have questions about a course? Not sure which level to pick? Just reach out — we'll help you find the right fit.</p>
 
-  <script>
-// ==========================
-//  Enroll via WhatsApp
-// ==========================
-function enroll(courseName, price) {
-  const phoneNumber = "8801558070225";
-  const message = `Hello, I want to enroll in "${courseName}" priced at BDT ${price}.`;
-  const encodedMessage = encodeURIComponent(message);
-  window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
+        <div style="margin-top:24px">
+          <a href="https://wa.me/8801558070225" target="_blank" class="contact-info-item">
+            <div class="ci-icon">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div>
+              <div class="ci-label">WhatsApp</div>
+              <div class="ci-value">+880 1558-070225</div>
+            </div>
+          </a>
+          <a href="mailto:studyteam442@gmail.com" class="contact-info-item">
+            <div class="ci-icon">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="ci-label">Email</div>
+              <div class="ci-value">studyteam442@gmail.com</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="scroll-reveal">
+        <div class="contact-form-card">
+          <h3>Send a quick message</h3>
+          <form id="contactForm" onsubmit="handleFormSubmit(event)">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" name="name" placeholder="e.g. Sarah Rahman" required>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea name="message" rows="4" placeholder="Tell us which course you're interested in..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Send Message →</button>
+          </form>
+          <div id="formSuccess" class="form-success">✅ Message sent! We'll be in touch soon on WhatsApp.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ██ FOOTER ██ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="nav-logo" style="margin-bottom:16px">
+          <div class="logo-fallback">S</div>
+          <span style="color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-weight:800">StudySphere</span>
+        </a>
+        <p>Online learning for ambitious students. Expert mentorship for O-Level, A-Level &amp; University.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a href="#home">Home</a>
+        <a href="#courses">Courses</a>
+        <a href="#about">About</a>
+        <a href="#instructors">Instructors</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Courses</h5>
+        <a href="#courses">O-Level Regular</a>
+        <a href="#courses">A-Level Regular</a>
+        <a href="#courses">Crash Courses</a>
+        <a href="#courses">Past Paper Solving</a>
+        <a href="#courses">Hourly Sessions</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <a href="https://wa.me/8801558070225" target="_blank">WhatsApp Us</a>
+        <a href="mailto:studyteam442@gmail.com">Email Us</a>
+        <a href="tools.html">🛠 Student Tools</a>
+        <a href="#reviews">Student Reviews</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <span>© StudySphere 2026 — All rights reserved</span>
+      <span>Made with ❤️ for students</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ██ FLOATING WHATSAPP ██ -->
+<a href="https://wa.me/8801558070225?text=Hello%2C%20I%20want%20to%20know%20more%20about%20StudySphere."
+   target="_blank" id="whatsappButton" aria-label="Chat on WhatsApp">
+  <img src="whatsapp-icon.png" alt="WhatsApp"
+       onerror="this.parentElement.innerHTML='<svg width=28 height=28 fill=white viewBox=&quot;0 0 24 24&quot;><path d=&quot;M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z&quot;/></svg>'">
+</a>
+
+<script>
+// ============================================================
+//  SPLASH SCREEN
+// ============================================================
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('splash').classList.add('hidden');
+  }, 1800);
+});
+
+// ============================================================
+//  LOGO FALLBACK
+// ============================================================
+document.querySelector('.nav-logo img')?.addEventListener('error', function() {
+  this.style.display = 'none';
+  document.getElementById('logoFallback').style.display = 'flex';
+});
+
+// ============================================================
+//  STICKY NAVBAR
+// ============================================================
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+
+  // Back to top button
+  document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 400);
+});
+
+// ============================================================
+//  SMOOTH SCROLL NAVBAR
+// ============================================================
+document.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    const href = this.getAttribute('href');
+    if (!href || !href.startsWith('#') || href === '#') return;
+    const target = document.querySelector(href);
+    if (target) {
+      e.preventDefault();
+      const offset = 72;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+      closeMobileMenu();
+    }
+  });
+});
+
+// ============================================================
+//  HAMBURGER MOBILE MENU
+// ============================================================
+const hamburger = document.getElementById('hamburger');
+const overlay   = document.getElementById('mobileOverlay');
+const closeBtn  = document.getElementById('overlayClose');
+
+function openMobileMenu() {
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileMenu() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
 }
 
-// ==========================
-//  Course Filter
-// ==========================
+hamburger.addEventListener('click', openMobileMenu);
+closeBtn.addEventListener('click', closeMobileMenu);
+overlay.addEventListener('click', (e) => {
+  if (e.target === overlay) closeMobileMenu();
+});
+
+// ============================================================
+//  DARK MODE
+// ============================================================
+function toggleDark() {
+  document.body.classList.toggle('dark');
+  const btn = document.getElementById('darkToggle');
+  const isDark = document.body.classList.contains('dark');
+  btn.textContent = isDark ? '☀️' : '🌙';
+  localStorage.setItem('darkMode', isDark);
+}
+
+if (localStorage.getItem('darkMode') === 'true') {
+  document.body.classList.add('dark');
+  document.getElementById('darkToggle').textContent = '☀️';
+}
+
+// ============================================================
+//  BACK TO TOP
+// ============================================================
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============================================================
+//  COURSE FILTER SYSTEM  (fully preserved)
+// ============================================================
 const filters = { level: 'all', subject: 'all' };
 
 function setFilter(type, value) {
@@ -1578,7 +2211,6 @@ function setFilter(type, value) {
   } else {
     filters[type] = value;
   }
-  // Reset subject when level changes
   if (type === 'level') filters.subject = 'all';
   updatePills();
   updateSubjectGroups();
@@ -1599,31 +2231,25 @@ function updateSubjectGroups() {
   const oGroup = document.getElementById('group-olevel');
   const aGroup = document.getElementById('group-alevel');
   if (!oGroup || !aGroup) return;
-
   if (filters.level === 'all') {
     oGroup.classList.remove('hidden');
     aGroup.classList.remove('hidden');
   } else if (filters.level === 'o-level') {
     oGroup.classList.remove('hidden');
     aGroup.classList.add('hidden');
-  } else if (filters.level === 'a-level') {
+  } else {
     oGroup.classList.add('hidden');
     aGroup.classList.remove('hidden');
   }
 }
 
 function updatePills() {
-  // Level pills
-  document.querySelectorAll('[data-filter="all"],[data-filter="o-level"],[data-filter="a-level"]').forEach(pill => {
-    pill.classList.toggle('active', pill.dataset.filter === filters.level);
+  document.querySelectorAll('[data-filter="all"],[data-filter="o-level"],[data-filter="a-level"]').forEach(p => {
+    p.classList.toggle('active', p.dataset.filter === filters.level);
   });
-
-  // Subject pills
-  document.querySelectorAll('.pill:not([data-filter="all"]):not([data-filter="o-level"]):not([data-filter="a-level"])').forEach(pill => {
-    pill.classList.toggle('active', pill.dataset.filter === filters.subject);
+  document.querySelectorAll('.pill:not([data-filter="all"]):not([data-filter="o-level"]):not([data-filter="a-level"])').forEach(p => {
+    p.classList.toggle('active', p.dataset.filter === filters.subject);
   });
-
-  // All Levels pill only active when both are 'all'
   const allPill = document.querySelector('[data-filter="all"]');
   if (allPill) allPill.classList.toggle('active', filters.level === 'all' && filters.subject === 'all');
 }
@@ -1631,14 +2257,11 @@ function updatePills() {
 function applyFilters() {
   const cards = document.querySelectorAll('.course-card');
   let visible = 0;
-
   cards.forEach(card => {
     const cardLevel    = card.dataset.level;
     const cardSubjects = card.dataset.subjects.split(' ');
-
     const levelMatch   = filters.level   === 'all' || cardLevel === filters.level;
     const subjectMatch = filters.subject === 'all' || cardSubjects.includes(filters.subject);
-
     if (levelMatch && subjectMatch) {
       card.classList.remove('hidden');
       card.classList.add('fade-in');
@@ -1649,115 +2272,74 @@ function applyFilters() {
       card.classList.remove('fade-in');
     }
   });
-
   document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
 }
 
 function updateSummary() {
   const summary = document.getElementById('filterSummary');
   const count   = document.querySelectorAll('.course-card:not(.hidden)').length;
-
   if (filters.level === 'all' && filters.subject === 'all') {
     summary.innerHTML = 'Showing all courses';
     return;
   }
-
   let parts = [];
   if (filters.level   !== 'all') parts.push(`<span>${filters.level.toUpperCase()}</span>`);
   if (filters.subject !== 'all') {
     const label = document.querySelector(`[data-filter="${filters.subject}"]`)?.textContent.trim() || filters.subject;
     parts.push(`<span>${label}</span>`);
   }
-
   summary.innerHTML = `Showing ${count} course${count !== 1 ? 's' : ''} for ${parts.join(' + ')}`;
 }
 
-// ==========================
-//  Smooth Scroll Navbar
-// ==========================
-document.querySelectorAll('nav a').forEach(link => {
-  link.addEventListener('click', function(e) {
-    const href = this.getAttribute('href');
-    if (!href.startsWith('#')) return;
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
-  });
-});
-
-
-// ==========================
-//  Free Trial WhatsApp
-// ==========================
-function bookTrial() {
-  const phoneNumber = "8801558070225";
-  const message = "Hello, I'd like to book a free trial class at StudySphere!";
-  window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
+// ============================================================
+//  ENROLL & TRIAL — WHATSAPP
+// ============================================================
+function enroll(courseName, price) {
+  const msg = `Hello, I want to enroll in "${courseName}" priced at BDT ${price}.`;
+  window.open(`https://wa.me/8801558070225?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
-// ==========================
-//  FAQ Toggle
-// ==========================
+function bookTrial() {
+  const msg = "Hello, I'd like to book a free trial class at StudySphere!";
+  window.open(`https://wa.me/8801558070225?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// ============================================================
+//  FAQ TOGGLE
+// ============================================================
 function toggleFaq(btn) {
   const answer = btn.nextElementSibling;
-  const icon = btn.querySelector('.faq-icon');
+  const icon   = btn.querySelector('.faq-icon');
   const isOpen = answer.classList.contains('open');
-  // Close all
   document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
-  document.querySelectorAll('.faq-icon').forEach(i => { i.textContent = '+'; i.style.transform = ''; });
-  // Open clicked if it was closed
+  document.querySelectorAll('.faq-icon').forEach(i => { i.textContent = '+'; });
   if (!isOpen) {
     answer.classList.add('open');
     icon.textContent = '×';
-    icon.style.transform = 'rotate(0deg)';
   }
 }
 
-
-// ==========================
-//  Loading Splash Screen
-// ==========================
-window.addEventListener('load', () => {
+// ============================================================
+//  CONTACT FORM — sends via WhatsApp
+// ============================================================
+function handleFormSubmit(e) {
+  e.preventDefault();
+  const data  = new FormData(e.target);
+  const name  = data.get('name');
+  const email = data.get('email');
+  const msg   = data.get('message');
+  const wa    = `Hello, I'm ${name} (${email}).\n\n${msg}`;
+  window.open(`https://wa.me/8801558070225?text=${encodeURIComponent(wa)}`, '_blank');
+  document.getElementById('formSuccess').style.display = 'block';
+  e.target.reset();
   setTimeout(() => {
-    document.getElementById('splash').classList.add('hidden');
-  }, 1800);
-});
-
-// ==========================
-//  Dark Mode Toggle
-// ==========================
-function toggleDark() {
-  document.body.classList.toggle('dark');
-  const btn = document.getElementById('darkToggle');
-  btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
-  localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+    document.getElementById('formSuccess').style.display = 'none';
+  }, 5000);
 }
 
-// Restore dark mode preference
-if (localStorage.getItem('darkMode') === 'true') {
-  document.body.classList.add('dark');
-  document.getElementById('darkToggle').textContent = '☀️';
-}
-
-// ==========================
-//  Back to Top Button
-// ==========================
-window.addEventListener('scroll', () => {
-  const btn = document.getElementById('backToTop');
-  if (window.scrollY > 400) {
-    btn.classList.add('visible');
-  } else {
-    btn.classList.remove('visible');
-  }
-});
-
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// ==========================
-//  Scroll Reveal Animations
-// ==========================
+// ============================================================
+//  SCROLL REVEAL
+// ============================================================
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1765,16 +2347,17 @@ const revealObserver = new IntersectionObserver((entries) => {
       revealObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.08 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.course-card, .instructor-card, .review-card, .faq-item, #about p, .hero-badge').forEach((el, i) => {
+  document.querySelectorAll(
+    '.course-card, .instructor-card, .review-card, .faq-item, #about p, .hero-badge, .scroll-reveal'
+  ).forEach((el, i) => {
     el.classList.add('scroll-reveal');
-    el.style.transitionDelay = (i % 4) * 0.1 + 's';
+    el.style.transitionDelay = (i % 4) * 0.08 + 's';
     revealObserver.observe(el);
   });
 });
-
 </script>
 </body>
 </html>
