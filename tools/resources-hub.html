@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes & Resources Hub — StudySphere Tools</title>
+  <meta name="description" content="Free note sites, video learning platforms, and a community notes exchange.">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/tools-shared.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="pts-overlay" id="ptsOverlay" onclick="closePtsPanel()"></div>
+<div class="pts-panel" id="ptsPanel">
+  <div class="pts-panel-header">
+    <h3><i class="ti ti-star"></i> My Points</h3>
+    <button onclick="closePtsPanel()"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="pts-balance">
+    <div class="pb-lbl">StudySphere Points</div>
+    <div class="pb-val" id="ptsPanelVal">0</div>
+    <div class="pb-sub">Keep studying to earn more!</div>
+  </div>
+  <div class="pts-section">
+    <div class="pts-section-title"><i class="ti ti-gift"></i> Redeem Rewards</div>
+    <div id="ptsRewards"></div>
+  </div>
+  <div class="pts-section">
+    <div class="pts-section-title"><i class="ti ti-list"></i> Activity Log</div>
+    <div class="pts-log" id="ptsLog"></div>
+  </div>
+</div>
+<div class="pts-toast" id="ptsToast">+10 points earned!</div>
+
+<nav class="topnav">
+  <a class="topnav-back" href="index.html"><i class="ti ti-arrow-left"></i> <span>All Tools</span></a>
+  <div class="topnav-title-wrap">
+    <i class="ti ti-books"></i>
+    <span class="topnav-title">Notes & Resources Hub</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button class="dark-toggle-btn" id="darkToggleBtn" onclick="toggleDarkMode()" aria-label="Toggle dark mode"><i class="ti ti-moon"></i></button>
+    <div class="topnav-points" onclick="openPtsPanel()">
+      <i class="ti ti-star"></i>
+      <span class="pts-val" id="topnavPts">0</span>
+      <span class="pts-lbl">pts</span>
+    </div>
+  </div>
+</nav>
+
+<main id="main" class="tool-page-main">
+  <div class="tool-page-header">
+    <div class="tool-page-icon"><i class="ti ti-books"></i></div>
+    <div>
+      <h1 class="tool-page-title">Notes & Resources Hub</h1>
+      <p class="tool-page-desc">Free note sites, video learning platforms, and a community notes exchange.</p>
+      <div class="tool-page-badges"><span class="hub-card-tag" style="background:var(--primary-light,#fdf0e8);color:var(--primary)">Student</span></div>
+    </div>
+  </div>
+<!-- 11. FREE RESOURCES HUB -->
+  <div class="tool-card" style="grid-column: 1 / -1;" data-category="student">
+    <div class="tool-header">
+      <div class="tool-icon">📚</div>
+      <div>
+        <h2>Notes & Resources Hub <span class="tool-badge badge-student">Student</span></h2>
+        <p>Free &amp; premium resources — notes, videos, practice, AI tools</p>
+      </div>
+    </div>
+    <div class="notes-hub-tabs">
+      <button class="notes-hub-tab active" id="nhTabGenerate" onclick="selectNHTab('generate')">📝 Outline Generator</button>
+      <button class="notes-hub-tab" id="nhTabOnline" onclick="selectNHTab('online')">🌐 Free Notes</button>
+      <button class="notes-hub-tab" id="nhTabVideos" onclick="selectNHTab('videos')">🎬 Video Learning</button>
+      <button class="notes-hub-tab" id="nhTabDonate" onclick="selectNHTab('donate')">💝 Donate Notes</button>
+    </div>
+    <div id="nhGeneratePanel">
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:14px">Use the <strong><a href="notes-generator.html" style="color:var(--primary)">Notes Generator</a></strong> to build a fill-in-the-blank revision structure for any topic.</p>
+      <div style="background:linear-gradient(135deg,#fdf0e8,#fff8f0);border-radius:14px;padding:16px;border:1.5px solid var(--peach)">
+        <div style="font-family:'Cinzel',serif;font-size:0.95rem;color:var(--primary);margin-bottom:6px">💡 Pro Tips for Better Notes</div>
+        <ul style="padding-left:18px;font-size:0.85rem;color:var(--muted);line-height:1.8">
+          <li>Be specific — "Photosynthesis Light-Dependent Reactions" gets better notes than just "Photosynthesis"</li>
+          <li>Select your curriculum first for exam-focused content</li>
+          <li>Always cross-check with your textbook and past paper mark schemes</li>
+          <li>Use the generated notes alongside SaveMyExams and ZNotes for best results</li>
+        </ul>
+      </div>
+    </div>
+    <div id="nhOnlinePanel" style="display:none">
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:14px">Top free &amp; trusted note sites for Cambridge &amp; Edexcel IGCSE and A Level:</p>
+      <div class="nh-online-grid" id="nhOnlineGrid"></div>
+    </div>
+    <div id="nhVideosPanel" style="display:none">
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:14px">Top free video learning platforms for IGCSE &amp; A Level:</p>
+      <div class="nh-online-grid" id="nhVideosGrid"></div>
+    </div>
+    <div id="nhDonatePanel" style="display:none">
+      <div class="nh-donate-area">
+        <div class="nh-donate-title">💝 Share Your Notes — Earn Points</div>
+        <div class="nh-donate-desc">Help your fellow students by donating your notes. Every contribution earns you StudySphere Points!</div>
+        <div class="nh-points-earn">
+          <div class="nh-earn-item"><div class="nei-pts">+50 ⭐</div><div class="nei-lbl">Upload notes</div></div>
+          <div class="nh-earn-item"><div class="nei-pts">+20 ⭐</div><div class="nei-lbl">Notes verified</div></div>
+          <div class="nh-earn-item"><div class="nei-pts">+5 ⭐</div><div class="nei-lbl">Per download</div></div>
+          <div class="nh-earn-item"><div class="nei-pts">+100 ⭐</div><div class="nei-lbl">Top rated</div></div>
+        </div>
+      </div>
+      <div style="margin-top:14px">
+        <select id="nhDonateBoard" style="margin-bottom:8px"><option value="">Select board...</option><option value="cambridge_igcse">Cambridge IGCSE</option><option value="cambridge_ial">Cambridge A Level</option><option value="edexcel_igcse">Edexcel IGCSE</option><option value="edexcel_ial">Edexcel IAL</option></select>
+        <select id="nhDonateSubject" style="margin-bottom:8px"><option value="">Select subject...</option><option>Biology</option><option>Chemistry</option><option>Physics</option><option>Mathematics</option><option>English Language</option><option>History</option><option>Economics</option><option>Business Studies</option><option>Accounting</option><option>Computer Science</option></select>
+        <input type="text" id="nhDonateTopic" placeholder="Topic covered (e.g. Respiration, Organic Chemistry)">
+        <div class="upload-zone" id="nhDonateZone" onclick="document.getElementById('nhDonateFile').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="handleNHDonateDrop(event)">
+          <div class="upload-icon">📁</div>
+          <p><strong>Upload your notes</strong> (PDF, Word, PPT)</p>
+          <input type="file" id="nhDonateFile" accept=".pdf,.docx,.pptx" onchange="handleNHDonateSelect(event)">
+        </div>
+        <div id="nhDonateBadge" style="display:none"></div>
+        <button class="btn btn-gold" onclick="donateNotes()" style="margin-top:8px">💝 Donate & Earn 50 ⭐ Points</button>
+      </div>
+      <div style="margin-top:18px">
+        <p style="font-size:0.82rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Community Notes Library</p>
+        <div id="nhCommunityList" class="pp-results"></div>
+      </div>
+    </div>
+  </div>
+<div class="related-tools">
+  <h3>Other tools</h3>
+  <div class="related-grid">
+    <a class="related-card" href="attendance-tracker.html"><i class="ti ti-user-check"></i><span>Attendance Tracker</span></a>
+    <a class="related-card" href="quick-notes.html"><i class="ti ti-note"></i><span>Quick Notes</span></a>
+    <a class="related-card" href="progress-report.html"><i class="ti ti-report-analytics"></i><span>Progress Report</span></a>
+    <a class="related-card" href="timetable-builder.html"><i class="ti ti-table"></i><span>Timetable Builder</span></a>
+  </div>
+</div>
+
+</main>
+
+<div class="tools-footer">
+  <p>Built with <i class="ti ti-heart" style="color:#e74c3c"></i> by <a href="../index.html">StudySphere</a> · All tools run in your browser · Data saved locally · <a href="https://wa.me/8801558070225" target="_blank" rel="noopener noreferrer">Contact us</a></p>
+</div>
+
+<a href="https://wa.me/8801558070225" id="whatsappButton" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+  <img src="../whatsapp-icon.png" alt="WhatsApp">
+</a>
+
+<script src="assets/tools-common.js"></script>
+<script src="assets/js/resources-hub.js"></script>
+</body>
+</html>

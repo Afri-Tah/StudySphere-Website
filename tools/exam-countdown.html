@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam Countdown — StudySphere Tools</title>
+  <meta name="description" content="Save your exam dates and keep an eye on how many days you've got left.">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/tools-shared.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="pts-overlay" id="ptsOverlay" onclick="closePtsPanel()"></div>
+<div class="pts-panel" id="ptsPanel">
+  <div class="pts-panel-header">
+    <h3><i class="ti ti-star"></i> My Points</h3>
+    <button onclick="closePtsPanel()"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="pts-balance">
+    <div class="pb-lbl">StudySphere Points</div>
+    <div class="pb-val" id="ptsPanelVal">0</div>
+    <div class="pb-sub">Keep studying to earn more!</div>
+  </div>
+  <div class="pts-section">
+    <div class="pts-section-title"><i class="ti ti-gift"></i> Redeem Rewards</div>
+    <div id="ptsRewards"></div>
+  </div>
+  <div class="pts-section">
+    <div class="pts-section-title"><i class="ti ti-list"></i> Activity Log</div>
+    <div class="pts-log" id="ptsLog"></div>
+  </div>
+</div>
+<div class="pts-toast" id="ptsToast">+10 points earned!</div>
+
+<nav class="topnav">
+  <a class="topnav-back" href="index.html"><i class="ti ti-arrow-left"></i> <span>All Tools</span></a>
+  <div class="topnav-title-wrap">
+    <i class="ti ti-hourglass-high"></i>
+    <span class="topnav-title">Exam Countdown</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button class="dark-toggle-btn" id="darkToggleBtn" onclick="toggleDarkMode()" aria-label="Toggle dark mode"><i class="ti ti-moon"></i></button>
+    <div class="topnav-points" onclick="openPtsPanel()">
+      <i class="ti ti-star"></i>
+      <span class="pts-val" id="topnavPts">0</span>
+      <span class="pts-lbl">pts</span>
+    </div>
+  </div>
+</nav>
+
+<main id="main" class="tool-page-main">
+  <div class="tool-page-header">
+    <div class="tool-page-icon"><i class="ti ti-hourglass-high"></i></div>
+    <div>
+      <h1 class="tool-page-title">Exam Countdown</h1>
+      <p class="tool-page-desc">Save your exam dates and keep an eye on how many days you've got left.</p>
+      <div class="tool-page-badges"><span class="hub-card-tag" style="background:var(--primary-light,#fdf0e8);color:var(--primary)">Student</span></div>
+    </div>
+  </div>
+<!-- 2. EXAM COUNTDOWN -->
+  <div class="tool-card" data-category="student">
+    <div class="card-3d-deco top-right">📅</div>
+    <div class="tool-header">
+      <div class="tool-icon">📅</div>
+      <div>
+        <h2>Exam Countdown <span class="tool-badge badge-student">Student</span></h2>
+        <p>Track days to multiple exams</p>
+      </div>
+    </div>
+    <svg width="0" height="0"><defs><linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#4B1F1A"/><stop offset="100%" style="stop-color:#F0B67F"/></linearGradient></defs></svg>
+    <input type="text" id="examName" placeholder="Exam name (e.g. AS Physics P1)">
+    <input type="date" id="examDate">
+    <button class="btn" onclick="addCountdown()">+ Add Exam</button>
+    <div id="savedExams" style="margin-top:10px"></div>
+    <div id="countdownDisplay" style="display:none;text-align:center;margin:12px 0">
+      <div class="countdown-ring">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle class="ring-bg" cx="70" cy="70" r="58"/>
+          <circle class="ring-fill" id="cdRing" cx="70" cy="70" r="58" stroke-dasharray="364.4" stroke-dashoffset="364.4"/>
+        </svg>
+        <div class="countdown-days">
+          <div class="num" id="cdDays">0</div>
+          <div class="lbl">days</div>
+        </div>
+      </div>
+      <div style="font-weight:800;color:var(--primary);font-family:'Cinzel',serif" id="cdName"></div>
+      <div style="font-size:0.82rem;color:var(--muted)" id="cdDateStr"></div>
+    </div>
+  </div>
+<div class="related-tools">
+  <h3>Other tools</h3>
+  <div class="related-grid">
+    <a class="related-card" href="notes-generator.html"><i class="ti ti-notes"></i><span>Notes Generator</span></a>
+    <a class="related-card" href="generators.html"><i class="ti ti-wand"></i><span>Free Online Generators</span></a>
+    <a class="related-card" href="study-tracker.html"><i class="ti ti-flame"></i><span>Study Tracker</span></a>
+    <a class="related-card" href="spin-the-wheel.html"><i class="ti ti-rotate-clockwise"></i><span>Spin the Wheel</span></a>
+  </div>
+</div>
+
+</main>
+
+<div class="tools-footer">
+  <p>Built with <i class="ti ti-heart" style="color:#e74c3c"></i> by <a href="../index.html">StudySphere</a> · All tools run in your browser · Data saved locally · <a href="https://wa.me/8801558070225" target="_blank" rel="noopener noreferrer">Contact us</a></p>
+</div>
+
+<a href="https://wa.me/8801558070225" id="whatsappButton" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+  <img src="../whatsapp-icon.png" alt="WhatsApp">
+</a>
+
+<script src="assets/tools-common.js"></script>
+<script src="assets/js/exam-countdown.js"></script>
+</body>
+</html>

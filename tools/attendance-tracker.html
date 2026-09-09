@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance Tracker — StudySphere Tools</title>
+  <meta name="description" content="Mark attendance for a class and export the register as a CSV.">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/tools-shared.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="pts-overlay" id="ptsOverlay" onclick="closePtsPanel()"></div>
+<div class="pts-panel" id="ptsPanel">
+  <div class="pts-panel-header">
+    <h3><i class="ti ti-star"></i> My Points</h3>
+    <button onclick="closePtsPanel()"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="pts-balance">
+    <div class="pb-lbl">StudySphere Points</div>
+    <div class="pb-val" id="ptsPanelVal">0</div>
+    <div class="pb-sub">Keep studying to earn more!</div>
+  </div>
+  <div class="pts-section">
+    <div class="pts-section-title"><i class="ti ti-gift"></i> Redeem Rewards</div>
+    <div id="ptsRewards"></div>
+  </div>
+  <div class="pts-section">
+    <div class="pts-section-title"><i class="ti ti-list"></i> Activity Log</div>
+    <div class="pts-log" id="ptsLog"></div>
+  </div>
+</div>
+<div class="pts-toast" id="ptsToast">+10 points earned!</div>
+
+<nav class="topnav">
+  <a class="topnav-back" href="index.html"><i class="ti ti-arrow-left"></i> <span>All Tools</span></a>
+  <div class="topnav-title-wrap">
+    <i class="ti ti-user-check"></i>
+    <span class="topnav-title">Attendance Tracker</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button class="dark-toggle-btn" id="darkToggleBtn" onclick="toggleDarkMode()" aria-label="Toggle dark mode"><i class="ti ti-moon"></i></button>
+    <div class="topnav-points" onclick="openPtsPanel()">
+      <i class="ti ti-star"></i>
+      <span class="pts-val" id="topnavPts">0</span>
+      <span class="pts-lbl">pts</span>
+    </div>
+  </div>
+</nav>
+
+<main id="main" class="tool-page-main">
+  <div class="tool-page-header">
+    <div class="tool-page-icon"><i class="ti ti-user-check"></i></div>
+    <div>
+      <h1 class="tool-page-title">Attendance Tracker</h1>
+      <p class="tool-page-desc">Mark attendance for a class and export the register as a CSV.</p>
+      <div class="tool-page-badges"><span class="hub-card-tag" style="background:var(--primary-light,#fdf0e8);color:var(--primary)">Teacher</span></div>
+    </div>
+  </div>
+<!-- 12. ATTENDANCE TRACKER -->
+  <div class="tool-card" style="grid-column: span 2;" data-category="teacher">
+    <div class="tool-header">
+      <div class="tool-icon">✅</div>
+      <div>
+        <h2>Attendance Tracker <span class="tool-badge badge-teacher">Teacher</span></h2>
+        <p>Mark students present, absent, or late — with % tracking</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <input type="text" id="newStudentName" placeholder="Add student name..." style="flex:1;margin:0" onkeydown="if(event.key==='Enter')addAttStudent()">
+      <button class="btn btn-sm btn-peach" onclick="addAttStudent()" style="margin:0">+ Add</button>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap">
+      <input type="date" id="attDateInput" style="width:auto;margin:0;padding:9px 10px">
+      <input type="text" id="attSessionLabel" placeholder="Session label (e.g. 'Biology P2')" style="flex:1;margin:0">
+      <button class="btn btn-sm" onclick="addAttDate()" style="margin:0">+ Add Session</button>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px" id="attDateBar"></div>
+    <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap" id="attBulkBar">
+      <span style="font-size:0.8rem;color:var(--muted);align-self:center">Mark all:</span>
+      <button class="btn btn-sm btn-green" onclick="bulkMark('present')" style="margin:0">✓ Present</button>
+      <button class="btn btn-sm btn-red" onclick="bulkMark('absent')" style="margin:0">✗ Absent</button>
+    </div>
+    <div class="att-table-scroll">
+      <table class="att-table" id="attTable">
+        <thead id="attHead"><tr><th>Student</th></tr></thead>
+        <tbody id="attBody"></tbody>
+      </table>
+    </div>
+    <div class="att-summary" id="attSummaryBar"></div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn btn-sm btn-outline" onclick="exportAttWA()" style="flex:1">📲 Send via WhatsApp</button>
+      <button class="btn btn-sm btn-outline" onclick="exportAttCSV()" style="flex:1">📥 Download CSV</button>
+    </div>
+  </div>
+<div class="related-tools">
+  <h3>Other tools</h3>
+  <div class="related-grid">
+    <a class="related-card" href="quick-notes.html"><i class="ti ti-note"></i><span>Quick Notes</span></a>
+    <a class="related-card" href="progress-report.html"><i class="ti ti-report-analytics"></i><span>Progress Report</span></a>
+    <a class="related-card" href="timetable-builder.html"><i class="ti ti-table"></i><span>Timetable Builder</span></a>
+    <a class="related-card" href="student-apps.html"><i class="ti ti-apps"></i><span>Student Apps & Tools</span></a>
+  </div>
+</div>
+
+</main>
+
+<div class="tools-footer">
+  <p>Built with <i class="ti ti-heart" style="color:#e74c3c"></i> by <a href="../index.html">StudySphere</a> · All tools run in your browser · Data saved locally · <a href="https://wa.me/8801558070225" target="_blank" rel="noopener noreferrer">Contact us</a></p>
+</div>
+
+<a href="https://wa.me/8801558070225" id="whatsappButton" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+  <img src="../whatsapp-icon.png" alt="WhatsApp">
+</a>
+
+<script src="assets/tools-common.js"></script>
+<script src="assets/js/attendance-tracker.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ask a Question — StudySphere Tools</title>
+  <meta name="description" content="Message one of our instructors directly on WhatsApp with your question.">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/tools-shared.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="pts-overlay" id="ptsOverlay" onclick="closePtsPanel()"></div>
+<div class="pts-panel" id="ptsPanel">
+  <div class="pts-panel-header">
+    <h3><i class="ti ti-star"></i> My Points</h3>
+    <button onclick="closePtsPanel()"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="pts-balance">
+    <div class="pb-lbl">StudySphere Points</div>
+    <div class="pb-val" id="ptsPanelVal">0</div>
+    <div class="pb-sub">Keep studying to earn more!</div>
+  </div>
+  <div class="pts-section">
+    <div class="pts-section-title"><i class="ti ti-gift"></i> Redeem Rewards</div>
+    <div id="ptsRewards"></div>
+  </div>
+  <div class="pts-section">
+    <div class="pts-section-title"><i class="ti ti-list"></i> Activity Log</div>
+    <div class="pts-log" id="ptsLog"></div>
+  </div>
+</div>
+<div class="pts-toast" id="ptsToast">+10 points earned!</div>
+
+<nav class="topnav">
+  <a class="topnav-back" href="index.html"><i class="ti ti-arrow-left"></i> <span>All Tools</span></a>
+  <div class="topnav-title-wrap">
+    <i class="ti ti-message-question"></i>
+    <span class="topnav-title">Ask a Question</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button class="dark-toggle-btn" id="darkToggleBtn" onclick="toggleDarkMode()" aria-label="Toggle dark mode"><i class="ti ti-moon"></i></button>
+    <div class="topnav-points" onclick="openPtsPanel()">
+      <i class="ti ti-star"></i>
+      <span class="pts-val" id="topnavPts">0</span>
+      <span class="pts-lbl">pts</span>
+    </div>
+  </div>
+</nav>
+
+<main id="main" class="tool-page-main">
+  <div class="tool-page-header">
+    <div class="tool-page-icon"><i class="ti ti-message-question"></i></div>
+    <div>
+      <h1 class="tool-page-title">Ask a Question</h1>
+      <p class="tool-page-desc">Message one of our instructors directly on WhatsApp with your question.</p>
+      <div class="tool-page-badges"><span class="hub-card-tag" style="background:var(--primary-light,#fdf0e8);color:var(--primary)">Student</span></div>
+    </div>
+  </div>
+<!-- 1. ASK A QUESTION -->
+  <div class="tool-card" data-category="student">
+    <div class="card-3d-deco top-right">💬</div>
+    <div class="tool-header">
+      <div class="tool-icon">💬</div>
+      <div>
+        <h2>Ask an Instructor <span class="tool-badge badge-student">Student</span></h2>
+        <p>Your question goes straight to the right teacher</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px" id="instrBtns">
+      <button class="instructor-btn" onclick="selectInstr(this,'Afrida Tahsin','Biology, Physics, Maths, CS/IT','8801558070225')">Afrida<br><small>Bio·Phy·Maths·IT</small></button>
+      <button class="instructor-btn" onclick="selectInstr(this,'Ishika Labiba','Chemistry','8801558070225')">Ishika<br><small>Chemistry</small></button>
+      <button class="instructor-btn" onclick="selectInstr(this,'Fawzia Ahmed Samiha','English','8801558070225')">Fawzia<br><small>English</small></button>
+      <button class="instructor-btn" onclick="selectInstr(this,'Tasneem Binte Faruque','Business, Accounting, Economics','8801558070225')">Tasneem<br><small>Bus·Acc·Eco</small></button>
+    </div>
+    <textarea id="studentQ" rows="3" placeholder="Type your question here..."></textarea>
+    <input type="text" id="studentName" placeholder="Your name (optional)">
+    <button class="btn" onclick="sendQuestion()">📲 Send via WhatsApp</button>
+  </div>
+<div class="related-tools">
+  <h3>Other tools</h3>
+  <div class="related-grid">
+    <a class="related-card" href="exam-countdown.html"><i class="ti ti-hourglass-high"></i><span>Exam Countdown</span></a>
+    <a class="related-card" href="notes-generator.html"><i class="ti ti-notes"></i><span>Notes Generator</span></a>
+    <a class="related-card" href="generators.html"><i class="ti ti-wand"></i><span>Free Online Generators</span></a>
+    <a class="related-card" href="study-tracker.html"><i class="ti ti-flame"></i><span>Study Tracker</span></a>
+  </div>
+</div>
+
+</main>
+
+<div class="tools-footer">
+  <p>Built with <i class="ti ti-heart" style="color:#e74c3c"></i> by <a href="../index.html">StudySphere</a> · All tools run in your browser · Data saved locally · <a href="https://wa.me/8801558070225" target="_blank" rel="noopener noreferrer">Contact us</a></p>
+</div>
+
+<a href="https://wa.me/8801558070225" id="whatsappButton" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+  <img src="../whatsapp-icon.png" alt="WhatsApp">
+</a>
+
+<script src="assets/tools-common.js"></script>
+<script src="assets/js/ask-a-question.js"></script>
+</body>
+</html>

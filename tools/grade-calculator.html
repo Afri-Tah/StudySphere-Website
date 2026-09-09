@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade Calculator — StudySphere Tools</title>
+  <meta name="description" content="Work out your current grade and what you need on what's left to hit a target.">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/tools-shared.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="pts-overlay" id="ptsOverlay" onclick="closePtsPanel()"></div>
+<div class="pts-panel" id="ptsPanel">
+  <div class="pts-panel-header">
+    <h3><i class="ti ti-star"></i> My Points</h3>
+    <button onclick="closePtsPanel()"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="pts-balance">
+    <div class="pb-lbl">StudySphere Points</div>
+    <div class="pb-val" id="ptsPanelVal">0</div>
+    <div class="pb-sub">Keep studying to earn more!</div>
+  </div>
+  <div class="pts-section">
+    <div class="pts-section-title"><i class="ti ti-gift"></i> Redeem Rewards</div>
+    <div id="ptsRewards"></div>
+  </div>
+  <div class="pts-section">
+    <div class="pts-section-title"><i class="ti ti-list"></i> Activity Log</div>
+    <div class="pts-log" id="ptsLog"></div>
+  </div>
+</div>
+<div class="pts-toast" id="ptsToast">+10 points earned!</div>
+
+<nav class="topnav">
+  <a class="topnav-back" href="index.html"><i class="ti ti-arrow-left"></i> <span>All Tools</span></a>
+  <div class="topnav-title-wrap">
+    <i class="ti ti-calculator"></i>
+    <span class="topnav-title">Grade Calculator</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button class="dark-toggle-btn" id="darkToggleBtn" onclick="toggleDarkMode()" aria-label="Toggle dark mode"><i class="ti ti-moon"></i></button>
+    <div class="topnav-points" onclick="openPtsPanel()">
+      <i class="ti ti-star"></i>
+      <span class="pts-val" id="topnavPts">0</span>
+      <span class="pts-lbl">pts</span>
+    </div>
+  </div>
+</nav>
+
+<main id="main" class="tool-page-main">
+  <div class="tool-page-header">
+    <div class="tool-page-icon"><i class="ti ti-calculator"></i></div>
+    <div>
+      <h1 class="tool-page-title">Grade Calculator</h1>
+      <p class="tool-page-desc">Work out your current grade and what you need on what's left to hit a target.</p>
+      <div class="tool-page-badges"><span class="hub-card-tag" style="background:var(--primary-light,#fdf0e8);color:var(--primary)">Student</span></div>
+    </div>
+  </div>
+<!-- 9. GRADE CALCULATOR -->
+  <div class="tool-card" style="grid-column: span 2;" data-category="student">
+    <div class="tool-header">
+      <div class="tool-icon">🎯</div>
+      <div>
+        <h2>Grade Calculator <span class="tool-badge badge-student">Student</span></h2>
+        <p>Calculate weighted grades + target grade predictor</p>
+      </div>
+    </div>
+    <div class="grade-board-tabs">
+      <button class="grade-board-tab active" id="gbTabCaie" onclick="setGradeBoard('caie',this)">🔵 Cambridge</button>
+      <button class="grade-board-tab" id="gbTabEdex" onclick="setGradeBoard('edexcel',this)">🔴 Edexcel</button>
+    </div>
+    <div class="grade-mode-selector">
+      <button class="grade-mode-btn active" id="gmBtnWeighted" onclick="setGradeMode('weighted',this)">Weighted Components</button>
+      <button class="grade-mode-btn" id="gmBtnSimple" onclick="setGradeMode('simple',this)">Simple Average</button>
+    </div>
+    <div id="gradeLevel" style="margin-bottom:10px">
+      <select id="gradeLevelSel" style="margin:0" onchange="updateBoundaries()">
+        <option value="igcse">IGCSE / O Level</option>
+        <option value="alevel">A Level / IAL</option>
+      </select>
+    </div>
+    <div id="gradeRows"></div>
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="btn btn-outline btn-sm" style="width:auto" onclick="addGradeRow()">+ Add Component</button>
+      <button class="btn btn-sm" style="width:auto" onclick="calculateGrade()">Calculate →</button>
+    </div>
+    <div class="boundary-info" id="boundaryInfo" style="display:none"></div>
+    <div id="gradeResult" style="display:none">
+      <div class="grade-result-box">
+        <div class="grade-letter" id="gradeLetter">A</div>
+        <div class="grade-pct" id="gradePct">85.0%</div>
+        <div class="grade-lbl" id="gradeMsg"></div>
+        <div class="grade-bar"><div class="grade-bar-fill" id="gradeBarFill" style="width:85%"></div></div>
+      </div>
+      <div id="gradeCompare" style="display:none">
+        <table class="boundary-table" id="gradeBoundaryTable"></table>
+        <div class="ums-info">Grade boundaries shown are typical estimates. Actual boundaries vary by session.</div>
+      </div>
+      <div class="target-grade-section">
+        <label>🎯 Target Grade Predictor</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <select id="targetGradeSelect" style="width:auto;margin:0;padding:8px 10px;font-family:'Nunito',sans-serif">
+            <option value="">Target grade...</option>
+            <option value="astar">A*</option><option value="a">A</option>
+            <option value="b">B</option><option value="c">C</option><option value="d">D</option>
+          </select>
+          <input type="number" id="targetCompWeight" placeholder="Remaining weight %" style="width:140px;margin:0">
+          <input type="text" id="targetCompName" placeholder="e.g. Paper 2" style="flex:1;margin:0;min-width:100px">
+          <button class="btn btn-sm" style="width:auto;margin:0" onclick="calcTarget()">Predict</button>
+        </div>
+        <div class="target-result" id="targetResult"></div>
+      </div>
+    </div>
+  </div>
+<div class="related-tools">
+  <h3>Other tools</h3>
+  <div class="related-grid">
+    <a class="related-card" href="past-papers.html"><i class="ti ti-file-search"></i><span>Past Papers Hub</span></a>
+    <a class="related-card" href="resources-hub.html"><i class="ti ti-books"></i><span>Notes & Resources Hub</span></a>
+    <a class="related-card" href="attendance-tracker.html"><i class="ti ti-user-check"></i><span>Attendance Tracker</span></a>
+    <a class="related-card" href="quick-notes.html"><i class="ti ti-note"></i><span>Quick Notes</span></a>
+  </div>
+</div>
+
+</main>
+
+<div class="tools-footer">
+  <p>Built with <i class="ti ti-heart" style="color:#e74c3c"></i> by <a href="../index.html">StudySphere</a> · All tools run in your browser · Data saved locally · <a href="https://wa.me/8801558070225" target="_blank" rel="noopener noreferrer">Contact us</a></p>
+</div>
+
+<a href="https://wa.me/8801558070225" id="whatsappButton" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+  <img src="../whatsapp-icon.png" alt="WhatsApp">
+</a>
+
+<script src="assets/tools-common.js"></script>
+<script src="assets/js/grade-calculator.js"></script>
+</body>
+</html>

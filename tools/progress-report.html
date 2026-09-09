@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progress Report — StudySphere Tools</title>
+  <meta name="description" content="Put together a shareable progress report for a student in a couple of minutes.">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/tools-shared.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="pts-overlay" id="ptsOverlay" onclick="closePtsPanel()"></div>
+<div class="pts-panel" id="ptsPanel">
+  <div class="pts-panel-header">
+    <h3><i class="ti ti-star"></i> My Points</h3>
+    <button onclick="closePtsPanel()"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="pts-balance">
+    <div class="pb-lbl">StudySphere Points</div>
+    <div class="pb-val" id="ptsPanelVal">0</div>
+    <div class="pb-sub">Keep studying to earn more!</div>
+  </div>
+  <div class="pts-section">
+    <div class="pts-section-title"><i class="ti ti-gift"></i> Redeem Rewards</div>
+    <div id="ptsRewards"></div>
+  </div>
+  <div class="pts-section">
+    <div class="pts-section-title"><i class="ti ti-list"></i> Activity Log</div>
+    <div class="pts-log" id="ptsLog"></div>
+  </div>
+</div>
+<div class="pts-toast" id="ptsToast">+10 points earned!</div>
+
+<nav class="topnav">
+  <a class="topnav-back" href="index.html"><i class="ti ti-arrow-left"></i> <span>All Tools</span></a>
+  <div class="topnav-title-wrap">
+    <i class="ti ti-report-analytics"></i>
+    <span class="topnav-title">Progress Report</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button class="dark-toggle-btn" id="darkToggleBtn" onclick="toggleDarkMode()" aria-label="Toggle dark mode"><i class="ti ti-moon"></i></button>
+    <div class="topnav-points" onclick="openPtsPanel()">
+      <i class="ti ti-star"></i>
+      <span class="pts-val" id="topnavPts">0</span>
+      <span class="pts-lbl">pts</span>
+    </div>
+  </div>
+</nav>
+
+<main id="main" class="tool-page-main">
+  <div class="tool-page-header">
+    <div class="tool-page-icon"><i class="ti ti-report-analytics"></i></div>
+    <div>
+      <h1 class="tool-page-title">Progress Report</h1>
+      <p class="tool-page-desc">Put together a shareable progress report for a student in a couple of minutes.</p>
+      <div class="tool-page-badges"><span class="hub-card-tag" style="background:var(--primary-light,#fdf0e8);color:var(--primary)">Teacher</span></div>
+    </div>
+  </div>
+<!-- 14. PROGRESS REPORT -->
+  <div class="tool-card" data-category="teacher">
+    <div class="card-3d-deco top-right">📄</div>
+    <div class="tool-header">
+      <div class="tool-icon">📄</div>
+      <div>
+        <h2>Progress Report <span class="tool-badge badge-teacher">Teacher</span></h2>
+        <p>Generate a WhatsApp-ready student report in seconds</p>
+      </div>
+    </div>
+    <div class="report-form-grid">
+      <input type="text" id="rptStudent" placeholder="Student name">
+      <input type="text" id="rptSubject" placeholder="Subject (e.g. AS Physics)">
+      <input type="text" id="rptPeriod" placeholder="Period (e.g. May 2025)">
+      <select id="rptOverall" style="font-family:'Nunito',sans-serif"><option value="">Overall grade...</option><option value="A*">A*</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="U">U</option></select>
+    </div>
+    <div class="report-slider-row"><label>Attendance</label><input type="range" id="rptAtt" min="0" max="100" value="90" oninput="document.getElementById('rptAttVal').textContent=this.value+'%'"><span class="slider-val" id="rptAttVal">90%</span></div>
+    <div class="report-slider-row"><label>Homework</label><input type="range" id="rptHw" min="0" max="100" value="85" oninput="document.getElementById('rptHwVal').textContent=this.value+'%'"><span class="slider-val" id="rptHwVal">85%</span></div>
+    <div class="report-slider-row"><label>Participation</label><input type="range" id="rptPart" min="0" max="100" value="80" oninput="document.getElementById('rptPartVal').textContent=this.value+'%'"><span class="slider-val" id="rptPartVal">80%</span></div>
+    <textarea id="rptStrengths" rows="2" placeholder="Strengths..."></textarea>
+    <textarea id="rptImprove" rows="2" placeholder="Areas to improve..."></textarea>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-peach" onclick="generateReport()" style="flex:1">✨ Generate Report</button>
+      <button class="btn btn-outline btn-sm" onclick="sendReportWA()" style="flex:1">📲 Send via WhatsApp</button>
+    </div>
+    <div class="report-preview" id="reportPreview"></div>
+  </div>
+<div class="related-tools">
+  <h3>Other tools</h3>
+  <div class="related-grid">
+    <a class="related-card" href="timetable-builder.html"><i class="ti ti-table"></i><span>Timetable Builder</span></a>
+    <a class="related-card" href="student-apps.html"><i class="ti ti-apps"></i><span>Student Apps & Tools</span></a>
+    <a class="related-card" href="ask-a-question.html"><i class="ti ti-message-question"></i><span>Ask a Question</span></a>
+    <a class="related-card" href="exam-countdown.html"><i class="ti ti-hourglass-high"></i><span>Exam Countdown</span></a>
+  </div>
+</div>
+
+</main>
+
+<div class="tools-footer">
+  <p>Built with <i class="ti ti-heart" style="color:#e74c3c"></i> by <a href="../index.html">StudySphere</a> · All tools run in your browser · Data saved locally · <a href="https://wa.me/8801558070225" target="_blank" rel="noopener noreferrer">Contact us</a></p>
+</div>
+
+<a href="https://wa.me/8801558070225" id="whatsappButton" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+  <img src="../whatsapp-icon.png" alt="WhatsApp">
+</a>
+
+<script src="assets/tools-common.js"></script>
+<script src="assets/js/progress-report.js"></script>
+</body>
+</html>
