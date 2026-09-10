@@ -492,6 +492,9 @@ body.dark .navbar {
   bottom: -100px; left: -80px;
 }
 
+.hero-mascot { position: absolute; right: 4%; bottom: 40px; width: 280px; z-index: 1; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.25)); }
+@media (max-width: 1100px) { .hero-mascot { display: none; } }
+
 .hero-inner {
   position: relative;
   z-index: 2;
@@ -1518,6 +1521,29 @@ body.dark footer { background: #020617; }
 <section id="home">
   <div class="hero-blob hero-blob-1"></div>
   <div class="hero-blob hero-blob-2"></div>
+  <svg class="hero-mascot" viewBox="0 0 340 300" role="img" aria-label="StudySphere owl mascot">
+    <circle cx="170" cy="140" r="140" fill="rgba(255,255,255,0.1)"/>
+    <rect x="85" y="230" width="170" height="26" rx="4" fill="#FF6B4A"/>
+    <rect x="95" y="204" width="150" height="26" rx="4" fill="#4338CA"/>
+    <rect x="105" y="178" width="130" height="26" rx="4" fill="#FFB020"/>
+    <ellipse cx="170" cy="128" rx="112" ry="128" fill="#FFFFFF"/>
+    <path d="M65 40 L100 96 L48 110 Z" fill="#EEEBFF"/>
+    <path d="M275 40 L240 96 L292 110 Z" fill="#EEEBFF"/>
+    <ellipse cx="80" cy="140" rx="42" ry="54" fill="#EEEBFF"/>
+    <ellipse cx="260" cy="140" rx="42" ry="54" fill="#EEEBFF"/>
+    <ellipse cx="170" cy="160" rx="80" ry="96" fill="#4F46E5"/>
+    <circle cx="130" cy="118" r="40" fill="#FFFFFF" stroke="#EEEBFF" stroke-width="3"/>
+    <circle cx="210" cy="118" r="40" fill="#FFFFFF" stroke="#EEEBFF" stroke-width="3"/>
+    <circle cx="136" cy="124" r="18" fill="#211B45"/>
+    <circle cx="204" cy="124" r="18" fill="#211B45"/>
+    <circle cx="142" cy="116" r="5" fill="#FFFFFF"/>
+    <circle cx="210" cy="116" r="5" fill="#FFFFFF"/>
+    <circle cx="98" cy="152" r="12" fill="#FF6B4A" opacity="0.4"/>
+    <circle cx="242" cy="152" r="12" fill="#FF6B4A" opacity="0.4"/>
+    <path d="M158 148 L182 148 L170 172 Z" fill="#FFB020"/>
+    <ellipse cx="115" cy="216" rx="20" ry="14" fill="#FF6B4A"/>
+    <ellipse cx="225" cy="216" rx="20" ry="14" fill="#FF6B4A"/>
+  </svg>
 
   <div class="container hero-inner">
     <div class="hero-pills">
