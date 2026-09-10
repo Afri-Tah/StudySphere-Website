@@ -51,7 +51,7 @@ function bulkMark(status) {
 function renderAttSummary() {
   if (!attStudents.length || !attDates.length) { document.getElementById('attSummaryBar').innerHTML = ''; return; }
   const presentCount = Object.values(attData).filter(v => v==='present').length; const absentCount = Object.values(attData).filter(v => v==='absent').length; const lateCount = Object.values(attData).filter(v => v==='late').length;
-  document.getElementById('attSummaryBar').innerHTML = `<div class="att-stat"><strong>${attStudents.length}</strong><span>Students</span></div><div class="att-stat"><strong>${attDates.length}</strong><span>Sessions</span></div><div class="att-stat" style="border-color:#2ecc71"><strong style="color:#1a7a40">${presentCount}</strong><span>Present</span></div><div class="att-stat" style="border-color:#e74c3c"><strong style="color:#7a1a1a">${absentCount}</strong><span>Absent</span></div><div class="att-stat" style="border-color:#f39c12"><strong style="color:#856404">${lateCount}</strong><span>Late</span></div>`;
+  document.getElementById('attSummaryBar').innerHTML = `<div class="att-stat"><strong>${attStudents.length}</strong><span>Students</span></div><div class="att-stat"><strong>${attDates.length}</strong><span>Sessions</span></div><div class="att-stat" style="border-color:#2ecc71"><strong style="color:#1a7a40">${presentCount}</strong><span>Present</span></div><div class="att-stat" style="border-color:#e74c3c"><strong style="color:#4338CA">${absentCount}</strong><span>Absent</span></div><div class="att-stat" style="border-color:#f39c12"><strong style="color:#856404">${lateCount}</strong><span>Late</span></div>`;
 }
 function exportAttWA() {
   if (!attStudents.length) { alert('No data!'); return; }

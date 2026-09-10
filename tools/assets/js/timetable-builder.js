@@ -1,7 +1,7 @@
 // ══ 15. TIMETABLE BUILDER ══
 let ttData = JSON.parse(localStorage.getItem('ss_timetable') || '{}');
 const TT_DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-const SUBJECT_COLORS = ['#fdf0e8','#e8f5ee','#e8eeff','#fff3cd','#fde8e8','#e8f5ff','#f5e8ff'];
+const SUBJECT_COLORS = ['#EEEBFF','#e8f5ee','#e8eeff','#fff3cd','#fde8e8','#e8f5ff','#f5e8ff'];
 function buildTimetable() {
   const start = parseInt(document.getElementById('ttStartHour').value); const end = parseInt(document.getElementById('ttEndHour').value);
   const slots = []; for (let h = start; h < end; h++) slots.push(`${String(h).padStart(2,'0')}:00–${String(h+1).padStart(2,'0')}:00`);

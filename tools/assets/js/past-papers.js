@@ -32,7 +32,7 @@ const EDEX_SUBJECTS = [
 ];
 const CAIE_SITES = [
   { name: 'PapaCambridge', icon: '📘', desc: 'Largest CAIE past papers collection — all subjects, all years', url: 'https://pastpapers.papacambridge.com/', color: '#e8f0fd' },
-  { name: 'Dilan Papers', icon: '🗂️', desc: 'Well-organised Cambridge past papers and mark schemes', url: 'https://dilanpapers.com/', color: '#fdf0e8' },
+  { name: 'Dilan Papers', icon: '🗂️', desc: 'Well-organised Cambridge past papers and mark schemes', url: 'https://dilanpapers.com/', color: '#EEEBFF' },
   { name: 'SaveMyExams', icon: '📗', desc: 'Topic questions, past papers & revision notes for CAIE', url: 'https://www.savemyexams.com/', color: '#e8f5ee' },
   { name: 'XtremePapers', icon: '📒', desc: 'Community forum with IGCSE/A Level papers & discussion', url: 'https://community.xtremepapers.com/', color: '#fde8e8' },
   { name: 'Cambridge Official', icon: '🔵', desc: 'Official past papers direct from CAIE', url: 'https://www.cambridgeinternational.org/exam-administration/exam-resources/past-papers/', color: '#e8eeff' },
@@ -46,9 +46,9 @@ const EDEX_SITES = [
   { name: 'SaveMyExams', icon: '📗', desc: 'Edexcel topic questions, past papers & model answers', url: 'https://www.savemyexams.com/', color: '#e8f5ee' },
   { name: 'Physics & Maths Tutor', icon: '📐', desc: 'Edexcel IGCSE & A Level past papers and topic questions', url: 'https://www.physicsandmathstutor.com/', color: '#fff3cd' },
   { name: 'Maths Made Easy', icon: '🔢', desc: 'Edexcel IGCSE maths past papers with solutions', url: 'https://mathsmadeeasy.co.uk/', color: '#e8f5ee' },
-  { name: 'Revisely', icon: '✅', desc: 'Edexcel IGCSE & A Level revision notes and past papers', url: 'https://www.revisely.co.uk/', color: '#fdf0e8' },
+  { name: 'Revisely', icon: '✅', desc: 'Edexcel IGCSE & A Level revision notes and past papers', url: 'https://www.revisely.co.uk/', color: '#EEEBFF' },
   { name: 'Smart Exam Resources', icon: '🟢', desc: 'Topical practice for Edexcel IGCSE subjects', url: 'https://www.smartexamresources.com/', color: '#e8f5ee' },
-  { name: 'Pearson Active Learn', icon: '🟠', desc: 'Official Edexcel digital resources and practice', url: 'https://www.pearsonactivelearn.com/', color: '#fde8d8' },
+  { name: 'Pearson Active Learn', icon: '🟠', desc: 'Official Edexcel digital resources and practice', url: 'https://www.pearsonactivelearn.com/', color: '#E0DCFF' },
 ];
 const SERIES_KEYS = {
   '2025': ['jun_2025','oct_2025'],

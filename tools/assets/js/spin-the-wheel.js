@@ -1,6 +1,6 @@
 // ══ 6. SPIN THE WHEEL ══
 const WHEEL_ITEMS = ['Do a past paper 📝','Teach it aloud 🗣','Draw a mind map 🧠','Make flashcards 📇','Read your notes 📖','Watch a video 📺','Practice definitions 📚','Timed recall ⏱'];
-const WHEEL_COLORS = ['#4B1F1A','#7a3a2a','#F0B67F','#e8a060','#2ecc71','#3498db','#9b59b6','#e74c3c'];
+const WHEEL_COLORS = ['#4F46E5','#4338CA','#FF6B4A','#E8532F','#2ecc71','#3498db','#9b59b6','#e74c3c'];
 let wheelSpinning = false;
 function drawWheel(rotation) {
   rotation = rotation || 0;

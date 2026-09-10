@@ -14,21 +14,21 @@
    CSS VARIABLES — LIGHT (Brown & Peach palette)
 ============================================================ */
 :root {
-  --primary:        #4B1F1A;
-  --primary-dark:   #3a1714;
-  --primary-light:  #fdf0e8;
-  --accent:         #F0B67F;
-  --accent-light:   #fdf8f2;
+  --primary:        #4F46E5;
+  --primary-dark:   #3730A3;
+  --primary-light:  #EEEBFF;
+  --accent:         #FF6B4A;
+  --accent-light:   #FFF1EC;
   --green:          #2ecc71;
-  --amber:          #e8a060;
-  --bg:             #fdf8f4;
+  --amber:          #E8532F;
+  --bg:             #FAFAFF;
   --bg-white:       #FFFFFF;
-  --text:           #2a1510;
-  --text-muted:     #7a5a55;
-  --text-light:     #9e7060;
-  --border:         #e8d5c8;
-  --card-shadow:    0 1px 4px rgba(75,31,26,0.06), 0 6px 24px rgba(75,31,26,0.08);
-  --card-hover:     0 4px 16px rgba(75,31,26,0.12), 0 20px 48px rgba(75,31,26,0.1);
+  --text:           #211B45;
+  --text-muted:     #6B6690;
+  --text-light:     #7A7499;
+  --border:         #E4E1FA;
+  --card-shadow:    0 1px 4px rgba(79,70,229,0.06), 0 6px 24px rgba(79,70,229,0.08);
+  --card-hover:     0 4px 16px rgba(79,70,229,0.12), 0 20px 48px rgba(79,70,229,0.1);
   --radius:         16px;
   --radius-sm:      10px;
   --pill-active-bg:   var(--primary);
@@ -42,20 +42,20 @@
    DARK MODE
 ============================================================ */
 body.dark {
-  --primary:        #F0B67F;
-  --primary-dark:   #e8a060;
-  --primary-light:  #2a1a17;
-  --accent:         #c87848;
-  --accent-light:   #1f1210;
-  --bg:             #1a0f0c;
-  --bg-white:       #2a1a17;
-  --text:           #f5e8e0;
-  --text-muted:     #c4a99e;
-  --text-light:     #9e7060;
-  --border:         #4a2a20;
+  --primary:        #FF6B4A;
+  --primary-dark:   #E8532F;
+  --primary-light:  #211C45;
+  --accent:         #C2410C;
+  --accent-light:   #2A1830;
+  --bg:             #15112B;
+  --bg-white:       #211C45;
+  --text:           #F3F1FF;
+  --text-muted:     #A9A3D6;
+  --text-light:     #7A7499;
+  --border:         #3D3875;
   --card-shadow:    0 1px 4px rgba(0,0,0,0.3), 0 6px 24px rgba(0,0,0,0.3);
   --card-hover:     0 4px 16px rgba(0,0,0,0.4), 0 20px 48px rgba(0,0,0,0.4);
-  --pill-inactive-bg: #2a1a17;
+  --pill-inactive-bg: #211C45;
   --pill-inactive-text: var(--primary);
   --pill-border:    var(--border);
 }
@@ -148,7 +148,7 @@ button { cursor: pointer; font-family: inherit; }
 .btn-primary:hover {
   background: var(--primary-dark);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(75,31,26,0.35);
+  box-shadow: 0 6px 20px rgba(79,70,229,0.35);
 }
 
 .btn-outline {
@@ -190,7 +190,7 @@ button { cursor: pointer; font-family: inherit; }
 #splash {
   position: fixed;
   inset: 0;
-  background: #4B1F1A;
+  background: #4F46E5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -288,7 +288,7 @@ body.dark .navbar {
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #4B1F1A, #F0B67F);
+  background: linear-gradient(135deg, #4F46E5, #FF6B4A);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -456,7 +456,7 @@ body.dark .navbar {
 #home {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #4B1F1A 0%, #7a3a2a 45%, #a05030 100%);
+  background: linear-gradient(135deg, #4F46E5 0%, #4338CA 45%, #C2410C 100%);
   padding: 100px 0 80px;
   min-height: 88vh;
   display: flex;
@@ -483,12 +483,12 @@ body.dark .navbar {
 }
 .hero-blob-1 {
   width: 500px; height: 500px;
-  background: #F0B67F;
+  background: #FF6B4A;
   top: -100px; right: -100px;
 }
 .hero-blob-2 {
   width: 400px; height: 400px;
-  background: #c87848;
+  background: #C2410C;
   bottom: -100px; left: -80px;
 }
 
@@ -531,7 +531,7 @@ body.dark .navbar {
 
 #home h1 em {
   font-style: normal;
-  background: linear-gradient(120deg, #F0B67F, #ffd4a0, #e8c090);
+  background: linear-gradient(120deg, #FF6B4A, #FFD1B8, #FFCBB0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -763,7 +763,7 @@ body.dark .online-badge {
   background: var(--pill-active-bg);
   color: var(--pill-active-text);
   border-color: var(--primary);
-  box-shadow: 0 4px 12px rgba(75,31,26,0.25);
+  box-shadow: 0 4px 12px rgba(79,70,229,0.25);
   transform: translateY(-1px);
 }
 .pill .dot {
@@ -827,7 +827,7 @@ body.dark .online-badge {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #4B1F1A, #F0B67F);
+  background: linear-gradient(90deg, #4F46E5, #FF6B4A);
   border-radius: var(--radius) var(--radius) 0 0;
 }
 .course-card:hover {
@@ -908,7 +908,7 @@ body.dark .tag-subject { color: var(--accent); }
 }
 .card-buttons .enroll-btn:hover {
   background: var(--primary-dark);
-  box-shadow: 0 4px 14px rgba(75,31,26,0.3);
+  box-shadow: 0 4px 14px rgba(79,70,229,0.3);
 }
 .card-buttons .trial-card-btn {
   background: transparent;
@@ -976,7 +976,7 @@ body.dark .tag-subject { color: var(--accent); }
 .instr-avatar {
   width: 64px; height: 64px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4B1F1A, #F0B67F);
+  background: linear-gradient(135deg, #4F46E5, #FF6B4A);
   color: #fff;
   font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 1.6rem;
@@ -985,7 +985,7 @@ body.dark .tag-subject { color: var(--accent); }
   align-items: center;
   justify-content: center;
   margin: 0 auto 16px;
-  box-shadow: 0 4px 16px rgba(75,31,26,0.25);
+  box-shadow: 0 4px 16px rgba(79,70,229,0.25);
 }
 
 .instructor-card h3 {
@@ -1061,7 +1061,7 @@ body.dark .review-card::before { color: var(--primary-light); }
 .reviewer-avatar {
   width: 40px; height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4B1F1A, #F0B67F);
+  background: linear-gradient(135deg, #4F46E5, #FF6B4A);
   color: #fff;
   display: flex;
   align-items: center;
@@ -1272,7 +1272,7 @@ body.dark .review-card::before { color: var(--primary-light); }
 .form-group input:focus,
 .form-group textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(75,31,26,0.08);
+  box-shadow: 0 0 0 3px rgba(79,70,229,0.08);
 }
 .form-group textarea { resize: vertical; }
 .form-success {
@@ -1598,14 +1598,14 @@ body.dark footer { background: #020617; }
       </div>
       <div class="about-card scroll-reveal">
         <div class="about-mini-stat">
-          <div class="ams-icon" style="background:#fdf0e8">🎓</div>
+          <div class="ams-icon" style="background:#EEEBFF">🎓</div>
           <div>
             <div class="ams-num">50+</div>
             <div class="ams-lbl">Students mentored successfully</div>
           </div>
         </div>
         <div class="about-mini-stat">
-          <div class="ams-icon" style="background:#fdf8f2">🌐</div>
+          <div class="ams-icon" style="background:#FFF1EC">🌐</div>
           <div>
             <div class="ams-num">100%</div>
             <div class="ams-lbl">Online via Google Meet</div>
@@ -1625,7 +1625,7 @@ body.dark footer { background: #020617; }
             <div class="ams-lbl">Dedicated subject instructors</div>
           </div>
         </div>
-        <a href="https://wa.me/8801558070225?text=Hello%2C%20I%27d%20like%20to%20book%20a%20free%20trial%20class!" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px;box-shadow:0 4px 14px rgba(75,31,26,0.3)">Book a Free Trial →</a>
+        <a href="https://wa.me/8801558070225?text=Hello%2C%20I%27d%20like%20to%20book%20a%20free%20trial%20class!" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px;box-shadow:0 4px 14px rgba(79,70,229,0.3)">Book a Free Trial →</a>
       </div>
     </div>
   </div>
