@@ -492,8 +492,26 @@ body.dark .navbar {
   bottom: -100px; left: -80px;
 }
 
-.hero-mascot { position: absolute; right: 4%; bottom: 40px; width: 280px; z-index: 1; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.25)); }
+.hero-mascot { position: absolute; right: 4%; bottom: 40px; width: 260px; z-index: 2; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3)); animation: mascotFloat 4.5s ease-in-out infinite; }
 @media (max-width: 1100px) { .hero-mascot { display: none; } }
+@keyframes mascotFloat {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%      { transform: translateY(-16px) rotate(2deg); }
+}
+
+/* Desk illustration — faint decorative layer behind hero content */
+.hero-desk-deco {
+  position: absolute;
+  right: -60px;
+  bottom: -60px;
+  width: 620px;
+  max-width: 45vw;
+  z-index: 0;
+  opacity: 0.16;
+  transform: rotate(-4deg);
+  pointer-events: none;
+}
+@media (max-width: 900px) { .hero-desk-deco { display: none; } }
 
 .hero-inner {
   position: relative;
@@ -651,6 +669,31 @@ body.dark .navbar {
   font-size: 0.95rem;
   color: var(--text);
   font-weight: 500;
+}
+
+.about-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.about-illustration {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+.about-illustration img {
+  width: 100%;
+  display: block;
+}
+.about-illustration .about-owl-peek {
+  position: absolute;
+  bottom: -18px;
+  left: -18px;
+  width: 84px;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
+  transform: rotate(-6deg);
 }
 
 .about-card {
@@ -1011,7 +1054,20 @@ body.dark .tag-subject { color: var(--accent); }
 #reviews {
   padding: 80px 0;
   background: var(--bg);
+  position: relative;
+  overflow: hidden;
 }
+
+.reviews-mascot {
+  position: absolute;
+  top: 36px;
+  right: 6%;
+  width: 92px;
+  transform: rotate(8deg);
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.12));
+  animation: mascotFloat 5s ease-in-out infinite;
+}
+@media (max-width: 780px) { .reviews-mascot { display: none; } }
 
 .reviews-grid {
   display: grid;
@@ -1156,7 +1212,9 @@ body.dark .review-card::before { color: var(--primary-light); }
 ============================================================ */
 #pricing {
   padding: 80px 0;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: url('assets/illustrations/halloween-pattern-faint.png');
+  background-size: 560px 560px;
   border-top: 1px solid var(--border);
   text-align: center;
 }
@@ -1294,11 +1352,15 @@ body.dark .review-card::before { color: var(--primary-light); }
    SECTION — FOOTER
 ============================================================ */
 footer {
-  background: var(--text);
+  background-color: var(--text);
+  background-image: url('assets/illustrations/web-texture-faint.png');
+  background-size: 900px auto;
+  background-position: top center;
+  background-repeat: repeat-x;
   color: rgba(255,255,255,0.7);
   padding: 64px 0 0;
 }
-body.dark footer { background: #020617; }
+body.dark footer { background-color: #020617; background-image: url('assets/illustrations/web-texture-faint.png'); background-size: 900px auto; background-position: top center; background-repeat: repeat-x; }
 
 .footer-grid {
   display: grid;
@@ -1521,29 +1583,8 @@ body.dark footer { background: #020617; }
 <section id="home">
   <div class="hero-blob hero-blob-1"></div>
   <div class="hero-blob hero-blob-2"></div>
-  <svg class="hero-mascot" viewBox="0 0 340 300" role="img" aria-label="StudySphere owl mascot">
-    <circle cx="170" cy="140" r="140" fill="rgba(255,255,255,0.1)"/>
-    <rect x="85" y="230" width="170" height="26" rx="4" fill="#FF6B4A"/>
-    <rect x="95" y="204" width="150" height="26" rx="4" fill="#4338CA"/>
-    <rect x="105" y="178" width="130" height="26" rx="4" fill="#FFB020"/>
-    <ellipse cx="170" cy="128" rx="112" ry="128" fill="#FFFFFF"/>
-    <path d="M65 40 L100 96 L48 110 Z" fill="#EEEBFF"/>
-    <path d="M275 40 L240 96 L292 110 Z" fill="#EEEBFF"/>
-    <ellipse cx="80" cy="140" rx="42" ry="54" fill="#EEEBFF"/>
-    <ellipse cx="260" cy="140" rx="42" ry="54" fill="#EEEBFF"/>
-    <ellipse cx="170" cy="160" rx="80" ry="96" fill="#4F46E5"/>
-    <circle cx="130" cy="118" r="40" fill="#FFFFFF" stroke="#EEEBFF" stroke-width="3"/>
-    <circle cx="210" cy="118" r="40" fill="#FFFFFF" stroke="#EEEBFF" stroke-width="3"/>
-    <circle cx="136" cy="124" r="18" fill="#211B45"/>
-    <circle cx="204" cy="124" r="18" fill="#211B45"/>
-    <circle cx="142" cy="116" r="5" fill="#FFFFFF"/>
-    <circle cx="210" cy="116" r="5" fill="#FFFFFF"/>
-    <circle cx="98" cy="152" r="12" fill="#FF6B4A" opacity="0.4"/>
-    <circle cx="242" cy="152" r="12" fill="#FF6B4A" opacity="0.4"/>
-    <path d="M158 148 L182 148 L170 172 Z" fill="#FFB020"/>
-    <ellipse cx="115" cy="216" rx="20" ry="14" fill="#FF6B4A"/>
-    <ellipse cx="225" cy="216" rx="20" ry="14" fill="#FF6B4A"/>
-  </svg>
+  <img class="hero-desk-deco" src="assets/illustrations/desk-illustration.png" alt="" aria-hidden="true" loading="lazy">
+  <img class="hero-mascot" src="assets/illustrations/owl-mascot.png" alt="StudySphere owl mascot" loading="lazy">
 
   <div class="container hero-inner">
     <div class="hero-pills">
@@ -1622,6 +1663,11 @@ body.dark footer { background: #020617; }
           </div>
         </div>
       </div>
+      <div class="about-visual">
+        <div class="about-illustration scroll-reveal">
+          <img src="assets/illustrations/girl-illustration.png" alt="Student studying online with StudySphere" loading="lazy">
+          <img class="about-owl-peek" src="assets/illustrations/owl-mascot.png" alt="" aria-hidden="true" loading="lazy">
+        </div>
       <div class="about-card scroll-reveal">
         <div class="about-mini-stat">
           <div class="ams-icon" style="background:#EEEBFF">🎓</div>
@@ -1652,6 +1698,7 @@ body.dark footer { background: #020617; }
           </div>
         </div>
         <a href="https://wa.me/8801558070225?text=Hello%2C%20I%27d%20like%20to%20book%20a%20free%20trial%20class!" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px;box-shadow:0 4px 14px rgba(79,70,229,0.3)">Book a Free Trial →</a>
+      </div>
       </div>
     </div>
   </div>
@@ -1899,6 +1946,7 @@ body.dark footer { background: #020617; }
 
 <!-- ██ REVIEWS ██ -->
 <section id="reviews">
+  <img class="reviews-mascot" src="assets/illustrations/cat-mascot.png" alt="" aria-hidden="true" loading="lazy">
   <div class="container">
     <div class="sec-label">Student Reviews</div>
     <h2 class="sec-title">What our <em>students say</em></h2>
