@@ -2,17 +2,22 @@
    :root - Color Palette
 ========================== */
 :root {
-  --primary-color: #4B1F1A;
-  --secondary-color: #F0B67F;
-  --text-color: #333333;
-  --bg-color: #FFFFFF;
+  --pastel-blush: #E8CFCB;
+  --pastel-sage: #C9D8C0;
+  --pastel-blue: #C9D6E3;
+  --pastel-lavender: #D9D1E3;
+  --soft-cream: #FAF7F0;
+  --primary-color: #6B5B4B;
+  --secondary-color: #DCC9AE;
+  --text-color: #4A4036;
+  --bg-color: #FFFDF8;
   --btn-bg: var(--primary-color);
-  --btn-text: #FFFFFF;
-  --pill-active-bg: #4B1F1A;
+  --btn-text: #FFFDF8;
+  --pill-active-bg: #6B5B4B;
   --pill-active-text: #fff;
   --pill-inactive-bg: #fff;
-  --pill-inactive-text: #4B1F1A;
-  --pill-border: #4B1F1A;
+  --pill-inactive-text: #6B5B4B;
+  --pill-border: #6B5B4B;
 }
 
 /* ==========================
@@ -47,7 +52,7 @@ nav {
 }
 
 nav a {
-  color: #FFFFFF;
+  color: #FFFDF8;
   margin: 0 10px;
   font-weight: bold;
 }
@@ -122,7 +127,7 @@ nav a.active {
    Courses Section
 ========================== */
 #courses {
-  background-color: #f9f9f9;
+  background-color: #F7F2E9;
   padding: 60px 20px 80px;
 }
 
@@ -132,7 +137,7 @@ nav a.active {
 }
 
 .section-sub {
-  color: #7a5a55;
+  color: #7D6B5B;
   font-size: 1rem;
   margin-bottom: 16px;
 }
@@ -142,9 +147,9 @@ nav a.active {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #eaf7ee;
-  color: #1a6b35;
-  border: 1.5px solid #a8d9b8;
+  background: #EEF3EA;
+  color: #58705A;
+  border: 1.5px solid #BFD0BD;
   border-radius: 999px;
   padding: 8px 20px;
   font-size: 0.9rem;
@@ -174,7 +179,7 @@ nav a.active {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #9e7060;
+  color: #9A806C;
   margin-bottom: 4px;
 }
 
@@ -196,7 +201,7 @@ nav a.active {
 }
 
 .pill:hover {
-  background: #f0b67f44;
+  background: #DCC9AE55;
   transform: translateY(-2px);
   box-shadow: 0 3px 10px rgba(75,31,26,0.12);
 }
@@ -219,14 +224,14 @@ nav a.active {
 .filter-divider {
   width: 100%;
   height: 1px;
-  background: #e8d8d0;
+  background: #E4D8C8;
   margin: 6px 0 10px;
 }
 
 /* Filter Summary */
 .filter-summary {
   font-size: 0.85rem;
-  color: #9e7060;
+  color: #9A806C;
   margin-bottom: 28px;
   min-height: 20px;
 }
@@ -362,7 +367,7 @@ nav a.active {
   display: none;
   text-align: center;
   padding: 50px 20px;
-  color: #9e7060;
+  color: #9A806C;
 }
 
 .no-results-emoji {
@@ -441,7 +446,7 @@ nav a.active {
    Pricing Section
 ========================== */
 #pricing {
-  background-color: #f9f9f9;
+  background-color: #F7F2E9;
   padding: 60px 20px;
 }
 
