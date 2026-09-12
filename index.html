@@ -14,21 +14,21 @@
    CSS VARIABLES — LIGHT (Brown & Peach palette)
 ============================================================ */
 :root {
-  --primary:        #4F46E5;
-  --primary-dark:   #3730A3;
-  --primary-light:  #EEEBFF;
-  --accent:         #FF6B4A;
-  --accent-light:   #FFF1EC;
+  --primary:        #4FA89D;
+  --primary-dark:   #3D8880;
+  --primary-light:  #E6F5F3;
+  --accent:         #E8735C;
+  --accent-light:   #FDEDE8;
   --green:          #2ecc71;
-  --amber:          #E8532F;
-  --bg:             #FAFAFF;
+  --amber:          #D68A3D;
+  --bg:             #F7FBFB;
   --bg-white:       #FFFFFF;
-  --text:           #211B45;
-  --text-muted:     #6B6690;
-  --text-light:     #7A7499;
-  --border:         #E4E1FA;
-  --card-shadow:    0 1px 4px rgba(79,70,229,0.06), 0 6px 24px rgba(79,70,229,0.08);
-  --card-hover:     0 4px 16px rgba(79,70,229,0.12), 0 20px 48px rgba(79,70,229,0.1);
+  --text:           #2B2B33;
+  --text-muted:     #6B6870;
+  --text-light:     #8A8790;
+  --border:         #E3E8E7;
+  --card-shadow:    0 1px 4px rgba(40,60,58,0.06), 0 6px 24px rgba(40,60,58,0.08);
+  --card-hover:     0 4px 16px rgba(40,60,58,0.12), 0 20px 48px rgba(40,60,58,0.1);
   --radius:         16px;
   --radius-sm:      10px;
   --pill-active-bg:   var(--primary);
@@ -42,20 +42,20 @@
    DARK MODE
 ============================================================ */
 body.dark {
-  --primary:        #FF6B4A;
-  --primary-dark:   #E8532F;
-  --primary-light:  #211C45;
-  --accent:         #C2410C;
-  --accent-light:   #2A1830;
-  --bg:             #15112B;
-  --bg-white:       #211C45;
-  --text:           #F3F1FF;
-  --text-muted:     #A9A3D6;
-  --text-light:     #7A7499;
-  --border:         #3D3875;
+  --primary:        #E8735C;
+  --primary-dark:   #C25A46;
+  --primary-light:  #3A2420;
+  --accent:         #4FA89D;
+  --accent-light:   #1F3A37;
+  --bg:             #1C1F1E;
+  --bg-white:       #262B2A;
+  --text:           #F5F3EF;
+  --text-muted:     #B8B4AC;
+  --text-light:     #8A8790;
+  --border:         #3A413F;
   --card-shadow:    0 1px 4px rgba(0,0,0,0.3), 0 6px 24px rgba(0,0,0,0.3);
   --card-hover:     0 4px 16px rgba(0,0,0,0.4), 0 20px 48px rgba(0,0,0,0.4);
-  --pill-inactive-bg: #211C45;
+  --pill-inactive-bg: #262B2A;
   --pill-inactive-text: var(--primary);
   --pill-border:    var(--border);
 }
@@ -117,10 +117,7 @@ button { cursor: pointer; font-family: inherit; }
 
 .sec-title em {
   font-style: normal;
-  background: linear-gradient(120deg, var(--primary), var(--accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--accent);
 }
 
 /* ============================================================
@@ -148,7 +145,7 @@ button { cursor: pointer; font-family: inherit; }
 .btn-primary:hover {
   background: var(--primary-dark);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(79,70,229,0.35);
+  box-shadow: 0 6px 20px rgba(79,168,157,0.35);
 }
 
 .btn-outline {
@@ -163,13 +160,12 @@ button { cursor: pointer; font-family: inherit; }
 }
 
 .btn-ghost {
-  background: rgba(255,255,255,0.12);
-  color: #fff;
-  border: 1.5px solid rgba(255,255,255,0.25);
-  backdrop-filter: blur(8px);
+  background: #fff;
+  color: #2B2B33;
+  border: 1.5px solid rgba(79,168,157,0.3);
 }
 .btn-ghost:hover {
-  background: rgba(255,255,255,0.2);
+  background: #F7FBFB;
   transform: translateY(-1px);
 }
 
@@ -190,7 +186,7 @@ button { cursor: pointer; font-family: inherit; }
 #splash {
   position: fixed;
   inset: 0;
-  background: #4F46E5;
+  background: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -288,7 +284,7 @@ body.dark .navbar {
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #4F46E5, #FF6B4A);
+  background: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -456,7 +452,7 @@ body.dark .navbar {
 #home {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #4F46E5 0%, #4338CA 45%, #C2410C 100%);
+  background: #D9F0F0;
   padding: 100px 0 80px;
   min-height: 88vh;
   display: flex;
@@ -468,7 +464,7 @@ body.dark .navbar {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(79,168,157,0.18) 1px, transparent 1px);
   background-size: 28px 28px;
   pointer-events: none;
 }
@@ -479,7 +475,7 @@ body.dark .navbar {
   border-radius: 50%;
   filter: blur(80px);
   pointer-events: none;
-  opacity: 0.35;
+  opacity: 0.25;
 }
 .hero-blob-1 {
   width: 500px; height: 500px;
@@ -488,7 +484,7 @@ body.dark .navbar {
 }
 .hero-blob-2 {
   width: 400px; height: 400px;
-  background: #C2410C;
+  background: #4FA89D;
   bottom: -100px; left: -80px;
 }
 
@@ -497,6 +493,18 @@ body.dark .navbar {
   z-index: 2;
   max-width: 780px;
 }
+
+.hero-parachute {
+  position: absolute;
+  right: -40px;
+  top: 40px;
+  width: 340px;
+  border-radius: 24px;
+  opacity: 0.92;
+  z-index: 0;
+  box-shadow: 0 20px 50px rgba(40,60,58,0.15);
+}
+@media (max-width: 1100px) { .hero-parachute { display: none; } }
 
 .hero-pills {
   display: flex;
@@ -509,10 +517,10 @@ body.dark .navbar {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(79,168,157,0.25);
   backdrop-filter: blur(8px);
-  color: #fff;
+  color: #2B2B33;
   padding: 6px 16px;
   border-radius: 999px;
   font-size: 0.82rem;
@@ -523,7 +531,7 @@ body.dark .navbar {
   font-family: 'Bricolage Grotesque', sans-serif;
   font-size: clamp(2.4rem, 6vw, 4rem);
   font-weight: 800;
-  color: #fff;
+  color: #2B2B33;
   line-height: 1.1;
   margin-bottom: 24px;
   letter-spacing: -0.02em;
@@ -531,15 +539,12 @@ body.dark .navbar {
 
 #home h1 em {
   font-style: normal;
-  background: linear-gradient(120deg, #FF6B4A, #FFD1B8, #FFCBB0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #E8735C;
 }
 
 .hero-sub {
   font-size: clamp(1rem, 2vw, 1.2rem);
-  color: rgba(255,255,255,0.8);
+  color: #4A4A52;
   line-height: 1.7;
   margin-bottom: 36px;
   max-width: 580px;
@@ -557,8 +562,8 @@ body.dark .navbar {
   display: flex;
   flex-wrap: wrap;
   gap: 0;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(79,168,157,0.25);
   backdrop-filter: blur(12px);
   border-radius: 16px;
   overflow: hidden;
@@ -570,7 +575,7 @@ body.dark .navbar {
   min-width: 120px;
   padding: 20px 16px;
   text-align: center;
-  border-right: 1px solid rgba(255,255,255,0.12);
+  border-right: 1px solid rgba(79,168,157,0.18);
 }
 .hero-stat:last-child { border-right: none; }
 
@@ -578,13 +583,13 @@ body.dark .navbar {
   font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 1.6rem;
   font-weight: 800;
-  color: #fff;
+  color: #2B2B33;
   display: block;
   line-height: 1.1;
 }
 .hero-stat-lbl {
   font-size: 0.75rem;
-  color: rgba(255,255,255,0.6);
+  color: #6B6870;
   font-weight: 500;
   margin-top: 4px;
   display: block;
@@ -691,12 +696,14 @@ body.dark .navbar {
 ============================================================ */
 #courses {
   padding: 80px 0 96px;
-  background: var(--bg);
+  background: var(--accent-light);
 }
 
 #courses .section-header {
   margin-bottom: 40px;
+  position: relative;
 }
+@media (max-width: 700px) { .courses-desk-img { display: none; } }
 
 /* Online badge */
 .online-badge {
@@ -763,7 +770,7 @@ body.dark .online-badge {
   background: var(--pill-active-bg);
   color: var(--pill-active-text);
   border-color: var(--primary);
-  box-shadow: 0 4px 12px rgba(79,70,229,0.25);
+  box-shadow: 0 4px 12px rgba(79,168,157,0.25);
   transform: translateY(-1px);
 }
 .pill .dot {
@@ -827,7 +834,7 @@ body.dark .online-badge {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #4F46E5, #FF6B4A);
+  background: var(--primary);
   border-radius: var(--radius) var(--radius) 0 0;
 }
 .course-card:hover {
@@ -908,7 +915,7 @@ body.dark .tag-subject { color: var(--accent); }
 }
 .card-buttons .enroll-btn:hover {
   background: var(--primary-dark);
-  box-shadow: 0 4px 14px rgba(79,70,229,0.3);
+  box-shadow: 0 4px 14px rgba(79,168,157,0.3);
 }
 .card-buttons .trial-card-btn {
   background: transparent;
@@ -976,7 +983,7 @@ body.dark .tag-subject { color: var(--accent); }
 .instr-avatar {
   width: 64px; height: 64px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4F46E5, #FF6B4A);
+  background: var(--primary);
   color: #fff;
   font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 1.6rem;
@@ -985,7 +992,7 @@ body.dark .tag-subject { color: var(--accent); }
   align-items: center;
   justify-content: center;
   margin: 0 auto 16px;
-  box-shadow: 0 4px 16px rgba(79,70,229,0.25);
+  box-shadow: 0 4px 16px rgba(79,168,157,0.25);
 }
 
 .instructor-card h3 {
@@ -1061,7 +1068,7 @@ body.dark .review-card::before { color: var(--primary-light); }
 .reviewer-avatar {
   width: 40px; height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4F46E5, #FF6B4A);
+  background: var(--primary);
   color: #fff;
   display: flex;
   align-items: center;
@@ -1272,7 +1279,7 @@ body.dark .review-card::before { color: var(--primary-light); }
 .form-group input:focus,
 .form-group textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(79,70,229,0.08);
+  box-shadow: 0 0 0 3px rgba(79,168,157,0.08);
 }
 .form-group textarea { resize: vertical; }
 .form-success {
@@ -1291,11 +1298,24 @@ body.dark .review-card::before { color: var(--primary-light); }
    SECTION — FOOTER
 ============================================================ */
 footer {
+  position: relative;
+  overflow: hidden;
   background: var(--text);
   color: rgba(255,255,255,0.7);
   padding: 64px 0 0;
 }
-body.dark footer { background: #020617; }
+footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('assets/img/halloween-pattern.jpg');
+  background-size: 320px;
+  background-repeat: repeat;
+  opacity: 0.07;
+  pointer-events: none;
+}
+footer .container { position: relative; z-index: 1; }
+body.dark footer { background: #16181A; }
 
 .footer-grid {
   display: grid;
@@ -1518,6 +1538,7 @@ body.dark footer { background: #020617; }
 <section id="home">
   <div class="hero-blob hero-blob-1"></div>
   <div class="hero-blob hero-blob-2"></div>
+  <img class="hero-parachute" src="assets/img/parachute-illustration.jpg" alt="">
 
   <div class="container hero-inner">
     <div class="hero-pills">
@@ -1599,7 +1620,7 @@ body.dark footer { background: #020617; }
       <div class="about-card scroll-reveal">
         <img src="assets/img/cat-mascot.png" alt="" style="width:100%;border-radius:14px;margin-bottom:6px" loading="lazy">
         <div class="about-mini-stat">
-          <div class="ams-icon" style="background:#EEEBFF">🎓</div>
+          <div class="ams-icon" style="background:var(--primary-light)">🎓</div>
           <div>
             <div class="ams-num">50+</div>
             <div class="ams-lbl">Students mentored successfully</div>
@@ -1626,7 +1647,7 @@ body.dark footer { background: #020617; }
             <div class="ams-lbl">Dedicated subject instructors</div>
           </div>
         </div>
-        <a href="https://wa.me/8801558070225?text=Hello%2C%20I%27d%20like%20to%20book%20a%20free%20trial%20class!" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px;box-shadow:0 4px 14px rgba(79,70,229,0.3)">Book a Free Trial →</a>
+        <a href="https://wa.me/8801558070225?text=Hello%2C%20I%27d%20like%20to%20book%20a%20free%20trial%20class!" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px;box-shadow:0 4px 14px rgba(79,168,157,0.3)">Book a Free Trial →</a>
       </div>
     </div>
   </div>
@@ -1638,6 +1659,7 @@ body.dark footer { background: #020617; }
     <div class="section-header">
       <div class="sec-label">Our Courses</div>
       <h2 class="sec-title" style="margin-bottom:0">Find the right class<br><em>for your level</em></h2>
+      <img src="assets/img/desk-illustration.jpg" alt="" style="width:110px;border-radius:16px;position:absolute;right:24px;top:24px;box-shadow:0 8px 24px rgba(40,60,58,0.15)" class="courses-desk-img">
     </div>
 
     <div class="online-badge">🌐 All sessions are conducted <strong>&nbsp;100% online&nbsp;</strong> via Google Meet</div>
