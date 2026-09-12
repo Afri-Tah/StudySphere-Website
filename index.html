@@ -708,7 +708,6 @@ body.dark #about {
   margin-bottom: 40px;
   position: relative;
 }
-@media (max-width: 700px) { .courses-desk-img { display: none; } }
 
 /* Online badge */
 .online-badge {
@@ -813,6 +812,126 @@ body.dark .online-badge {
   padding: 2px 10px;
   border-radius: 999px;
   margin: 0 3px;
+}
+
+/* ============================================================
+   COURSES — SKY PALETTE + BOLD/DARK TYPE (scoped override)
+============================================================ */
+#courses {
+  background: #E9F4FA;
+}
+body.dark #courses {
+  background: #142530;
+}
+
+#courses .sec-label {
+  color: #1E5A82;
+  background: #D6EBF7;
+  font-weight: 800;
+}
+body.dark #courses .sec-label {
+  color: #8FD0F5;
+  background: #1E3A4D;
+}
+
+#courses .sec-title {
+  font-weight: 900;
+  color: #12293A;
+}
+body.dark #courses .sec-title {
+  color: #F0F8FD;
+}
+
+#courses .sec-title em {
+  font-weight: 900;
+  color: #1D6FA3;
+}
+body.dark #courses .sec-title em {
+  color: #6FC2F0;
+}
+
+#courses .online-badge {
+  background: #D6EBF7;
+  color: #1E5A82;
+  border-color: #B9DCF0;
+  font-weight: 700;
+}
+body.dark #courses .online-badge {
+  background: #1E3A4D;
+  color: #8FD0F5;
+  border-color: #2C5570;
+}
+
+#courses .filter-group-label {
+  color: #3E6E8C;
+  font-weight: 800;
+}
+body.dark #courses .filter-group-label {
+  color: #8FB8CE;
+}
+
+#courses .pill {
+  font-weight: 600;
+  color: #1E5A82;
+  border-color: #BFDCEE;
+}
+body.dark #courses .pill {
+  color: #8FD0F5;
+  border-color: #2C5570;
+}
+#courses .pill:hover {
+  border-color: #2F8FC2;
+  color: #1E5A82;
+  background: #D6EBF7;
+}
+body.dark #courses .pill:hover {
+  border-color: #6FC2F0;
+  color: #F0F8FD;
+  background: #1E3A4D;
+}
+#courses .pill.active {
+  background: #2F8FC2;
+  color: #fff;
+  border-color: #2F8FC2;
+  box-shadow: 0 4px 12px rgba(47,143,194,0.3);
+}
+body.dark #courses .pill.active {
+  background: #4AA3D6;
+  border-color: #4AA3D6;
+}
+
+#courses .filter-summary span {
+  background: #D6EBF7;
+  color: #1E5A82;
+}
+body.dark #courses .filter-summary span {
+  background: #1E3A4D;
+  color: #8FD0F5;
+}
+
+#courses .tag-level {
+  background: #D6EBF7;
+  color: #1E5A82;
+  font-weight: 800;
+}
+body.dark #courses .tag-level {
+  background: #1E3A4D;
+  color: #8FD0F5;
+}
+
+#courses .course-card::before {
+  background: #2F8FC2;
+}
+body.dark #courses .course-card::before {
+  background: #4AA3D6;
+}
+
+#courses .course-card h3 {
+  font-weight: 800;
+  color: #12293A;
+}
+body.dark #courses .course-card h3 {
+  color: #F0F8FD;
 }
 
 /* Course Grid */
@@ -1663,7 +1782,6 @@ body.dark footer { background: #16181A; }
     <div class="section-header">
       <div class="sec-label">Our Courses</div>
       <h2 class="sec-title" style="margin-bottom:0">Find the right class<br><em>for your level</em></h2>
-      <img src="assets/img/desk-illustration.jpg" alt="" style="width:110px;border-radius:16px;position:absolute;right:24px;top:24px;box-shadow:0 8px 24px rgba(40,60,58,0.15)" class="courses-desk-img">
     </div>
 
     <div class="online-badge">🌐 All sessions are conducted <strong>&nbsp;100% online&nbsp;</strong> via Google Meet</div>
