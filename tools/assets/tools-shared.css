@@ -765,7 +765,11 @@ a[rel="noopener"] { }
    HUB PAGE (tools/index.html)
 ══════════════════════════════════════════════════════ */
 .hub-hero {
-  background: var(--primary);
+  background:
+    linear-gradient(rgba(60,45,30,0.5), rgba(60,45,30,0.5)),
+    url('../../assets/img/abstract-shapes-cropped.jpg');
+  background-size: cover;
+  background-position: center;
   padding: 44px 20px 34px;
   text-align: center;
   color: #fff;
