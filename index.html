@@ -14,21 +14,21 @@
    CSS VARIABLES — LIGHT (Brown & Peach palette)
 ============================================================ */
 :root {
-  --primary:        #4FA89D;
-  --primary-dark:   #3D8880;
-  --primary-light:  #E6F5F3;
-  --accent:         #E8735C;
-  --accent-light:   #FDEDE8;
-  --green:          #2ecc71;
-  --amber:          #D68A3D;
-  --bg:             #F7FBFB;
+  --primary:        #B5754E;
+  --primary-dark:   #93583A;
+  --primary-light:  #F6ECE2;
+  --accent:         #A78A63;
+  --accent-light:   #F1E9DC;
+  --green:          #A78A63;
+  --amber:          #BE8A45;
+  --bg:             #FBF7F1;
   --bg-white:       #FFFFFF;
-  --text:           #2B2B33;
-  --text-muted:     #6B6870;
-  --text-light:     #8A8790;
-  --border:         #E3E8E7;
-  --card-shadow:    0 1px 4px rgba(40,60,58,0.06), 0 6px 24px rgba(40,60,58,0.08);
-  --card-hover:     0 4px 16px rgba(40,60,58,0.12), 0 20px 48px rgba(40,60,58,0.1);
+  --text:           #3B342C;
+  --text-muted:     #8C8172;
+  --text-light:     #A79C8C;
+  --border:         #E8DFD1;
+  --card-shadow:    0 1px 4px rgba(70,58,44,0.06), 0 6px 24px rgba(70,58,44,0.08);
+  --card-hover:     0 4px 16px rgba(70,58,44,0.12), 0 20px 48px rgba(70,58,44,0.1);
   --radius:         16px;
   --radius-sm:      10px;
   --pill-active-bg:   var(--primary);
@@ -42,20 +42,20 @@
    DARK MODE
 ============================================================ */
 body.dark {
-  --primary:        #E8735C;
-  --primary-dark:   #C25A46;
-  --primary-light:  #3A2420;
-  --accent:         #4FA89D;
-  --accent-light:   #1F3A37;
-  --bg:             #1C1F1E;
-  --bg-white:       #262B2A;
-  --text:           #F5F3EF;
-  --text-muted:     #B8B4AC;
-  --text-light:     #8A8790;
-  --border:         #3A413F;
+  --primary:        #D9945F;
+  --primary-dark:   #B97A48;
+  --primary-light:  #3A2E22;
+  --accent:         #C7B08A;
+  --accent-light:   #2E2820;
+  --bg:             #21201B;
+  --bg-white:       #2B2822;
+  --text:           #F3ECE2;
+  --text-muted:     #BEB3A2;
+  --text-light:     #A79C8C;
+  --border:         #43392C;
   --card-shadow:    0 1px 4px rgba(0,0,0,0.3), 0 6px 24px rgba(0,0,0,0.3);
   --card-hover:     0 4px 16px rgba(0,0,0,0.4), 0 20px 48px rgba(0,0,0,0.4);
-  --pill-inactive-bg: #262B2A;
+  --pill-inactive-bg: #2B2822;
   --pill-inactive-text: var(--primary);
   --pill-border:    var(--border);
 }
@@ -145,7 +145,7 @@ button { cursor: pointer; font-family: inherit; }
 .btn-primary:hover {
   background: var(--primary-dark);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(79,168,157,0.35);
+  box-shadow: 0 6px 20px rgba(181,117,78,0.35);
 }
 
 .btn-outline {
@@ -162,10 +162,10 @@ button { cursor: pointer; font-family: inherit; }
 .btn-ghost {
   background: #fff;
   color: #2B2B33;
-  border: 1.5px solid rgba(79,168,157,0.3);
+  border: 1.5px solid rgba(181,117,78,0.3);
 }
 .btn-ghost:hover {
-  background: #F7FBFB;
+  background: #F8F4EE;
   transform: translateY(-1px);
 }
 
@@ -452,7 +452,11 @@ body.dark .navbar {
 #home {
   position: relative;
   overflow: hidden;
-  background: #D9F0F0;
+  background:
+    linear-gradient(rgba(243,234,217,0.88), rgba(243,234,217,0.94)),
+    url('assets/img/parachute-illustration.jpg');
+  background-size: cover;
+  background-position: center;
   padding: 100px 0 80px;
   min-height: 88vh;
   display: flex;
@@ -464,7 +468,7 @@ body.dark .navbar {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(79,168,157,0.18) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(181,117,78,0.14) 1px, transparent 1px);
   background-size: 28px 28px;
   pointer-events: none;
 }
@@ -479,12 +483,12 @@ body.dark .navbar {
 }
 .hero-blob-1 {
   width: 500px; height: 500px;
-  background: #FF6B4A;
+  background: #E7D3B8;
   top: -100px; right: -100px;
 }
 .hero-blob-2 {
   width: 400px; height: 400px;
-  background: #4FA89D;
+  background: #D8C4A4;
   bottom: -100px; left: -80px;
 }
 
@@ -518,7 +522,7 @@ body.dark .navbar {
   align-items: center;
   gap: 6px;
   background: rgba(255,255,255,0.7);
-  border: 1px solid rgba(79,168,157,0.25);
+  border: 1px solid rgba(181,117,78,0.2);
   backdrop-filter: blur(8px);
   color: #2B2B33;
   padding: 6px 16px;
@@ -539,7 +543,7 @@ body.dark .navbar {
 
 #home h1 em {
   font-style: normal;
-  color: #E8735C;
+  color: #B5754E;
 }
 
 .hero-sub {
@@ -563,7 +567,7 @@ body.dark .navbar {
   flex-wrap: wrap;
   gap: 0;
   background: rgba(255,255,255,0.75);
-  border: 1px solid rgba(79,168,157,0.25);
+  border: 1px solid rgba(181,117,78,0.2);
   backdrop-filter: blur(12px);
   border-radius: 16px;
   overflow: hidden;
@@ -575,7 +579,7 @@ body.dark .navbar {
   min-width: 120px;
   padding: 20px 16px;
   text-align: center;
-  border-right: 1px solid rgba(79,168,157,0.18);
+  border-right: 1px solid rgba(181,117,78,0.14);
 }
 .hero-stat:last-child { border-right: none; }
 
@@ -603,8 +607,19 @@ body.dark .navbar {
 ============================================================ */
 #about {
   padding: 80px 0;
-  background: var(--bg-white);
+  background:
+    linear-gradient(rgba(251,247,241,0.93), rgba(251,247,241,0.93)),
+    url('assets/img/study-illustration.jpg');
+  background-size: cover;
+  background-position: center;
   border-bottom: 1px solid var(--border);
+}
+body.dark #about {
+  background:
+    linear-gradient(rgba(33,32,27,0.93), rgba(33,32,27,0.93)),
+    url('assets/img/study-illustration.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 .about-grid {
@@ -710,9 +725,9 @@ body.dark .navbar {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #ECFDF5;
-  color: #065F46;
-  border: 1.5px solid #A7F3D0;
+  background: #F4EEE0;
+  color: #6B5432;
+  border: 1.5px solid #E0D2B2;
   border-radius: 999px;
   padding: 8px 20px;
   font-size: 0.85rem;
@@ -720,9 +735,9 @@ body.dark .navbar {
   margin-bottom: 32px;
 }
 body.dark .online-badge {
-  background: #1a3a25;
-  color: #6EE7B7;
-  border-color: #2a5a35;
+  background: #332B1E;
+  color: #E3C793;
+  border-color: #4A3E2A;
 }
 
 /* Filter bar */
@@ -770,7 +785,7 @@ body.dark .online-badge {
   background: var(--pill-active-bg);
   color: var(--pill-active-text);
   border-color: var(--primary);
-  box-shadow: 0 4px 12px rgba(79,168,157,0.25);
+  box-shadow: 0 4px 12px rgba(181,117,78,0.2);
   transform: translateY(-1px);
 }
 .pill .dot {
@@ -871,7 +886,7 @@ body.dark .online-badge {
 }
 .tag-subject {
   background: var(--accent-light);
-  color: #0891B2;
+  color: #8A6B3F;
 }
 body.dark .tag-subject { color: var(--accent); }
 
@@ -915,7 +930,7 @@ body.dark .tag-subject { color: var(--accent); }
 }
 .card-buttons .enroll-btn:hover {
   background: var(--primary-dark);
-  box-shadow: 0 4px 14px rgba(79,168,157,0.3);
+  box-shadow: 0 4px 14px rgba(181,117,78,0.3);
 }
 .card-buttons .trial-card-btn {
   background: transparent;
@@ -992,7 +1007,7 @@ body.dark .tag-subject { color: var(--accent); }
   align-items: center;
   justify-content: center;
   margin: 0 auto 16px;
-  box-shadow: 0 4px 16px rgba(79,168,157,0.25);
+  box-shadow: 0 4px 16px rgba(181,117,78,0.2);
 }
 
 .instructor-card h3 {
@@ -1279,17 +1294,17 @@ body.dark .review-card::before { color: var(--primary-light); }
 .form-group input:focus,
 .form-group textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(79,168,157,0.08);
+  box-shadow: 0 0 0 3px rgba(181,117,78,0.08);
 }
 .form-group textarea { resize: vertical; }
 .form-success {
   display: none;
   margin-top: 12px;
   padding: 12px 16px;
-  background: #ECFDF5;
-  border: 1px solid #A7F3D0;
+  background: #F4EEE0;
+  border: 1px solid #E0D2B2;
   border-radius: var(--radius-sm);
-  color: #065F46;
+  color: #6B5432;
   font-size: 0.88rem;
   font-weight: 500;
 }
@@ -1641,13 +1656,13 @@ body.dark footer { background: #16181A; }
           </div>
         </div>
         <div class="about-mini-stat">
-          <div class="ams-icon" style="background:#edf7f0">✏️</div>
+          <div class="ams-icon" style="background:#F5EFE0">✏️</div>
           <div>
             <div class="ams-num">4</div>
             <div class="ams-lbl">Dedicated subject instructors</div>
           </div>
         </div>
-        <a href="https://wa.me/8801558070225?text=Hello%2C%20I%27d%20like%20to%20book%20a%20free%20trial%20class!" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px;box-shadow:0 4px 14px rgba(79,168,157,0.3)">Book a Free Trial →</a>
+        <a href="https://wa.me/8801558070225?text=Hello%2C%20I%27d%20like%20to%20book%20a%20free%20trial%20class!" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px;box-shadow:0 4px 14px rgba(181,117,78,0.3)">Book a Free Trial →</a>
       </div>
     </div>
   </div>
