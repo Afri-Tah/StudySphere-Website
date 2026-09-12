@@ -14,16 +14,16 @@
    CSS VARIABLES — LIGHT (Brown & Peach palette)
 ============================================================ */
 :root {
-  --primary:        #8A7460;
+  --primary:        #4F46E5;
   --primary-dark:   #3730A3;
   --primary-light:  #EEEBFF;
-  --accent:         #8A7460;
+  --accent:         #FF6B4A;
   --accent-light:   #FFF1EC;
   --green:          #2ecc71;
   --amber:          #E8532F;
   --bg:             #FAFAFF;
-  --bg-white:       #FFFDF8;
-  --text:           #4A4036;
+  --bg-white:       #FFFFFF;
+  --text:           #211B45;
   --text-muted:     #6B6690;
   --text-light:     #7A7499;
   --border:         #E4E1FA;
@@ -42,12 +42,12 @@
    DARK MODE
 ============================================================ */
 body.dark {
-  --primary:        #8A7460;
+  --primary:        #FF6B4A;
   --primary-dark:   #E8532F;
   --primary-light:  #211C45;
   --accent:         #C2410C;
   --accent-light:   #2A1830;
-  --bg:             #3F372F;
+  --bg:             #15112B;
   --bg-white:       #211C45;
   --text:           #F3F1FF;
   --text-muted:     #A9A3D6;
@@ -190,7 +190,7 @@ button { cursor: pointer; font-family: inherit; }
 #splash {
   position: fixed;
   inset: 0;
-  background: #8A7460;
+  background: #4F46E5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -288,7 +288,7 @@ body.dark .navbar {
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #8A7460, #8A7460);
+  background: linear-gradient(135deg, #4F46E5, #FF6B4A);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -456,7 +456,7 @@ body.dark .navbar {
 #home {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #8A7460 0%, #765F4C 45%, #C2410C 100%);
+  background: linear-gradient(135deg, #4F46E5 0%, #4338CA 45%, #C2410C 100%);
   padding: 100px 0 80px;
   min-height: 88vh;
   display: flex;
@@ -483,7 +483,7 @@ body.dark .navbar {
 }
 .hero-blob-1 {
   width: 500px; height: 500px;
-  background: #8A7460;
+  background: #FF6B4A;
   top: -100px; right: -100px;
 }
 .hero-blob-2 {
@@ -491,27 +491,6 @@ body.dark .navbar {
   background: #C2410C;
   bottom: -100px; left: -80px;
 }
-
-.hero-mascot { position: absolute; right: 4%; bottom: 40px; width: 260px; z-index: 2; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3)); animation: mascotFloat 4.5s ease-in-out infinite; }
-@media (max-width: 1100px) { .hero-mascot { display: none; } }
-@keyframes mascotFloat {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50%      { transform: translateY(-16px) rotate(2deg); }
-}
-
-/* Desk illustration — faint decorative layer behind hero content */
-.hero-desk-deco {
-  position: absolute;
-  right: -60px;
-  bottom: -60px;
-  width: 620px;
-  max-width: 45vw;
-  z-index: 0;
-  opacity: 0.16;
-  transform: rotate(-4deg);
-  pointer-events: none;
-}
-@media (max-width: 900px) { .hero-desk-deco { display: none; } }
 
 .hero-inner {
   position: relative;
@@ -552,7 +531,7 @@ body.dark .navbar {
 
 #home h1 em {
   font-style: normal;
-  background: linear-gradient(120deg, #8A7460, #FFD1B8, #E8CFCB);
+  background: linear-gradient(120deg, #FF6B4A, #FFD1B8, #FFCBB0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -671,31 +650,6 @@ body.dark .navbar {
   font-weight: 500;
 }
 
-.about-visual {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.about-illustration {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--card-shadow);
-}
-.about-illustration img {
-  width: 100%;
-  display: block;
-}
-.about-illustration .about-owl-peek {
-  position: absolute;
-  bottom: -18px;
-  left: -18px;
-  width: 84px;
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
-  transform: rotate(-6deg);
-}
-
 .about-card {
   background: var(--bg);
   border: 1px solid var(--border);
@@ -749,7 +703,7 @@ body.dark .navbar {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #F0F5EC;
+  background: #ECFDF5;
   color: #065F46;
   border: 1.5px solid #A7F3D0;
   border-radius: 999px;
@@ -873,7 +827,7 @@ body.dark .online-badge {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #8A7460, #8A7460);
+  background: linear-gradient(90deg, #4F46E5, #FF6B4A);
   border-radius: var(--radius) var(--radius) 0 0;
 }
 .course-card:hover {
@@ -910,7 +864,7 @@ body.dark .online-badge {
 }
 .tag-subject {
   background: var(--accent-light);
-  color: #607F86;
+  color: #0891B2;
 }
 body.dark .tag-subject { color: var(--accent); }
 
@@ -1022,7 +976,7 @@ body.dark .tag-subject { color: var(--accent); }
 .instr-avatar {
   width: 64px; height: 64px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #8A7460, #8A7460);
+  background: linear-gradient(135deg, #4F46E5, #FF6B4A);
   color: #fff;
   font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 1.6rem;
@@ -1054,20 +1008,7 @@ body.dark .tag-subject { color: var(--accent); }
 #reviews {
   padding: 80px 0;
   background: var(--bg);
-  position: relative;
-  overflow: hidden;
 }
-
-.reviews-mascot {
-  position: absolute;
-  top: 36px;
-  right: 6%;
-  width: 92px;
-  transform: rotate(8deg);
-  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.12));
-  animation: mascotFloat 5s ease-in-out infinite;
-}
-@media (max-width: 780px) { .reviews-mascot { display: none; } }
 
 .reviews-grid {
   display: grid;
@@ -1120,7 +1061,7 @@ body.dark .review-card::before { color: var(--primary-light); }
 .reviewer-avatar {
   width: 40px; height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #8A7460, #8A7460);
+  background: linear-gradient(135deg, #4F46E5, #FF6B4A);
   color: #fff;
   display: flex;
   align-items: center;
@@ -1212,9 +1153,7 @@ body.dark .review-card::before { color: var(--primary-light); }
 ============================================================ */
 #pricing {
   padding: 80px 0;
-  background-color: var(--bg);
-  background-image: url('assets/illustrations/halloween-pattern-faint.png');
-  background-size: 560px 560px;
+  background: var(--bg);
   border-top: 1px solid var(--border);
   text-align: center;
 }
@@ -1340,7 +1279,7 @@ body.dark .review-card::before { color: var(--primary-light); }
   display: none;
   margin-top: 12px;
   padding: 12px 16px;
-  background: #F0F5EC;
+  background: #ECFDF5;
   border: 1px solid #A7F3D0;
   border-radius: var(--radius-sm);
   color: #065F46;
@@ -1352,15 +1291,11 @@ body.dark .review-card::before { color: var(--primary-light); }
    SECTION — FOOTER
 ============================================================ */
 footer {
-  background-color: var(--text);
-  background-image: url('assets/illustrations/web-texture-faint.png');
-  background-size: 900px auto;
-  background-position: top center;
-  background-repeat: repeat-x;
+  background: var(--text);
   color: rgba(255,255,255,0.7);
   padding: 64px 0 0;
 }
-body.dark footer { background-color: #020617; background-image: url('assets/illustrations/web-texture-faint.png'); background-size: 900px auto; background-position: top center; background-repeat: repeat-x; }
+body.dark footer { background: #020617; }
 
 .footer-grid {
   display: grid;
@@ -1583,8 +1518,6 @@ body.dark footer { background-color: #020617; background-image: url('assets/illu
 <section id="home">
   <div class="hero-blob hero-blob-1"></div>
   <div class="hero-blob hero-blob-2"></div>
-  <img class="hero-desk-deco" src="assets/illustrations/desk-illustration.png" alt="" aria-hidden="true" loading="lazy">
-  <img class="hero-mascot" src="assets/illustrations/owl-mascot.png" alt="StudySphere owl mascot" loading="lazy">
 
   <div class="container hero-inner">
     <div class="hero-pills">
@@ -1663,12 +1596,8 @@ body.dark footer { background-color: #020617; background-image: url('assets/illu
           </div>
         </div>
       </div>
-      <div class="about-visual">
-        <div class="about-illustration scroll-reveal">
-          <img src="assets/illustrations/girl-illustration.png" alt="Student studying online with StudySphere" loading="lazy">
-          <img class="about-owl-peek" src="assets/illustrations/owl-mascot.png" alt="" aria-hidden="true" loading="lazy">
-        </div>
       <div class="about-card scroll-reveal">
+        <img src="assets/img/cat-mascot.png" alt="" style="width:100%;border-radius:14px;margin-bottom:6px" loading="lazy">
         <div class="about-mini-stat">
           <div class="ams-icon" style="background:#EEEBFF">🎓</div>
           <div>
@@ -1698,7 +1627,6 @@ body.dark footer { background-color: #020617; background-image: url('assets/illu
           </div>
         </div>
         <a href="https://wa.me/8801558070225?text=Hello%2C%20I%27d%20like%20to%20book%20a%20free%20trial%20class!" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px;box-shadow:0 4px 14px rgba(79,70,229,0.3)">Book a Free Trial →</a>
-      </div>
       </div>
     </div>
   </div>
@@ -1946,7 +1874,6 @@ body.dark footer { background-color: #020617; background-image: url('assets/illu
 
 <!-- ██ REVIEWS ██ -->
 <section id="reviews">
-  <img class="reviews-mascot" src="assets/illustrations/cat-mascot.png" alt="" aria-hidden="true" loading="lazy">
   <div class="container">
     <div class="sec-label">Student Reviews</div>
     <h2 class="sec-title">What our <em>students say</em></h2>
@@ -2140,6 +2067,7 @@ body.dark footer { background-color: #020617; background-image: url('assets/illu
           <span style="color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-weight:800">StudySphere</span>
         </a>
         <p>Online learning for ambitious students. Expert mentorship for O-Level, A-Level &amp; University.</p>
+        <img src="assets/img/owl-mascot.png" alt="StudySphere owl mascot" style="width:56px;height:56px;margin-top:14px;object-fit:contain" loading="lazy">
       </div>
       <div class="footer-col">
         <h5>Navigate</h5>

@@ -24,9 +24,9 @@ function calculateGrade() {
   const avg = gradeMode === 'weighted' ? (weightedSum / totalWeight) * 100 : values.reduce((a,b)=>a+b,0)/values.length;
   const boundaries = gradeLevel === 'igcse' ? {'A*':90,'A':80,'B':70,'C':60,'D':50,'E':40} : {'A*':90,'A':80,'B':70,'C':60,'D':50,'E':40,'U':0};
   let letter = avg >= 90 ? 'A*' : avg >= 80 ? 'A' : avg >= 70 ? 'B' : avg >= 60 ? 'C' : avg >= 50 ? 'D' : avg >= 40 ? 'E' : 'U';
-  const colors = { 'A*':'#1a7a40','A':'#2ecc71','B':'#3498db','C':'#f39c12','D':'#e67e22','E':'#e74c3c','U':'#765F4C' };
+  const colors = { 'A*':'#1a7a40','A':'#2ecc71','B':'#3498db','C':'#f39c12','D':'#e67e22','E':'#e74c3c','U':'#4338CA' };
   document.getElementById('gradeLetter').textContent = letter;
-  document.getElementById('gradeLetter').style.color = colors[letter] || '#8A7460';
+  document.getElementById('gradeLetter').style.color = colors[letter] || '#4F46E5';
   document.getElementById('gradePct').textContent = avg.toFixed(1) + '%';
   document.getElementById('gradeMsg').textContent = `${gradeBoard === 'edexcel' ? 'Edexcel' : 'Cambridge'} ${gradeLevel.toUpperCase()} · ${totalWeight.toFixed(0)}% weighted`;
   document.getElementById('gradeBarFill').style.width = Math.min(avg, 100) + '%';
