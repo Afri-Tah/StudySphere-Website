@@ -14,18 +14,18 @@
    CSS VARIABLES — LIGHT (Brown & Peach palette)
 ============================================================ */
 :root {
-  --primary:        #B5754E;
-  --primary-dark:   #93583A;
-  --primary-light:  #F6ECE2;
-  --accent:         #A78A63;
+  --primary:        #D98BA3;
+  --primary-dark:   #B8607F;
+  --primary-light:  #FBEAF0;
+  --accent:         #C9AE8E;
   --accent-light:   #F1E9DC;
-  --green:          #A78A63;
-  --amber:          #BE8A45;
+  --green:          #C9AE8E;
+  --amber:          #E2A0B8;
   --bg:             #FBF7F1;
   --bg-white:       #FFFFFF;
-  --text:           #3B342C;
-  --text-muted:     #8C8172;
-  --text-light:     #A79C8C;
+  --text:           #3B2E33;
+  --text-muted:     #93838C;
+  --text-light:     #AC9CA4;
   --border:         #E8DFD1;
   --card-shadow:    0 1px 4px rgba(70,58,44,0.06), 0 6px 24px rgba(70,58,44,0.08);
   --card-hover:     0 4px 16px rgba(70,58,44,0.12), 0 20px 48px rgba(70,58,44,0.1);
@@ -42,16 +42,16 @@
    DARK MODE
 ============================================================ */
 body.dark {
-  --primary:        #D9945F;
-  --primary-dark:   #B97A48;
-  --primary-light:  #3A2E22;
-  --accent:         #C7B08A;
+  --primary:        #E8A2B8;
+  --primary-dark:   #C97690;
+  --primary-light:  #3A2530;
+  --accent:         #D6C3A0;
   --accent-light:   #2E2820;
   --bg:             #21201B;
   --bg-white:       #2B2822;
   --text:           #F3ECE2;
   --text-muted:     #BEB3A2;
-  --text-light:     #A79C8C;
+  --text-light:     #AC9CA4;
   --border:         #43392C;
   --card-shadow:    0 1px 4px rgba(0,0,0,0.3), 0 6px 24px rgba(0,0,0,0.3);
   --card-hover:     0 4px 16px rgba(0,0,0,0.4), 0 20px 48px rgba(0,0,0,0.4);
@@ -145,7 +145,7 @@ button { cursor: pointer; font-family: inherit; }
 .btn-primary:hover {
   background: var(--primary-dark);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(181,117,78,0.35);
+  box-shadow: 0 6px 20px rgba(217,139,163,0.35);
 }
 
 .btn-outline {
@@ -162,7 +162,7 @@ button { cursor: pointer; font-family: inherit; }
 .btn-ghost {
   background: #fff;
   color: #2B2B33;
-  border: 1.5px solid rgba(181,117,78,0.3);
+  border: 1.5px solid rgba(217,139,163,0.3);
 }
 .btn-ghost:hover {
   background: #F8F4EE;
@@ -186,7 +186,7 @@ button { cursor: pointer; font-family: inherit; }
 #splash {
   position: fixed;
   inset: 0;
-  background: #DCEEF0;
+  background: #FBEAF0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -214,7 +214,7 @@ button { cursor: pointer; font-family: inherit; }
   font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 1.8rem;
   font-weight: 800;
-  color: #3B342C;
+  color: #3B2E33;
   letter-spacing: 0.1em;
   margin-bottom: 28px;
 }
@@ -230,7 +230,7 @@ button { cursor: pointer; font-family: inherit; }
 .splash-fill {
   height: 100%;
   width: 0%;
-  background: #B5754E;
+  background: #D98BA3;
   border-radius: 999px;
   animation: fillBar 1.6s ease forwards;
 }
@@ -468,7 +468,7 @@ body.dark .navbar {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(181,117,78,0.14) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(217,139,163,0.14) 1px, transparent 1px);
   background-size: 28px 28px;
   pointer-events: none;
 }
@@ -483,12 +483,12 @@ body.dark .navbar {
 }
 .hero-blob-1 {
   width: 500px; height: 500px;
-  background: #E7D3B8;
+  background: #F3C9D2;
   top: -100px; right: -100px;
 }
 .hero-blob-2 {
   width: 400px; height: 400px;
-  background: #D8C4A4;
+  background: #E9D9C2;
   bottom: -100px; left: -80px;
 }
 
@@ -497,18 +497,6 @@ body.dark .navbar {
   z-index: 2;
   max-width: 780px;
 }
-
-.hero-parachute {
-  position: absolute;
-  right: -40px;
-  top: 40px;
-  width: 340px;
-  border-radius: 24px;
-  opacity: 0.92;
-  z-index: 0;
-  box-shadow: 0 20px 50px rgba(40,60,58,0.15);
-}
-@media (max-width: 1100px) { .hero-parachute { display: none; } }
 
 .hero-pills {
   display: flex;
@@ -522,7 +510,7 @@ body.dark .navbar {
   align-items: center;
   gap: 6px;
   background: rgba(255,255,255,0.7);
-  border: 1px solid rgba(181,117,78,0.2);
+  border: 1px solid rgba(217,139,163,0.2);
   backdrop-filter: blur(8px);
   color: #2B2B33;
   padding: 6px 16px;
@@ -543,7 +531,7 @@ body.dark .navbar {
 
 #home h1 em {
   font-style: normal;
-  color: #B5754E;
+  color: #D98BA3;
 }
 
 .hero-sub {
@@ -567,7 +555,7 @@ body.dark .navbar {
   flex-wrap: wrap;
   gap: 0;
   background: rgba(255,255,255,0.75);
-  border: 1px solid rgba(181,117,78,0.2);
+  border: 1px solid rgba(217,139,163,0.2);
   backdrop-filter: blur(12px);
   border-radius: 16px;
   overflow: hidden;
@@ -579,7 +567,7 @@ body.dark .navbar {
   min-width: 120px;
   padding: 20px 16px;
   text-align: center;
-  border-right: 1px solid rgba(181,117,78,0.14);
+  border-right: 1px solid rgba(217,139,163,0.14);
 }
 .hero-stat:last-child { border-right: none; }
 
@@ -725,9 +713,9 @@ body.dark #about {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #F4EEE0;
-  color: #6B5432;
-  border: 1.5px solid #E0D2B2;
+  background: #FBEAF0;
+  color: #B8607F;
+  border: 1.5px solid #F0D0DC;
   border-radius: 999px;
   padding: 8px 20px;
   font-size: 0.85rem;
@@ -735,9 +723,9 @@ body.dark #about {
   margin-bottom: 32px;
 }
 body.dark .online-badge {
-  background: #332B1E;
-  color: #E3C793;
-  border-color: #4A3E2A;
+  background: #3A2530;
+  color: #E8A2B8;
+  border-color: #5A3A48;
 }
 
 /* Filter bar */
@@ -785,7 +773,7 @@ body.dark .online-badge {
   background: var(--pill-active-bg);
   color: var(--pill-active-text);
   border-color: var(--primary);
-  box-shadow: 0 4px 12px rgba(181,117,78,0.2);
+  box-shadow: 0 4px 12px rgba(217,139,163,0.2);
   transform: translateY(-1px);
 }
 .pill .dot {
@@ -886,7 +874,7 @@ body.dark .online-badge {
 }
 .tag-subject {
   background: var(--accent-light);
-  color: #8A6B3F;
+  color: #A8607D;
 }
 body.dark .tag-subject { color: var(--accent); }
 
@@ -930,7 +918,7 @@ body.dark .tag-subject { color: var(--accent); }
 }
 .card-buttons .enroll-btn:hover {
   background: var(--primary-dark);
-  box-shadow: 0 4px 14px rgba(181,117,78,0.3);
+  box-shadow: 0 4px 14px rgba(217,139,163,0.3);
 }
 .card-buttons .trial-card-btn {
   background: transparent;
@@ -1007,7 +995,7 @@ body.dark .tag-subject { color: var(--accent); }
   align-items: center;
   justify-content: center;
   margin: 0 auto 16px;
-  box-shadow: 0 4px 16px rgba(181,117,78,0.2);
+  box-shadow: 0 4px 16px rgba(217,139,163,0.2);
 }
 
 .instructor-card h3 {
@@ -1294,17 +1282,17 @@ body.dark .review-card::before { color: var(--primary-light); }
 .form-group input:focus,
 .form-group textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(181,117,78,0.08);
+  box-shadow: 0 0 0 3px rgba(217,139,163,0.08);
 }
 .form-group textarea { resize: vertical; }
 .form-success {
   display: none;
   margin-top: 12px;
   padding: 12px 16px;
-  background: #F4EEE0;
-  border: 1px solid #E0D2B2;
+  background: #FBEAF0;
+  border: 1px solid #F0D0DC;
   border-radius: var(--radius-sm);
-  color: #6B5432;
+  color: #B8607F;
   font-size: 0.88rem;
   font-weight: 500;
 }
@@ -1553,7 +1541,6 @@ body.dark footer { background: #16181A; }
 <section id="home">
   <div class="hero-blob hero-blob-1"></div>
   <div class="hero-blob hero-blob-2"></div>
-  <img class="hero-parachute" src="assets/img/parachute-illustration.jpg" alt="">
 
   <div class="container hero-inner">
     <div class="hero-pills">
@@ -1662,7 +1649,7 @@ body.dark footer { background: #16181A; }
             <div class="ams-lbl">Dedicated subject instructors</div>
           </div>
         </div>
-        <a href="https://wa.me/8801558070225?text=Hello%2C%20I%27d%20like%20to%20book%20a%20free%20trial%20class!" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px;box-shadow:0 4px 14px rgba(181,117,78,0.3)">Book a Free Trial →</a>
+        <a href="https://wa.me/8801558070225?text=Hello%2C%20I%27d%20like%20to%20book%20a%20free%20trial%20class!" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px;box-shadow:0 4px 14px rgba(217,139,163,0.3)">Book a Free Trial →</a>
       </div>
     </div>
   </div>

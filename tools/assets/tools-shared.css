@@ -1,17 +1,17 @@
     :root {
-      --primary: #B5754E;
-      --peach: #A78A63;
+      --primary: #D98BA3;
+      --peach: #C9AE8E;
       --bg: #FBF7F1;
       --card: #fff;
-      --text: #3B342C;
-      --muted: #8C8172;
+      --text: #3B2E33;
+      --muted: #93838C;
       --border: #E8DFD1;
-      --green: #A78A63;
+      --green: #C9AE8E;
       --red: #e74c3c;
       --gold: #f1c40f;
       --blue: #3498db;
-      --deep: #6B5432;
-      --glow: rgba(181,117,78,0.4);
+      --deep: #B8607F;
+      --glow: rgba(217,139,163,0.4);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
