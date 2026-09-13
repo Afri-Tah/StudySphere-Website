@@ -36,14 +36,7 @@ function spendPoints(amount, reason) {
 function updatePtsDisplay() {
   const nav = document.getElementById('topnavPts');
   const panel = document.getElementById('ptsPanelVal');
-  if (nav) {
-    const changed = nav.textContent !== String(ptsData.balance);
-    nav.textContent = ptsData.balance;
-    if (changed) {
-      const pill = nav.closest('.topnav-points');
-      if (pill) { pill.classList.remove('bump'); void pill.offsetWidth; pill.classList.add('bump'); }
-    }
-  }
+  if (nav) nav.textContent = ptsData.balance;
   if (panel) panel.textContent = ptsData.balance;
 }
 function showPtsToast(msg) {

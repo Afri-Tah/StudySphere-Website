@@ -52,14 +52,10 @@
     .topnav a { color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; transition: 0.2s; white-space: nowrap; flex-shrink: 0; }
     .topnav a:hover { color: #fff; }
     .topnav-title { font-family: 'Nunito', sans-serif; font-weight: 800; color: #fff; font-size: 1rem; letter-spacing: 0.04em; text-shadow: 0 1px 3px rgba(0,0,0,0.15); text-align: center; flex: 1; min-width: 0; }
-    .topnav-points { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.22); border: 1.5px solid rgba(255,255,255,0.6); border-radius: 999px; padding: 6px 14px; cursor: pointer; transition: transform 0.15s ease, background 0.2s; flex-shrink: 0; }
-    .topnav-points:hover { background: rgba(255,255,255,0.32); transform: scale(1.05); }
-    .topnav-points:active { transform: scale(0.96); }
-    .topnav-points .ti-star { color: #FFD54A; font-size: 1rem; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15)); }
-    .topnav-points .pts-val { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1rem; color: #fff; }
+    .topnav-points { display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.55); border-radius: 999px; padding: 5px 12px; cursor: pointer; transition: 0.2s; flex-shrink: 0; }
+    .topnav-points:hover { background: rgba(255,255,255,0.3); }
+    .topnav-points .pts-val { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.95rem; color: #fff; font-weight: 700; }
     .topnav-points .pts-lbl { font-size: 0.68rem; color: rgba(255,255,255,0.85); opacity: 0.9; }
-    @keyframes ptsBounce { 0%,100% { transform: scale(1); } 40% { transform: scale(1.25); } 60% { transform: scale(0.95); } }
-    .topnav-points.bump { animation: ptsBounce 0.4s ease; }
 
     /* ═══ 3D TOOLS GRID ═══ */
     .tools-grid {
@@ -153,35 +149,34 @@
       box-shadow: 0 0 0 3px rgba(217,139,163,0.14);
     }
 
-    /* ═══ BUTTONS (Duolingo-style pressable keycap) ═══ */
+    /* ═══ BUTTONS ═══ */
     .btn {
       background: var(--primary);
       color: #fff;
       border: none;
-      border-bottom: 4px solid var(--deep);
-      padding: 13px 22px;
-      border-radius: 16px;
+      padding: 12px 22px;
+      border-radius: 999px;
       font-family: 'Nunito', sans-serif;
       font-weight: 800;
       font-size: 0.9rem;
-      letter-spacing: 0.01em;
       cursor: pointer;
-      transition: transform 0.08s ease, border-bottom-width 0.08s ease, filter 0.15s ease, margin-top 0.08s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
       width: 100%;
       margin-top: 6px;
+      box-shadow: 0 6px 16px rgba(217,139,163,0.3);
     }
-    .btn:hover { filter: brightness(1.06); }
-    .btn:active { border-bottom-width: 0; margin-top: 10px; }
-    .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); border-bottom: 2px solid var(--primary); }
-    .btn-outline:hover { background: var(--primary-light,#FBEAF0); }
-    .btn-outline:active { border-bottom-width: 2px; margin-top: 6px; }
-    .btn-sm { padding: 9px 16px; font-size: 0.82rem; width: auto; border-bottom-width: 3px; }
-    .btn-sm:active { margin-top: 9px; }
-    .btn-peach { background: var(--deep); border-bottom-color: #8A4160; color: #fff; }
-    .btn-green { background: var(--peach); border-bottom-color: #A98C6C; color: #fff; }
-    .btn-red { background: #e74c3c; border-bottom-color: #a93226; color: #fff; }
-    .btn-gold { background: var(--gold); border-bottom-color: #b8960a; color: #7a5a00; }
-
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 10px 22px rgba(217,139,163,0.35); }
+    .btn:active { transform: translateY(0); box-shadow: 0 4px 10px rgba(217,139,163,0.28); }
+    .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); box-shadow: none; }
+    .btn-outline:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
+    .btn-sm { padding: 8px 16px; font-size: 0.82rem; width: auto; }
+    .btn-peach { background: var(--deep); color: #fff; box-shadow: 0 6px 16px rgba(184,96,127,0.32); }
+    .btn-peach:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 10px 22px rgba(184,96,127,0.4); }
+    .btn-green { background: var(--peach); color: #fff; box-shadow: 0 6px 16px rgba(201,174,142,0.4); }
+    .btn-green:hover { transform: translateY(-2px); }
+    .btn-red { background: #e74c3c; color: #fff; box-shadow: 0 6px 16px rgba(231,76,60,0.35); }
+    .btn-red:hover { transform: translateY(-2px); }
+    .btn-gold { background: var(--gold); color: #7a5a00; box-shadow: 0 6px 16px rgba(212,168,0,0.3); }
 
     /* ═══ COUNTDOWN ═══ */
     .countdown-ring { position: relative; width: 140px; height: 140px; margin: 0 auto 12px; filter: drop-shadow(0 4px 15px rgba(217,139,163,0.18)); }
@@ -199,7 +194,7 @@
 
     /* ═══ STREAK ═══ */
     .streak-display { display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 16px; background: var(--primary-light,#E6F5F3); border-radius: 16px; padding: 16px; border: 1px solid var(--border); }
-    .streak-flame { font-size: 2.5rem; color: #FF6B35; animation: flicker 1.5s infinite alternate; filter: drop-shadow(0 0 10px rgba(255,107,53,0.4)); }
+    .streak-flame { font-size: 2.5rem; animation: flicker 1.5s infinite alternate; filter: drop-shadow(0 0 10px rgba(255,100,0,0.4)); }
     @keyframes flicker { from { transform: scale(1) rotate(-3deg); } to { transform: scale(1.12) rotate(3deg); } }
     .streak-stat { text-align: center; }
     .streak-count { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 2rem; color: var(--primary); line-height: 1; }
