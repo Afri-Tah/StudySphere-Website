@@ -63,7 +63,7 @@
 <!-- 12. ATTENDANCE TRACKER -->
   <div class="tool-card" style="grid-column: span 2;" data-category="teacher">
     <div class="tool-header">
-      <div class="tool-icon">✅</div>
+      <div class="tool-icon"><i class="ti ti-user-check"></i></div>
       <div>
         <h2>Attendance Tracker <span class="tool-badge badge-teacher">Teacher</span></h2>
         <p>Mark students present, absent, or late — with % tracking</p>
@@ -81,8 +81,8 @@
     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px" id="attDateBar"></div>
     <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap" id="attBulkBar">
       <span style="font-size:0.8rem;color:var(--muted);align-self:center">Mark all:</span>
-      <button class="btn btn-sm btn-green" onclick="bulkMark('present')" style="margin:0">✓ Present</button>
-      <button class="btn btn-sm btn-red" onclick="bulkMark('absent')" style="margin:0">✗ Absent</button>
+      <button class="btn btn-sm btn-green" onclick="bulkMark('present')" style="margin:0"><i class="ti ti-check"></i> Present</button>
+      <button class="btn btn-sm btn-red" onclick="bulkMark('absent')" style="margin:0"><i class="ti ti-x"></i> Absent</button>
     </div>
     <div class="att-table-scroll">
       <table class="att-table" id="attTable">
@@ -92,8 +92,8 @@
     </div>
     <div class="att-summary" id="attSummaryBar"></div>
     <div style="display:flex;gap:8px;margin-top:12px">
-      <button class="btn btn-sm btn-outline" onclick="exportAttWA()" style="flex:1">📲 Send via WhatsApp</button>
-      <button class="btn btn-sm btn-outline" onclick="exportAttCSV()" style="flex:1">📥 Download CSV</button>
+      <button class="btn btn-sm btn-outline" onclick="exportAttWA()" style="flex:1"><i class="ti ti-brand-whatsapp"></i> Send via WhatsApp</button>
+      <button class="btn btn-sm btn-outline" onclick="exportAttCSV()" style="flex:1"><i class="ti ti-download"></i> Download CSV</button>
     </div>
   </div>
 <div class="related-tools">

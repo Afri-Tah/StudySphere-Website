@@ -12,7 +12,7 @@ function addSession() {
   renderSessionList();
 }
 function renderSessionList() {
-  document.getElementById('sessionList').innerHTML = currentSessions.map((s, i) => `<div class="session-item"><div><strong>${s.subject}</strong> — ${s.hours < 1 ? Math.round(s.hours * 60) + 'm' : s.hours.toFixed(1) + 'h'}</div><button onclick="removeSession(${i})">✕</button></div>`).join('');
+  document.getElementById('sessionList').innerHTML = currentSessions.map((s, i) => `<div class="session-item"><div><strong>${s.subject}</strong> — ${s.hours < 1 ? Math.round(s.hours * 60) + 'm' : s.hours.toFixed(1) + 'h'}</div><button onclick="removeSession(${i})"><i class="ti ti-x"></i></button></div>`).join('');
 }
 function removeSession(i) { currentSessions.splice(i, 1); renderSessionList(); }
 function saveDay() {

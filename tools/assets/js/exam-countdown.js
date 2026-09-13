@@ -13,7 +13,7 @@ function renderExams() {
   if (!exams.length) { list.innerHTML = ''; document.getElementById('countdownDisplay').style.display = 'none'; return; }
   list.innerHTML = exams.map((e, i) => {
     const diff = Math.ceil((new Date(e.date) - new Date()) / 86400000);
-    return `<div class="saved-exam-item" onclick="showCountdown(${i})"><div><strong>${e.name}</strong><br><span style="font-size:0.75rem;color:var(--muted)">${e.date}</span></div><div style="display:flex;align-items:center;gap:8px"><span class="days-left">${Math.max(0,diff)}d</span><button onclick="event.stopPropagation();removeExam(${i})">✕</button></div></div>`;
+    return `<div class="saved-exam-item" onclick="showCountdown(${i})"><div><strong>${e.name}</strong><br><span style="font-size:0.75rem;color:var(--muted)">${e.date}</span></div><div style="display:flex;align-items:center;gap:8px"><span class="days-left">${Math.max(0,diff)}d</span><button onclick="event.stopPropagation();removeExam(${i})"><i class="ti ti-x"></i></button></div></div>`;
   }).join('');
   if (exams.length) showCountdown(0);
 }

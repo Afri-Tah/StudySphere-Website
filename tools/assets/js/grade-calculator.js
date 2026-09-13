@@ -6,7 +6,7 @@ function updateBoundaries() { gradeLevel = document.getElementById('gradeLevelSe
 function addGradeRow() {
   const id = Date.now(); gradeRows.push(id);
   const div = document.createElement('div'); div.className = 'grade-row'; div.id = `gr_${id}`;
-  div.innerHTML = `<input type="text" placeholder="Component (e.g. Paper 1)" style="flex:2;margin:0"><input type="number" placeholder="Score %" min="0" max="100" style="flex:1;margin:0;min-width:60px">${gradeMode==='weighted'?'<input type="number" placeholder="Weight %" min="0" max="100" style="flex:1;margin:0;min-width:60px">':''}<button class="remove-btn" onclick="removeGradeRow(${id})">✕</button>`;
+  div.innerHTML = `<input type="text" placeholder="Component (e.g. Paper 1)" style="flex:2;margin:0"><input type="number" placeholder="Score %" min="0" max="100" style="flex:1;margin:0;min-width:60px">${gradeMode==='weighted'?'<input type="number" placeholder="Weight %" min="0" max="100" style="flex:1;margin:0;min-width:60px">':''}<button class="remove-btn" onclick="removeGradeRow(${id})"><i class="ti ti-x"></i></button>`;
   document.getElementById('gradeRows').appendChild(div);
 }
 function removeGradeRow(id) { const el = document.getElementById(`gr_${id}`); if (el) el.remove(); gradeRows = gradeRows.filter(r => r !== id); }
@@ -47,9 +47,9 @@ function calcTarget() {
   const currentWeight = window._currentWeight || 0;
   const needed = ((targetPct * (currentWeight + compWeight)) - (window._currentAvg * currentWeight)) / compWeight;
   const result = document.getElementById('targetResult');
-  if (needed > 100) result.innerHTML = `⚠️ To reach <strong>${gradeKey}</strong>, you'd need ${needed.toFixed(1)}% — not achievable. Aim for the next grade down.`;
-  else if (needed < 0) result.innerHTML = `🎉 You've already secured <strong>${gradeKey}</strong>! Your current average exceeds the boundary.`;
-  else result.innerHTML = `🎯 You need <strong>${needed.toFixed(1)}%</strong> on ${compName} to achieve grade <strong>${gradeKey}</strong> (≥${targetPct}%).`;
+  if (needed > 100) result.innerHTML = `<i class="ti ti-alert-triangle"></i> To reach <strong>${gradeKey}</strong>, you'd need ${needed.toFixed(1)}% — not achievable. Aim for the next grade down.`;
+  else if (needed < 0) result.innerHTML = `<i class="ti ti-confetti"></i> You've already secured <strong>${gradeKey}</strong>! Your current average exceeds the boundary.`;
+  else result.innerHTML = `<i class="ti ti-target-arrow"></i> You need <strong>${needed.toFixed(1)}%</strong> on ${compName} to achieve grade <strong>${gradeKey}</strong> (≥${targetPct}%).`;
 }
 // Add initial grade rows
 addGradeRow(); addGradeRow();

@@ -58,19 +58,19 @@ function closePtsPanel() {
 function renderPtsPanel() {
   updatePtsDisplay();
   const rewards = [
-    { name: '🔓 Unlock Premium Notes', desc: 'Access exclusive curated notes for any subject', cost: 200 },
-    { name: '📋 Mock Exam PDF', desc: 'Download a full mock exam for your subject', cost: 150 },
-    { name: '🎯 Ask Priority Question', desc: "Move to top of teacher's queue", cost: 100 },
-    { name: '📝 Notes Generator', desc: '5 extra note outline generations', cost: 50 },
-    { name: '🏅 Gold Studier Badge', desc: 'Earn the "Gold Studier" profile badge', cost: 500 },
+    { icon: 'lock-open', name: 'Unlock Premium Notes', desc: 'Access exclusive curated notes for any subject', cost: 200 },
+    { icon: 'clipboard-list', name: 'Mock Exam PDF', desc: 'Download a full mock exam for your subject', cost: 150 },
+    { icon: 'target-arrow', name: 'Ask Priority Question', desc: "Move to top of teacher's queue", cost: 100 },
+    { icon: 'notes', name: 'Notes Generator', desc: '5 extra note outline generations', cost: 50 },
+    { icon: 'medal', name: 'Gold Studier Badge', desc: 'Earn the "Gold Studier" profile badge', cost: 500 },
   ];
   const rewardsEl = document.getElementById('ptsRewards');
   if (rewardsEl) {
     rewardsEl.innerHTML = rewards.map(r => `
       <div class="pts-reward-item">
-        <div class="pri-info"><div class="pri-name">${r.name}</div><div class="pri-desc">${r.desc}</div></div>
+        <div class="pri-info"><div class="pri-name"><i class="ti ti-${r.icon}"></i> ${r.name}</div><div class="pri-desc">${r.desc}</div></div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-          <div class="pri-cost">${r.cost} ⭐</div>
+          <div class="pri-cost">${r.cost} <i class="ti ti-star-filled"></i></div>
           <button class="btn btn-sm btn-peach" style="margin:0;width:auto;font-size:0.72rem" onclick="redeemReward('${r.name}',${r.cost})">Redeem</button>
         </div>
       </div>`).join('');
@@ -85,7 +85,7 @@ function renderPtsPanel() {
       <div class="pts-log-item">
         <div>${l.desc}</div>
         <div style="display:flex;flex-direction:column;align-items:flex-end">
-          <div class="pli-pts ${l.pts > 0 ? 'earn' : 'spend'}">${l.pts > 0 ? '+' : ''}${l.pts} ⭐</div>
+          <div class="pli-pts ${l.pts > 0 ? 'earn' : 'spend'}">${l.pts > 0 ? '+' : ''}${l.pts} <i class="ti ti-star-filled"></i></div>
           <div style="font-size:0.65rem;color:var(--muted)">${l.time}</div>
         </div>
       </div>`).join('') : '<div style="text-align:center;padding:16px;color:var(--muted);font-size:0.85rem">No activity yet!</div>';
@@ -261,7 +261,7 @@ function openAISettingsModal() {
       `).join('')}
       <div class="edit-cell-btns" style="margin-top:6px">
         <button class="btn btn-outline btn-sm" style="width:auto" onclick="closeAISettingsModal()">Cancel</button>
-        <button class="btn btn-sm" style="width:auto" onclick="saveAISettingsModal()">Save ✓</button>
+        <button class="btn btn-sm" style="width:auto" onclick="saveAISettingsModal()">Save <i class="ti ti-check"></i></button>
       </div>
     </div>`;
   document.body.appendChild(modal);

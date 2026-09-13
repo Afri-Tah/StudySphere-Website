@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
   <style>
 
 /* ============================================================
@@ -1058,7 +1059,7 @@ body.dark .tag-subject { color: var(--accent); }
   padding: 64px 20px;
   color: var(--text-muted);
 }
-.no-results-emoji { font-size: 2.5rem; margin-bottom: 12px; }
+.no-results-emoji { font-size: 2.5rem; margin-bottom: 12px; color: var(--text-light); }
 #no-results p { font-size: 1rem; }
 #no-results button {
   margin-top: 16px;
@@ -1174,7 +1175,7 @@ body.dark .tag-subject { color: var(--accent); }
 }
 body.dark .review-card::before { color: var(--primary-light); }
 
-.stars { font-size: 0.9rem; margin-bottom: 14px; }
+.stars { font-size: 0.9rem; margin-bottom: 14px; color: #F0B429; letter-spacing: 2px; }
 
 .review-text {
   font-size: 0.9rem;
@@ -1631,11 +1632,11 @@ body.dark footer { background: #16181A; }
       <a href="#pricing"     class="nav-link">Pricing</a>
       <a href="#reviews"     class="nav-link">Reviews</a>
       <a href="#contact"     class="nav-link">Contact</a>
-      <a href="tools/index.html"   class="nav-link nav-tools-link">🛠 Tools</a>
+      <a href="tools/index.html"   class="nav-link nav-tools-link"><i class="ti ti-tool"></i> Tools</a>
     </nav>
 
     <div class="nav-right">
-      <button id="darkToggle" onclick="toggleDark()" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
+      <button id="darkToggle" onclick="toggleDark()" title="Toggle dark mode" aria-label="Toggle dark mode"><i class="ti ti-moon"></i></button>
       <a href="https://wa.me/8801558070225?text=Hello%2C%20I%20want%20to%20book%20a%20free%20trial%20class%20at%20StudySphere!" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Book a Free Trial</a>
       <button class="hamburger" id="hamburger" aria-label="Open menu">
         <span></span><span></span><span></span>
@@ -1646,7 +1647,7 @@ body.dark footer { background: #16181A; }
 
 <!-- ██ MOBILE OVERLAY ██ -->
 <div class="mobile-overlay" id="mobileOverlay">
-  <button class="overlay-close" id="overlayClose" aria-label="Close menu">✕</button>
+  <button class="overlay-close" id="overlayClose" aria-label="Close menu"><i class="ti ti-x"></i></button>
   <a href="#home"        class="mobile-link">Home</a>
   <a href="#courses"     class="mobile-link">Courses</a>
   <a href="#about"       class="mobile-link">About</a>
@@ -1654,7 +1655,7 @@ body.dark footer { background: #16181A; }
   <a href="#pricing"     class="mobile-link">Pricing</a>
   <a href="#reviews"     class="mobile-link">Reviews</a>
   <a href="#contact"     class="mobile-link">Contact</a>
-  <a href="tools/index.html"   class="mobile-link">🛠 Tools</a>
+  <a href="tools/index.html"   class="mobile-link"><i class="ti ti-tool"></i> Tools</a>
   <a href="https://wa.me/8801558070225?text=Hello%2C%20I%20want%20to%20book%20a%20free%20trial!" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:12px">Book a Free Trial</a>
 </div>
 
@@ -1665,9 +1666,9 @@ body.dark footer { background: #16181A; }
 
   <div class="container hero-inner">
     <div class="hero-pills">
-      <span class="hero-pill">🎓 Online Tutoring</span>
-      <span class="hero-pill">📍 Google Meet</span>
-      <span class="hero-pill">📋 Edexcel · CAIE</span>
+      <span class="hero-pill"><i class="ti ti-school"></i> Online Tutoring</span>
+      <span class="hero-pill"><i class="ti ti-map-pin"></i> Google Meet</span>
+      <span class="hero-pill"><i class="ti ti-clipboard-list"></i> Edexcel · CAIE</span>
     </div>
 
     <h1>Master Your Subjects<br><em>with Expert Mentorship</em></h1>
@@ -1691,7 +1692,7 @@ body.dark footer { background: #16181A; }
         <span class="hero-stat-lbl">Students Tutored</span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-num">5★</span>
+        <span class="hero-stat-num">5<i class="ti ti-star-filled" style="font-size:0.8em"></i></span>
         <span class="hero-stat-lbl">Student Rated</span>
       </div>
       <div class="hero-stat">
@@ -1723,19 +1724,19 @@ body.dark footer { background: #16181A; }
         <p>All sessions are conducted one-to-one to ensure better understanding, effective guidance, and consistent progress.</p>
         <div class="about-checks">
           <div class="about-check">
-            <div class="check-icon">✓</div>
+            <div class="check-icon"><i class="ti ti-check"></i></div>
             <p>100% online via Google Meet — join from anywhere</p>
           </div>
           <div class="about-check">
-            <div class="check-icon">✓</div>
+            <div class="check-icon"><i class="ti ti-check"></i></div>
             <p>Edexcel IGCSE & IAL specialist instructors</p>
           </div>
           <div class="about-check">
-            <div class="check-icon">✓</div>
+            <div class="check-icon"><i class="ti ti-check"></i></div>
             <p>Flexible scheduling around your school timetable</p>
           </div>
           <div class="about-check">
-            <div class="check-icon">✓</div>
+            <div class="check-icon"><i class="ti ti-check"></i></div>
             <p>Past paper practice with detailed walkthroughs</p>
           </div>
         </div>
@@ -1743,28 +1744,28 @@ body.dark footer { background: #16181A; }
       <div class="about-card scroll-reveal">
         <img src="assets/img/cat-mascot.png" alt="" style="width:100%;border-radius:14px;margin-bottom:6px" loading="lazy">
         <div class="about-mini-stat">
-          <div class="ams-icon" style="background:var(--primary-light)">🎓</div>
+          <div class="ams-icon" style="background:var(--primary-light)"><i class="ti ti-school"></i></div>
           <div>
             <div class="ams-num">50+</div>
             <div class="ams-lbl">Students mentored successfully</div>
           </div>
         </div>
         <div class="about-mini-stat">
-          <div class="ams-icon" style="background:#FFF1EC">🌐</div>
+          <div class="ams-icon" style="background:#FFF1EC"><i class="ti ti-world"></i></div>
           <div>
             <div class="ams-num">100%</div>
             <div class="ams-lbl">Online via Google Meet</div>
           </div>
         </div>
         <div class="about-mini-stat">
-          <div class="ams-icon" style="background:#fef9e8">⭐</div>
+          <div class="ams-icon" style="background:#fef9e8"><i class="ti ti-star-filled"></i></div>
           <div>
             <div class="ams-num">5.0</div>
             <div class="ams-lbl">Average student rating</div>
           </div>
         </div>
         <div class="about-mini-stat">
-          <div class="ams-icon" style="background:#F5EFE0">✏️</div>
+          <div class="ams-icon" style="background:#F5EFE0"><i class="ti ti-pencil"></i></div>
           <div>
             <div class="ams-num">4</div>
             <div class="ams-lbl">Dedicated subject instructors</div>
@@ -1784,7 +1785,7 @@ body.dark footer { background: #16181A; }
       <h2 class="sec-title" style="margin-bottom:0">Find the right class<br><em>for your level</em></h2>
     </div>
 
-    <div class="online-badge">🌐 All sessions are conducted <strong>&nbsp;100% online&nbsp;</strong> via Google Meet</div>
+    <div class="online-badge"><i class="ti ti-world"></i> All sessions are conducted <strong>&nbsp;100% online&nbsp;</strong> via Google Meet</div>
 
     <!-- Filter Bar -->
     <div class="filter-bar">
@@ -1800,40 +1801,40 @@ body.dark footer { background: #16181A; }
       <!-- O-Level Subject Group -->
       <div class="subject-group" id="group-olevel">
         <div class="filter-group-label">O-Level Subjects</div>
-        <button class="pill" data-filter="biology"       onclick="setFilter('subject','biology')">🧬 Biology</button>
-        <button class="pill" data-filter="human-biology" onclick="setFilter('subject','human-biology')">🫀 Human Biology</button>
-        <button class="pill" data-filter="chemistry"     onclick="setFilter('subject','chemistry')">⚗️ Chemistry</button>
-        <button class="pill" data-filter="physics"       onclick="setFilter('subject','physics')">⚡ Physics</button>
-        <button class="pill" data-filter="maths-b"       onclick="setFilter('subject','maths-b')">📐 Maths B</button>
-        <button class="pill" data-filter="pure-maths"    onclick="setFilter('subject','pure-maths')">🔢 Pure Maths</button>
-        <button class="pill" data-filter="cs-it"         onclick="setFilter('subject','cs-it')">💻 CS / IT</button>
-        <button class="pill" data-filter="english"       onclick="setFilter('subject','english')">📖 English</button>
-        <button class="pill" data-filter="business"      onclick="setFilter('subject','business')">💼 Business</button>
-        <button class="pill" data-filter="accounting"    onclick="setFilter('subject','accounting')">🧾 Accounting</button>
-        <button class="pill" data-filter="economics"     onclick="setFilter('subject','economics')">📊 Economics</button>
-        <button class="pill" data-filter="bangla"        onclick="setFilter('subject','bangla')">🇧🇩 Bangla</button>
+        <button class="pill" data-filter="biology"       onclick="setFilter('subject','biology')"><i class="ti ti-dna-2"></i> Biology</button>
+        <button class="pill" data-filter="human-biology" onclick="setFilter('subject','human-biology')"><i class="ti ti-heartbeat"></i> Human Biology</button>
+        <button class="pill" data-filter="chemistry"     onclick="setFilter('subject','chemistry')"><i class="ti ti-flask"></i> Chemistry</button>
+        <button class="pill" data-filter="physics"       onclick="setFilter('subject','physics')"><i class="ti ti-bolt"></i> Physics</button>
+        <button class="pill" data-filter="maths-b"       onclick="setFilter('subject','maths-b')"><i class="ti ti-ruler-2"></i> Maths B</button>
+        <button class="pill" data-filter="pure-maths"    onclick="setFilter('subject','pure-maths')"><i class="ti ti-hash"></i> Pure Maths</button>
+        <button class="pill" data-filter="cs-it"         onclick="setFilter('subject','cs-it')"><i class="ti ti-device-laptop"></i> CS / IT</button>
+        <button class="pill" data-filter="english"       onclick="setFilter('subject','english')"><i class="ti ti-book"></i> English</button>
+        <button class="pill" data-filter="business"      onclick="setFilter('subject','business')"><i class="ti ti-briefcase"></i> Business</button>
+        <button class="pill" data-filter="accounting"    onclick="setFilter('subject','accounting')"><i class="ti ti-receipt"></i> Accounting</button>
+        <button class="pill" data-filter="economics"     onclick="setFilter('subject','economics')"><i class="ti ti-chart-bar"></i> Economics</button>
+        <button class="pill" data-filter="bangla"        onclick="setFilter('subject','bangla')"><i class="ti ti-language"></i> Bangla</button>
       </div>
 
       <!-- A-Level Subject Group -->
       <div class="subject-group" id="group-alevel">
         <div class="filter-group-label">AS Subjects</div>
-        <button class="pill" data-filter="as-physics"    onclick="setFilter('subject','as-physics')">⚡ AS Physics</button>
-        <button class="pill" data-filter="as-chemistry"  onclick="setFilter('subject','as-chemistry')">⚗️ AS Chemistry</button>
-        <button class="pill" data-filter="as-biology"    onclick="setFilter('subject','as-biology')">🧬 AS Biology</button>
-        <button class="pill" data-filter="as-maths"      onclick="setFilter('subject','as-maths')">📐 AS Maths (P1, P2, M1)</button>
-        <button class="pill" data-filter="as-it"         onclick="setFilter('subject','as-it')">💻 AS IT</button>
-        <button class="pill" data-filter="as-accounting" onclick="setFilter('subject','as-accounting')">🧾 AS Accounting</button>
-        <button class="pill" data-filter="as-business"   onclick="setFilter('subject','as-business')">💼 AS Business</button>
-        <button class="pill" data-filter="as-economics"  onclick="setFilter('subject','as-economics')">📊 AS Economics</button>
+        <button class="pill" data-filter="as-physics"    onclick="setFilter('subject','as-physics')"><i class="ti ti-bolt"></i> AS Physics</button>
+        <button class="pill" data-filter="as-chemistry"  onclick="setFilter('subject','as-chemistry')"><i class="ti ti-flask"></i> AS Chemistry</button>
+        <button class="pill" data-filter="as-biology"    onclick="setFilter('subject','as-biology')"><i class="ti ti-dna-2"></i> AS Biology</button>
+        <button class="pill" data-filter="as-maths"      onclick="setFilter('subject','as-maths')"><i class="ti ti-ruler-2"></i> AS Maths (P1, P2, M1)</button>
+        <button class="pill" data-filter="as-it"         onclick="setFilter('subject','as-it')"><i class="ti ti-device-laptop"></i> AS IT</button>
+        <button class="pill" data-filter="as-accounting" onclick="setFilter('subject','as-accounting')"><i class="ti ti-receipt"></i> AS Accounting</button>
+        <button class="pill" data-filter="as-business"   onclick="setFilter('subject','as-business')"><i class="ti ti-briefcase"></i> AS Business</button>
+        <button class="pill" data-filter="as-economics"  onclick="setFilter('subject','as-economics')"><i class="ti ti-chart-bar"></i> AS Economics</button>
         <div class="filter-group-label" style="margin-top:10px">A2 Subjects</div>
-        <button class="pill" data-filter="a2-physics"    onclick="setFilter('subject','a2-physics')">⚡ A2 Physics</button>
-        <button class="pill" data-filter="a2-chemistry"  onclick="setFilter('subject','a2-chemistry')">⚗️ A2 Chemistry</button>
-        <button class="pill" data-filter="a2-biology"    onclick="setFilter('subject','a2-biology')">🧬 A2 Biology</button>
-        <button class="pill" data-filter="a2-maths"      onclick="setFilter('subject','a2-maths')">📐 A2 Maths (P3, P4, S1)</button>
-        <button class="pill" data-filter="a2-it"         onclick="setFilter('subject','a2-it')">💻 A2 IT</button>
-        <button class="pill" data-filter="a2-accounting" onclick="setFilter('subject','a2-accounting')">🧾 A2 Accounting</button>
-        <button class="pill" data-filter="a2-business"   onclick="setFilter('subject','a2-business')">💼 A2 Business</button>
-        <button class="pill" data-filter="a2-economics"  onclick="setFilter('subject','a2-economics')">📊 A2 Economics</button>
+        <button class="pill" data-filter="a2-physics"    onclick="setFilter('subject','a2-physics')"><i class="ti ti-bolt"></i> A2 Physics</button>
+        <button class="pill" data-filter="a2-chemistry"  onclick="setFilter('subject','a2-chemistry')"><i class="ti ti-flask"></i> A2 Chemistry</button>
+        <button class="pill" data-filter="a2-biology"    onclick="setFilter('subject','a2-biology')"><i class="ti ti-dna-2"></i> A2 Biology</button>
+        <button class="pill" data-filter="a2-maths"      onclick="setFilter('subject','a2-maths')"><i class="ti ti-ruler-2"></i> A2 Maths (P3, P4, S1)</button>
+        <button class="pill" data-filter="a2-it"         onclick="setFilter('subject','a2-it')"><i class="ti ti-device-laptop"></i> A2 IT</button>
+        <button class="pill" data-filter="a2-accounting" onclick="setFilter('subject','a2-accounting')"><i class="ti ti-receipt"></i> A2 Accounting</button>
+        <button class="pill" data-filter="a2-business"   onclick="setFilter('subject','a2-business')"><i class="ti ti-briefcase"></i> A2 Business</button>
+        <button class="pill" data-filter="a2-economics"  onclick="setFilter('subject','a2-economics')"><i class="ti ti-chart-bar"></i> A2 Economics</button>
       </div>
     </div>
 
@@ -1854,7 +1855,7 @@ body.dark footer { background: #16181A; }
         <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
         <div class="card-buttons">
           <button class="enroll-btn" onclick="enroll('Regular Course - O-Level', 3500)">Enroll Now (O-Level)</button>
-          <button class="trial-card-btn" onclick="bookTrial()">✨ Free Trial</button>
+          <button class="trial-card-btn" onclick="bookTrial()"><i class="ti ti-sparkles"></i> Free Trial</button>
         </div>
       </div>
 
@@ -1871,7 +1872,7 @@ body.dark footer { background: #16181A; }
         <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
         <div class="card-buttons">
           <button class="enroll-btn" onclick="enroll('Regular Course - A-Level', 5000)">Enroll Now (A-Level)</button>
-          <button class="trial-card-btn" onclick="bookTrial()">✨ Free Trial</button>
+          <button class="trial-card-btn" onclick="bookTrial()"><i class="ti ti-sparkles"></i> Free Trial</button>
         </div>
       </div>
 
@@ -1971,7 +1972,7 @@ body.dark footer { background: #16181A; }
     </div>
 
     <div id="no-results">
-      <div class="no-results-emoji">🔍</div>
+      <div class="no-results-emoji"><i class="ti ti-search-off"></i></div>
       <p>No courses match your current filter.<br>Try a different subject or level.</p>
       <button onclick="resetFilters()">Show All Courses</button>
     </div>
@@ -2024,7 +2025,7 @@ body.dark footer { background: #16181A; }
     <p class="section-sub" style="color:var(--text-muted);margin-top:12px;font-size:0.95rem">Real feedback from real students</p>
     <div class="reviews-grid">
       <div class="review-card">
-        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <div class="stars"><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i></div>
         <p class="review-text">"The one-to-one sessions made such a huge difference. My Chemistry grade went from a D to an A in just 3 months!"</p>
         <div class="reviewer">
           <div class="reviewer-avatar">S</div>
@@ -2035,7 +2036,7 @@ body.dark footer { background: #16181A; }
         </div>
       </div>
       <div class="review-card">
-        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <div class="stars"><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i></div>
         <p class="review-text">"Afrida ma'am's Biology classes are incredibly clear. She explains every concept patiently and the past paper practice really helped."</p>
         <div class="reviewer">
           <div class="reviewer-avatar">T</div>
@@ -2046,7 +2047,7 @@ body.dark footer { background: #16181A; }
         </div>
       </div>
       <div class="review-card">
-        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <div class="stars"><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i></div>
         <p class="review-text">"The crash course was exactly what I needed before my exams. Focused, fast and very effective. Highly recommend StudySphere!"</p>
         <div class="reviewer">
           <div class="reviewer-avatar">N</div>
@@ -2057,7 +2058,7 @@ body.dark footer { background: #16181A; }
         </div>
       </div>
       <div class="review-card">
-        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <div class="stars"><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i></div>
         <p class="review-text">"Best tutoring platform I've tried. The Google Meet sessions are smooth and the instructors are always well prepared."</p>
         <div class="reviewer">
           <div class="reviewer-avatar">S</div>
@@ -2194,7 +2195,7 @@ body.dark footer { background: #16181A; }
             </div>
             <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Send Message →</button>
           </form>
-          <div id="formSuccess" class="form-success">✅ Message sent! We'll be in touch soon on WhatsApp.</div>
+          <div id="formSuccess" class="form-success"><i class="ti ti-circle-check"></i> Message sent! We'll be in touch soon on WhatsApp.</div>
         </div>
       </div>
     </div>
@@ -2233,7 +2234,7 @@ body.dark footer { background: #16181A; }
         <h5>Contact</h5>
         <a href="https://wa.me/8801558070225" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
         <a href="mailto:studyteam442@gmail.com">Email Us</a>
-        <a href="tools/index.html">🛠 Student Tools</a>
+        <a href="tools/index.html"><i class="ti ti-tool"></i> Student Tools</a>
         <a href="#reviews">Student Reviews</a>
         <a href="#faq">FAQ</a>
       </div>
@@ -2242,7 +2243,7 @@ body.dark footer { background: #16181A; }
   <div class="footer-bottom">
     <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
       <span>© StudySphere 2026 — All rights reserved</span>
-      <span>Made with ❤️ for students</span>
+      <span>Made with <i class="ti ti-heart-filled"></i> for students</span>
     </div>
   </div>
 </footer>
@@ -2330,13 +2331,13 @@ function toggleDark() {
   document.body.classList.toggle('dark');
   const btn = document.getElementById('darkToggle');
   const isDark = document.body.classList.contains('dark');
-  btn.textContent = isDark ? '☀️' : '🌙';
+  btn.innerHTML = isDark ? '<i class="ti ti-sun"></i>' : '<i class="ti ti-moon"></i>';
   localStorage.setItem('darkMode', isDark);
 }
 
 if (localStorage.getItem('darkMode') === 'true') {
   document.body.classList.add('dark');
-  document.getElementById('darkToggle').textContent = '☀️';
+  document.getElementById('darkToggle').innerHTML = '<i class="ti ti-sun"></i>';
 }
 
 // ============================================================

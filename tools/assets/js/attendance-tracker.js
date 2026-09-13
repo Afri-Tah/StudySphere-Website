@@ -23,17 +23,17 @@ function renderAttDateBar() {
 }
 function renderAttTable() {
   const head = document.getElementById('attHead'); const body = document.getElementById('attBody'); const recentDates = attDates.slice(-7);
-  head.innerHTML = `<tr><th>Student</th>${recentDates.map(d => `<th style="font-size:0.68rem;max-width:50px">${d.split('(')[1] ? d.split('(')[1].replace(')','') : d.slice(5)}</th>`).join('')}<th>%</th><th>✕</th></tr>`;
+  head.innerHTML = `<tr><th>Student</th>${recentDates.map(d => `<th style="font-size:0.68rem;max-width:50px">${d.split('(')[1] ? d.split('(')[1].replace(')','') : d.slice(5)}</th>`).join('')}<th>%</th><th><i class="ti ti-x"></i></th></tr>`;
   if (!attStudents.length) { body.innerHTML = `<tr><td colspan="${recentDates.length+3}" style="text-align:center;color:var(--muted);padding:18px">Add students above</td></tr>`; renderAttSummary(); return; }
   body.innerHTML = attStudents.map(student => {
     const cells = recentDates.map(d => {
-      const key = `${student}||${d}`; const status = attData[key] || 'unmarked'; const icons = { present:'✓', absent:'✗', late:'~', unmarked:'·' };
+      const key = `${student}||${d}`; const status = attData[key] || 'unmarked'; const icons = { present:'<i class="ti ti-check"></i>', absent:'<i class="ti ti-x"></i>', late:'~', unmarked:'·' };
       return `<td><button class="att-btn ${status}" onclick="cycleAtt('${encodeURIComponent(student)}','${encodeURIComponent(d)}')">${icons[status]}</button></td>`;
     }).join('');
     const total = attDates.length; const present = attDates.filter(d => attData[`${student}||${d}`]==='present').length; const late = attDates.filter(d => attData[`${student}||${d}`]==='late').length;
     const pct = total ? Math.round(((present + late * 0.5) / total) * 100) : 0;
     const pctClass = pct >= 80 ? 'good' : pct >= 60 ? 'warn' : 'bad';
-    return `<tr><td><strong>${student}</strong></td>${cells}<td><span class="att-pct ${pctClass}">${pct}%</span></td><td><button onclick="removeAttStudent('${encodeURIComponent(student)}')" style="background:none;border:none;color:#e74c3c;cursor:pointer">✕</button></td></tr>`;
+    return `<tr><td><strong>${student}</strong></td>${cells}<td><span class="att-pct ${pctClass}">${pct}%</span></td><td><button onclick="removeAttStudent('${encodeURIComponent(student)}')" style="background:none;border:none;color:#e74c3c;cursor:pointer"><i class="ti ti-x"></i></button></td></tr>`;
   }).join('');
   renderAttSummary();
 }

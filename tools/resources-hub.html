@@ -63,22 +63,22 @@
 <!-- 11. FREE RESOURCES HUB -->
   <div class="tool-card" style="grid-column: 1 / -1;" data-category="student">
     <div class="tool-header">
-      <div class="tool-icon">📚</div>
+      <div class="tool-icon"><i class="ti ti-books"></i></div>
       <div>
         <h2>Notes & Resources Hub <span class="tool-badge badge-student">Student</span></h2>
         <p>Free &amp; premium resources — notes, videos, practice, AI tools</p>
       </div>
     </div>
     <div class="notes-hub-tabs">
-      <button class="notes-hub-tab active" id="nhTabGenerate" onclick="selectNHTab('generate')">📝 Outline Generator</button>
-      <button class="notes-hub-tab" id="nhTabOnline" onclick="selectNHTab('online')">🌐 Free Notes</button>
-      <button class="notes-hub-tab" id="nhTabVideos" onclick="selectNHTab('videos')">🎬 Video Learning</button>
-      <button class="notes-hub-tab" id="nhTabDonate" onclick="selectNHTab('donate')">💝 Donate Notes</button>
+      <button class="notes-hub-tab active" id="nhTabGenerate" onclick="selectNHTab('generate')"><i class="ti ti-notes"></i> Outline Generator</button>
+      <button class="notes-hub-tab" id="nhTabOnline" onclick="selectNHTab('online')"><i class="ti ti-world"></i> Free Notes</button>
+      <button class="notes-hub-tab" id="nhTabVideos" onclick="selectNHTab('videos')"><i class="ti ti-video"></i> Video Learning</button>
+      <button class="notes-hub-tab" id="nhTabDonate" onclick="selectNHTab('donate')"><i class="ti ti-gift"></i> Donate Notes</button>
     </div>
     <div id="nhGeneratePanel">
       <p style="font-size:0.85rem;color:var(--muted);margin-bottom:14px">Use the <strong><a href="notes-generator.html" style="color:var(--primary)">Notes Generator</a></strong> to build a fill-in-the-blank revision structure for any topic.</p>
       <div style="background:linear-gradient(135deg,#EEEBFF,#FBFAFF);border-radius:14px;padding:16px;border:1.5px solid var(--peach)">
-        <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:0.95rem;color:var(--primary);margin-bottom:6px">💡 Pro Tips for Better Notes</div>
+        <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:0.95rem;color:var(--primary);margin-bottom:6px"><i class="ti ti-bulb"></i> Pro Tips for Better Notes</div>
         <ul style="padding-left:18px;font-size:0.85rem;color:var(--muted);line-height:1.8">
           <li>Be specific — "Photosynthesis Light-Dependent Reactions" gets better notes than just "Photosynthesis"</li>
           <li>Select your curriculum first for exam-focused content</li>
@@ -97,13 +97,13 @@
     </div>
     <div id="nhDonatePanel" style="display:none">
       <div class="nh-donate-area">
-        <div class="nh-donate-title">💝 Share Your Notes — Earn Points</div>
+        <div class="nh-donate-title"><i class="ti ti-gift"></i> Share Your Notes — Earn Points</div>
         <div class="nh-donate-desc">Help your fellow students by donating your notes. Every contribution earns you StudySphere Points!</div>
         <div class="nh-points-earn">
-          <div class="nh-earn-item"><div class="nei-pts">+50 ⭐</div><div class="nei-lbl">Upload notes</div></div>
-          <div class="nh-earn-item"><div class="nei-pts">+20 ⭐</div><div class="nei-lbl">Notes verified</div></div>
-          <div class="nh-earn-item"><div class="nei-pts">+5 ⭐</div><div class="nei-lbl">Per download</div></div>
-          <div class="nh-earn-item"><div class="nei-pts">+100 ⭐</div><div class="nei-lbl">Top rated</div></div>
+          <div class="nh-earn-item"><div class="nei-pts">+50 <i class="ti ti-star-filled"></i></div><div class="nei-lbl">Upload notes</div></div>
+          <div class="nh-earn-item"><div class="nei-pts">+20 <i class="ti ti-star-filled"></i></div><div class="nei-lbl">Notes verified</div></div>
+          <div class="nh-earn-item"><div class="nei-pts">+5 <i class="ti ti-star-filled"></i></div><div class="nei-lbl">Per download</div></div>
+          <div class="nh-earn-item"><div class="nei-pts">+100 <i class="ti ti-star-filled"></i></div><div class="nei-lbl">Top rated</div></div>
         </div>
       </div>
       <div style="margin-top:14px">
@@ -111,12 +111,12 @@
         <select id="nhDonateSubject" style="margin-bottom:8px"><option value="">Select subject...</option><option>Biology</option><option>Chemistry</option><option>Physics</option><option>Mathematics</option><option>English Language</option><option>History</option><option>Economics</option><option>Business Studies</option><option>Accounting</option><option>Computer Science</option></select>
         <input type="text" id="nhDonateTopic" placeholder="Topic covered (e.g. Respiration, Organic Chemistry)">
         <div class="upload-zone" id="nhDonateZone" onclick="document.getElementById('nhDonateFile').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="handleNHDonateDrop(event)">
-          <div class="upload-icon">📁</div>
+          <div class="upload-icon"><i class="ti ti-folder"></i></div>
           <p><strong>Upload your notes</strong> (PDF, Word, PPT)</p>
           <input type="file" id="nhDonateFile" accept=".pdf,.docx,.pptx" onchange="handleNHDonateSelect(event)">
         </div>
         <div id="nhDonateBadge" style="display:none"></div>
-        <button class="btn btn-gold" onclick="donateNotes()" style="margin-top:8px">💝 Donate & Earn 50 ⭐ Points</button>
+        <button class="btn btn-gold" onclick="donateNotes()" style="margin-top:8px"><i class="ti ti-gift"></i> Donate & Earn 50 <i class="ti ti-star-filled"></i> Points</button>
       </div>
       <div style="margin-top:18px">
         <p style="font-size:0.82rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Community Notes Library</p>

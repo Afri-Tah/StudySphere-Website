@@ -10,8 +10,8 @@ function deleteNote(i) { notes.splice(i, 1); localStorage.setItem('ss_notes', JS
 function clearAllNotes() { if (!confirm('Clear all notes?')) return; notes = []; localStorage.setItem('ss_notes', JSON.stringify(notes)); renderNotes(); }
 function renderNotes() {
   const grid = document.getElementById('notesGrid'); document.getElementById('notesCount').textContent = `${notes.length} note${notes.length!==1?'s':''} saved`;
-  if (!notes.length) { grid.innerHTML = `<div class="notes-empty">Your notes will appear here ✏️</div>`; return; }
-  grid.innerHTML = notes.map((n, i) => `<div class="sticky-note" style="background:${n.color}"><button class="note-delete" onclick="deleteNote(${i})">✕</button>${n.text}<span class="note-time">${n.time}</span></div>`).join('');
+  if (!notes.length) { grid.innerHTML = `<div class="notes-empty">Your notes will appear here <i class="ti ti-pencil"></i></div>`; return; }
+  grid.innerHTML = notes.map((n, i) => `<div class="sticky-note" style="background:${n.color}"><button class="note-delete" onclick="deleteNote(${i})"><i class="ti ti-x"></i></button>${n.text}<span class="note-time">${n.time}</span></div>`).join('');
 }
 renderNotes();
 

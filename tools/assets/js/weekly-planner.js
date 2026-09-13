@@ -9,7 +9,7 @@ function addTask() {
 }
 function removeTask(i) { tasks.splice(i, 1); renderTaskList(); }
 function renderTaskList() {
-  document.getElementById('taskList').innerHTML = tasks.map((t, i) => `<span class="task-badge ${t.priority}">${t.text} (${t.hours}h/wk) <button onclick="removeTask(${i})">✕</button></span>`).join('');
+  document.getElementById('taskList').innerHTML = tasks.map((t, i) => `<span class="task-badge ${t.priority}">${t.text} (${t.hours}h/wk) <button onclick="removeTask(${i})"><i class="ti ti-x"></i></button></span>`).join('');
 }
 function toggleRest(btn) { const day = btn.dataset.day; if (restDays.includes(day)) { restDays = restDays.filter(d => d !== day); btn.classList.remove('rest-active'); } else { restDays.push(day); btn.classList.add('rest-active'); } }
 function generatePlan() {
@@ -29,7 +29,7 @@ function generatePlan() {
   while (slotH < endH) {
     html += `<tr><td style="font-size:0.68rem;font-weight:700;color:var(--muted);white-space:nowrap">${String(slotH).padStart(2,'0')}:00</td>`;
     days.forEach(day => {
-      if (restDays.includes(day)) { html += `<td class="rest-cell">Rest 😴</td>`; return; }
+      if (restDays.includes(day)) { html += `<td class="rest-cell"><i class="ti ti-moon"></i> Rest</td>`; return; }
       const cumH = slotH - startH;
       let cumulated = 0, found = null;
       for (const t of (schedule[day] || [])) { if (cumH >= cumulated && cumH < cumulated + t.hours) { found = t; break; } cumulated += t.hours; }
