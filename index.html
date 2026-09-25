@@ -187,7 +187,8 @@ button { cursor: pointer; font-family: inherit; }
 #splash {
   position: fixed;
   inset: 0;
-  background: url('assets/img/splash-doodle.jpg');
+  background-color: #F4E9DE;
+  background-image: url('assets/img/splash-doodle.jpg');
   background-size: cover;
   background-position: center;
   display: flex;
@@ -2259,11 +2260,13 @@ body.dark footer { background: #16181A; }
 // ============================================================
 //  SPLASH SCREEN
 // ============================================================
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('splash').classList.add('hidden');
-  }, 1800);
-});
+function hideSplash() {
+  document.getElementById('splash')?.classList.add('hidden');
+}
+window.addEventListener('load', () => setTimeout(hideSplash, 1800));
+// Safety net: never let the splash stay up more than 4s, even if
+// some other resource on the page stalls window.load.
+setTimeout(hideSplash, 4000);
 
 // ============================================================
 //  LOGO FALLBACK
