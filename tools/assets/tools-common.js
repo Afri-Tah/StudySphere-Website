@@ -130,7 +130,7 @@ updatePtsDisplay();
 // Fill this in after deploying the Worker in /ai-proxy (see its README) —
 // e.g. 'https://studysphere-ai.yourname.workers.dev'. Leave blank to skip
 // straight to the per-student key model below.
-const SS_AI_PROXY_URL = '';
+const SS_AI_PROXY_URL = 'https://studysphere-ai.atworkafrida.workers.dev';
 // Only needed if you set PROXY_SHARED_SECRET as a Worker secret too (see
 // /ai-proxy/worker.js) — put the same string here so requests are accepted.
 const SS_AI_PROXY_SECRET = '';
