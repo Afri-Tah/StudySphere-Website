@@ -81,14 +81,13 @@ async function generateAINotes() {
 
   resultEl.style.display = 'block';
 
-  const configured = ssConfiguredAIProviders();
-  if (configured.length === 0) {
+  if (!ssHasAnyAIPath()) {
     resultEl.innerHTML = buildOfflineOutline(topic, subject, boardLabel);
     addPoints(8, `Notes outline: ${subject} — ${topic}`);
     return;
   }
 
-  if (btn) { btn.disabled = true; btn.innerHTML = `<i class="ti ti-loader-2" style="animation:spin 1s linear infinite"></i> Asking ${configured[0].name}…`; }
+  if (btn) { btn.disabled = true; btn.innerHTML = `<i class="ti ti-loader-2" style="animation:spin 1s linear infinite"></i> Asking AI…`; }
   resultEl.innerHTML = `<p style="color:var(--muted);font-size:0.85rem"><i class="ti ti-loader-2" style="animation:spin 1s linear infinite"></i> Generating…</p>`;
 
   const system = `You are a concise revision-notes assistant for a ${boardLabel} student. Respond in short markdown-style sections with headings for Overview, Key Concepts, Important Definitions, Common Exam Mistakes, and Quick Recall Summary. Keep it exam-focused and no longer than about 300 words.`;

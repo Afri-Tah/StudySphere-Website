@@ -79,9 +79,8 @@ function tutShowTyping(show) {
 }
 
 async function tutStartSession() {
-  const configured = ssConfiguredAIProviders();
   const notice = document.getElementById('tutNoKeyNotice');
-  if (configured.length === 0) {
+  if (!ssHasAnyAIPath()) {
     notice.style.display = 'block';
     return;
   }

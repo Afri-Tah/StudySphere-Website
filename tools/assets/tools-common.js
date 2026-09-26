@@ -111,19 +111,52 @@ updatePtsDisplay();
 //    scraped, drained, and the provider WILL ban it. Providers that used to
 //    offer keyless browser access (e.g. Pollinations) have explicitly
 //    dropped that for new projects because of exactly this abuse.
-//  • So instead: each student/teacher who wants the AI features pastes
-//    their OWN free API key (from the provider's own dashboard — no credit
-//    card needed for any of these) into the panel below. It's saved only in
-//    THIS browser's localStorage — never in this code, never sent anywhere
-//    but straight to that provider from your own browser.
-//  • Multiple providers can be configured at once. If one is missing a key,
-//    rate-limited, or down, the next configured one is tried automatically
-//    — so a single provider running dry doesn't stop the feature. If every
-//    configured provider fails (or none are set up yet), callers fall back
-//    to a fully offline mode that never depends on the network at all.
+//  • The fix for a zero-signup experience is a small serverless proxy that
+//    holds real keys server-side — see /ai-proxy/README.md. Once deployed,
+//    set its URL below and every tool works with no student sign-up at all.
+//  • Until that's set (or if it's ever unreachable), tools fall back to
+//    each student's own free key, pasted into the "AI Keys" panel and kept
+//    only in that browser's localStorage — never in this code, never sent
+//    anywhere but straight to that provider from the student's own browser.
+//  • Multiple providers can be configured at once, on either path. If one
+//    is missing a key, rate-limited, or down, the next configured one is
+//    tried automatically — so a single provider running dry doesn't stop
+//    the feature. If everything fails, callers fall back to a fully
+//    offline mode that never depends on the network at all.
 //
 // This is "as resilient as free tiers allow," not literally infinite — no
 // static site can honestly promise more than that.
+
+// Fill this in after deploying the Worker in /ai-proxy (see its README) —
+// e.g. 'https://studysphere-ai.yourname.workers.dev'. Leave blank to skip
+// straight to the per-student key model below.
+const SS_AI_PROXY_URL = '';
+// Only needed if you set PROXY_SHARED_SECRET as a Worker secret too (see
+// /ai-proxy/worker.js) — put the same string here so requests are accepted.
+const SS_AI_PROXY_SECRET = '';
+
+async function ssAIProxyCall(system, messages) {
+  if (!SS_AI_PROXY_URL) return null;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 30000);
+  try {
+    const headers = { 'Content-Type': 'application/json' };
+    if (SS_AI_PROXY_SECRET) headers['X-SS-Secret'] = SS_AI_PROXY_SECRET;
+    const res = await fetch(SS_AI_PROXY_URL, {
+      method: 'POST', signal: controller.signal, headers,
+      body: JSON.stringify({ system, messages })
+    });
+    clearTimeout(timeout);
+    if (!res.ok) throw new Error(`proxy → HTTP ${res.status}`);
+    const data = await res.json();
+    if (!data.text) return null;
+    return { text: data.text, provider: `${data.provider} (shared)`, model: data.model };
+  } catch (err) {
+    clearTimeout(timeout);
+    console.warn('[StudySphere AI] shared proxy unavailable, falling back to personal keys:', err.message || err);
+    return null;
+  }
+}
 
 const SS_AI_PROVIDERS = [
   {
@@ -257,6 +290,13 @@ function ssSetAIKey(id, val) {
   else localStorage.removeItem(`ss_ai_key_${id}`);
 }
 function ssConfiguredAIProviders() { return SS_AI_PROVIDERS.filter(p => ssGetAIKey(p.id)); }
+// True if there's ANY way to reach an AI right now — the shared proxy
+// (once deployed, see /ai-proxy) or at least one personal key. Callers use
+// this instead of checking ssConfiguredAIProviders().length directly, so
+// they don't skip straight to offline mode while a working proxy sits unused.
+function ssHasAnyAIPath() {
+  return !!(typeof SS_AI_PROXY_URL === 'string' && SS_AI_PROXY_URL) || ssConfiguredAIProviders().length > 0;
+}
 
 // Tries every configured provider (in the order above), and within each
 // provider, every model in its list, until one returns text. Returns
@@ -264,6 +304,10 @@ function ssConfiguredAIProviders() { return SS_AI_PROVIDERS.filter(p => ssGetAIK
 // the case where no keys are configured at all) — callers should always have
 // an offline fallback ready for the null case.
 async function ssAIComplete(system, prompt, onAttempt) {
+  if (onAttempt) onAttempt('shared AI');
+  const proxied = await ssAIProxyCall(system, [{ role: 'user', content: prompt }]);
+  if (proxied) return proxied;
+
   for (const provider of ssConfiguredAIProviders()) {
     const key = ssGetAIKey(provider.id);
     for (const model of provider.models) {
@@ -289,6 +333,10 @@ async function ssAIComplete(system, prompt, onAttempt) {
 // provider/model fallback order and same { text, provider, model } | null
 // shape as ssAIComplete.
 async function ssAIChat(system, messages, onAttempt) {
+  if (onAttempt) onAttempt('shared AI');
+  const proxied = await ssAIProxyCall(system, messages);
+  if (proxied) return proxied;
+
   for (const provider of ssConfiguredAIProviders()) {
     const key = ssGetAIKey(provider.id);
     for (const model of provider.models) {
@@ -318,9 +366,11 @@ function openAISettingsModal() {
     <div class="tt-modal-inner" style="max-width:420px;text-align:left;max-height:85vh;overflow-y:auto">
       <h3><i class="ti ti-key"></i> AI Provider Keys</h3>
       <p style="font-size:0.8rem;color:var(--muted);margin-bottom:14px">
-        StudySphere has no server, so AI features run on <strong>your own free API key(s)</strong> —
+        ${SS_AI_PROXY_URL
+          ? `This site already includes a free shared AI tutor — most students don't need anything below. Only add your own key if you want a private backup for the rare moment the shared one is busy.`
+          : `StudySphere has no server, so AI features run on <strong>your own free API key(s)</strong> —
         pasted here and saved only in this browser, never uploaded anywhere. Add one or more; if a
-        provider is busy or out of quota, the next one you've added is tried automatically.
+        provider is busy or out of quota, the next one you've added is tried automatically.`}
       </p>
       ${SS_AI_PROVIDERS.map(p => `
         <div style="margin-bottom:12px">
