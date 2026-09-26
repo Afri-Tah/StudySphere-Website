@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notes Generator — StudySphere Tools</title>
-  <meta name="description" content="AI-written revision notes with your own free API key, plus an offline outline backup.">
+  <meta name="description" content="AI-written revision notes for any topic, plus an offline outline backup.">
   <link rel="icon" type="image/png" href="../logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
@@ -56,10 +56,9 @@
     <div class="tool-page-icon"><i class="ti ti-notes"></i></div>
     <div>
       <h1 class="tool-page-title">Notes Generator</h1>
-      <p class="tool-page-desc">AI-written revision notes using your own free API key, with a fill-in-the-blank outline built in as a backup.</p>
+      <p class="tool-page-desc">AI-written revision notes for any topic, with a fill-in-the-blank outline built in as a backup.</p>
       <div class="tool-page-badges"><span class="hub-card-tag" style="background:var(--primary-light,#EEEBFF);color:var(--primary)">Student</span></div>
     </div>
-    <button class="btn btn-outline btn-sm" style="width:auto;margin-left:auto;flex-shrink:0" onclick="openAISettingsModal()"><i class="ti ti-key"></i> AI Keys</button>
   </div>
 <!-- 3. AI NOTES GENERATOR -->
   <div class="tool-card" style="grid-column: span 2;" data-category="student">
@@ -67,7 +66,7 @@
       <div class="tool-icon"><i class="ti ti-notes"></i></div>
       <div>
         <h2>AI Notes Generator <span class="tool-badge badge-student">Student</span></h2>
-        <p>Get exam-focused revision notes — powered by your own free AI key, with an offline outline as backup</p>
+        <p>Get exam-focused revision notes — powered by StudySphere’s built-in AI, with an offline outline as backup</p>
       </div>
     </div>
     <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
@@ -93,7 +92,7 @@
     </select>
     <input type="text" id="nhGenTopic" placeholder="Topic (e.g. Cell Division, Organic Chemistry, Elasticity...)" style="margin-bottom:10px">
     <button class="btn btn-peach" id="nhGenBtn" onclick="generateAINotes()"><i class="ti ti-notes"></i> Generate Notes</button>
-    <p style="font-size:0.72rem;color:var(--muted);margin-top:8px">Add a free API key under "AI Keys" for real AI-written notes. Without one (or if every configured provider is unavailable) you'll get a fill-in-the-blank outline instead — it's always labelled which one you got.</p>
+    <p style="font-size:0.72rem;color:var(--muted);margin-top:8px">Uses StudySphere’s built-in AI for real AI-written notes. If it’s ever unavailable, you’ll get a fill-in-the-blank outline instead — it’s always labelled which one you got.</p>
     <div class="nh-ai-result" id="nhAiResult"></div>
   </div>
 <div class="related-tools">

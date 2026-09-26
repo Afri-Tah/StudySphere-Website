@@ -5,9 +5,10 @@
 // static site *can* honestly do: (1) let the student paste their own
 // source material to be taught from, and (2) be upfront when there's no
 // source and the tutor is teaching from general knowledge instead — never
-// pretend either one is the other. It runs on whichever AI key the
-// student has added under "AI Keys" (see tools-common.js); with none
-// configured, it doesn't fake a conversation — it just says so.
+// pretend either one is the other. It runs on StudySphere's built-in
+// shared AI (see the SS_AI_PROXY_URL proxy in tools-common.js), with a
+// student's own personal key as a silent backup if that's ever configured;
+// with neither reachable, it says so plainly instead of faking a reply.
 
 let tutMessages = [];      // {role:'user'|'assistant', content}
 let tutSystemPrompt = '';
@@ -123,7 +124,7 @@ async function tutStartSession() {
     tutRenderMessage('assistant', result.text);
   } else {
     tutMessages.pop(); // drop the kickoff turn so retrying doesn't duplicate it
-    tutRenderSystemNote('Couldn\u2019t reach any configured AI provider. Check your AI Keys, then try New session.');
+    tutRenderSystemNote('Couldn\u2019t reach the AI tutor right now — please try again in a few minutes.');
   }
 }
 
@@ -157,7 +158,7 @@ async function tutSend() {
     tutRenderMessage('assistant', result.text);
     addPoints(2, `Tutoring exchange: ${tutSessionLabel}`);
   } else {
-    tutRenderSystemNote('Couldn\u2019t reach any configured AI provider right now — check your AI Keys and try again.');
+    tutRenderSystemNote('Couldn\u2019t reach the AI tutor right now — please try again in a moment.');
   }
 }
 

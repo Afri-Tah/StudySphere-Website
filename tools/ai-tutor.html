@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Study Tutor — StudySphere Tools</title>
-  <meta name="description" content="A patient AI tutor that teaches step by step at your level, using your own free API key.">
+  <meta name="description" content="A patient AI tutor built into StudySphere that teaches step by step at your level.">
   <link rel="icon" type="image/png" href="../logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
@@ -56,10 +56,9 @@
     <div class="tool-page-icon"><i class="ti ti-brain"></i></div>
     <div>
       <h1 class="tool-page-title">AI Study Tutor</h1>
-      <p class="tool-page-desc">Pick a level and a topic, and it teaches you step by step — explaining a bit, then checking you understood, using your own free AI key.</p>
+      <p class="tool-page-desc">Pick a level and a topic, and it teaches you step by step — explaining a bit, then checking you understood.</p>
       <div class="tool-page-badges"><span class="hub-card-tag" style="background:var(--primary-light,#EEEBFF);color:var(--primary)">Student</span></div>
     </div>
-    <button class="btn btn-outline btn-sm" style="width:auto;margin-left:auto;flex-shrink:0" onclick="openAISettingsModal()"><i class="ti ti-key"></i> AI Keys</button>
   </div>
 
   <!-- SETUP CARD -->
@@ -90,9 +89,8 @@
     </div>
 
     <button class="btn" id="tutStartBtn" style="margin-top:10px" onclick="tutStartSession()"><i class="ti ti-player-play"></i> Start Tutoring Session</button>
-    <p style="font-size:0.72rem;color:var(--muted);margin-top:8px">Uses this site's shared AI where it's set up, or your own free key under "AI Keys" as a backup — nothing here works without one, since a static site can't run the AI itself. A personal key stays in this browser only.</p>
     <div id="tutNoKeyNotice" style="display:none;margin-top:10px;padding:12px 14px;background:var(--primary-light,#EEEBFF);border-radius:12px;font-size:0.82rem">
-      <i class="ti ti-info-circle"></i> No AI key configured yet. <a href="#" onclick="openAISettingsModal();return false;">Add a free one here</a> to start a session.
+      <i class="ti ti-info-circle"></i> The AI tutor is temporarily unavailable — please try again in a few minutes.
     </div>
   </div>
 
