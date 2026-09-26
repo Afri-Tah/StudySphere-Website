@@ -143,6 +143,19 @@ const SS_AI_PROVIDERS = [
       if (!res.ok) throw new Error(`Groq/${model} → HTTP ${res.status}`);
       const data = await res.json();
       return data.choices?.[0]?.message?.content?.trim() || '';
+    },
+    // Multi-turn variant used by the AI Tutor (keeps `call` above untouched
+    // for the single-turn callers that already depend on it).
+    async chat(key, model, system, messages, signal) {
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST', signal,
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+        body: JSON.stringify({ model, temperature: 0.6, max_tokens: 700,
+          messages: [{ role: 'system', content: system }, ...messages] })
+      });
+      if (!res.ok) throw new Error(`Groq/${model} → HTTP ${res.status}`);
+      const data = await res.json();
+      return data.choices?.[0]?.message?.content?.trim() || '';
     }
   },
   {
@@ -157,6 +170,19 @@ const SS_AI_PROVIDERS = [
         method: 'POST', signal,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: `${system}\n\n${prompt}` }] }] })
+      });
+      if (!res.ok) throw new Error(`Gemini/${model} → HTTP ${res.status}`);
+      const data = await res.json();
+      return (data.candidates?.[0]?.content?.parts || []).map(p => p.text).join('').trim();
+    },
+    async chat(key, model, system, messages, signal) {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(key)}`, {
+        method: 'POST', signal,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: system }] },
+          contents: messages.map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] }))
+        })
       });
       if (!res.ok) throw new Error(`Gemini/${model} → HTTP ${res.status}`);
       const data = await res.json();
@@ -180,6 +206,17 @@ const SS_AI_PROVIDERS = [
       if (!res.ok) throw new Error(`OpenRouter/${model} → HTTP ${res.status}`);
       const data = await res.json();
       return data.choices?.[0]?.message?.content?.trim() || '';
+    },
+    async chat(key, model, system, messages, signal) {
+      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST', signal,
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+        body: JSON.stringify({ model,
+          messages: [{ role: 'system', content: system }, ...messages] })
+      });
+      if (!res.ok) throw new Error(`OpenRouter/${model} → HTTP ${res.status}`);
+      const data = await res.json();
+      return data.choices?.[0]?.message?.content?.trim() || '';
     }
   },
   {
@@ -195,6 +232,17 @@ const SS_AI_PROVIDERS = [
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
         body: JSON.stringify({ model,
           messages: [{ role: 'system', content: system }, { role: 'user', content: prompt }] })
+      });
+      if (!res.ok) throw new Error(`Hack Club/${model} → HTTP ${res.status}`);
+      const data = await res.json();
+      return data.choices?.[0]?.message?.content?.trim() || '';
+    },
+    async chat(key, model, system, messages, signal) {
+      const res = await fetch('https://ai.hackclub.com/proxy/v1/chat/completions', {
+        method: 'POST', signal,
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+        body: JSON.stringify({ model,
+          messages: [{ role: 'system', content: system }, ...messages] })
       });
       if (!res.ok) throw new Error(`Hack Club/${model} → HTTP ${res.status}`);
       const data = await res.json();
@@ -229,6 +277,31 @@ async function ssAIComplete(system, prompt, onAttempt) {
       } catch (err) {
         clearTimeout(timeout);
         console.warn(`[StudySphere AI] ${provider.name} (${model}) unavailable:`, err.message || err);
+      }
+    }
+  }
+  return null;
+}
+
+// Multi-turn sibling of ssAIComplete, for tools that hold a running
+// conversation (e.g. the AI Tutor) rather than a single one-shot prompt.
+// `messages` is an array of {role:'user'|'assistant', content}. Same
+// provider/model fallback order and same { text, provider, model } | null
+// shape as ssAIComplete.
+async function ssAIChat(system, messages, onAttempt) {
+  for (const provider of ssConfiguredAIProviders()) {
+    const key = ssGetAIKey(provider.id);
+    for (const model of provider.models) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 30000);
+      try {
+        if (onAttempt) onAttempt(provider.name);
+        const text = await provider.chat(key, model, system, messages, controller.signal);
+        clearTimeout(timeout);
+        if (text) return { text, provider: provider.name, model };
+      } catch (err) {
+        clearTimeout(timeout);
+        console.warn(`[StudySphere AI] ${provider.name} (${model}) chat unavailable:`, err.message || err);
       }
     }
   }

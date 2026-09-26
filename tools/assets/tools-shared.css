@@ -883,3 +883,22 @@ body.dark #hubSearch::placeholder { color: var(--muted); }
 }
 .dark-toggle-btn:hover { background: rgba(255,255,255,0.3); }
 .dark-toggle-btn .ti { font-size: 1.05rem; }
+
+/* ── AI Tutor ── */
+.tutor-notes-toggle { background: none; border: none; color: var(--primary); font-weight: 700; font-size: 0.8rem; cursor: pointer; padding: 4px 0; display: flex; align-items: center; gap: 4px; }
+.tutor-chat { display: none; flex-direction: column; height: 480px; max-height: 65vh; border: 2px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--bg); }
+.tutor-chat-log { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.tutor-msg { max-width: 82%; padding: 10px 14px; border-radius: 16px; font-size: 0.88rem; line-height: 1.55; white-space: pre-wrap; }
+.tutor-msg p { margin: 0 0 6px; }
+.tutor-msg p:last-child { margin-bottom: 0; }
+.tutor-msg.tutor { align-self: flex-start; background: var(--primary-light,#EEEBFF); color: var(--text); border-bottom-left-radius: 4px; }
+.tutor-msg.student { align-self: flex-end; background: var(--primary); color: #fff; border-bottom-right-radius: 4px; }
+.tutor-msg.system-note { align-self: center; background: transparent; color: var(--muted); font-size: 0.76rem; text-align: center; max-width: 100%; }
+.tutor-typing { align-self: flex-start; color: var(--muted); font-size: 0.8rem; padding: 0 4px; }
+.tutor-chat-inputrow { display: flex; gap: 8px; padding: 10px; border-top: 2px solid var(--border); background: var(--card,#fff); }
+.tutor-chat-inputrow textarea { flex: 1; margin: 0; resize: none; min-height: 42px; max-height: 100px; }
+.tutor-chat-inputrow button { width: auto; margin: 0; flex-shrink: 0; padding: 0 16px; }
+.tutor-session-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; font-size: 0.8rem; color: var(--muted); }
+.tutor-session-bar strong { color: var(--primary); }
+body.dark .tutor-chat-inputrow { background: var(--card); }
+body.dark .tutor-msg.tutor { background: #332C55; }
