@@ -1,0 +1,405 @@
+// ══════════════════════════════════════════════════════
+//  STUDYSPHERE TOOLS — shared across every tool page
+// ══════════════════════════════════════════════════════
+
+// ── Dark mode (shares the same localStorage key as the main site,
+//    so the setting carries across index.html <-> tools pages) ──
+function applyStoredTheme() {
+  const isDark = localStorage.getItem('darkMode') === 'true';
+  document.body.classList.toggle('dark', isDark);
+  const btn = document.getElementById('darkToggleBtn');
+  if (btn) btn.innerHTML = isDark ? '<i class="ti ti-sun"></i>' : '<i class="ti ti-moon"></i>';
+}
+function toggleDarkMode() {
+  const isDark = document.body.classList.toggle('dark');
+  localStorage.setItem('darkMode', isDark);
+  const btn = document.getElementById('darkToggleBtn');
+  if (btn) btn.innerHTML = isDark ? '<i class="ti ti-sun"></i>' : '<i class="ti ti-moon"></i>';
+}
+applyStoredTheme();
+
+// ── Points system ──
+let ptsData = JSON.parse(localStorage.getItem('ss_points') || '{"balance":0,"log":[]}');
+function savePts() { localStorage.setItem('ss_points', JSON.stringify(ptsData)); }
+function addPoints(amount, reason) {
+  ptsData.balance += amount;
+  ptsData.log.unshift({ pts: amount, desc: reason, time: new Date().toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) });
+  if (ptsData.log.length > 50) ptsData.log = ptsData.log.slice(0, 50);
+  savePts(); updatePtsDisplay(); showPtsToast(`+${amount} ⭐ ${reason}`);
+}
+function spendPoints(amount, reason) {
+  if (ptsData.balance < amount) { alert(`You need ${amount} ⭐ points. Keep studying to earn more!`); return false; }
+  ptsData.balance -= amount;
+  ptsData.log.unshift({ pts: -amount, desc: reason, time: new Date().toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) });
+  savePts(); updatePtsDisplay(); showPtsToast(`-${amount} ⭐ ${reason}`); return true;
+}
+function updatePtsDisplay() {
+  const nav = document.getElementById('topnavPts');
+  const panel = document.getElementById('ptsPanelVal');
+  if (nav) nav.textContent = ptsData.balance;
+  if (panel) panel.textContent = ptsData.balance;
+}
+function showPtsToast(msg) {
+  const t = document.getElementById('ptsToast');
+  if (!t) return;
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(showPtsToast._t);
+  showPtsToast._t = setTimeout(() => t.classList.remove('show'), 2800);
+}
+function openPtsPanel() {
+  document.getElementById('ptsPanel')?.classList.add('open');
+  document.getElementById('ptsOverlay')?.classList.add('open');
+  renderPtsPanel();
+}
+function closePtsPanel() {
+  document.getElementById('ptsPanel')?.classList.remove('open');
+  document.getElementById('ptsOverlay')?.classList.remove('open');
+}
+function renderPtsPanel() {
+  updatePtsDisplay();
+  const rewards = [
+    { icon: 'lock-open', name: 'Unlock Premium Notes', desc: 'Access exclusive curated notes for any subject', cost: 200 },
+    { icon: 'clipboard-list', name: 'Mock Exam PDF', desc: 'Download a full mock exam for your subject', cost: 150 },
+    { icon: 'target-arrow', name: 'Ask Priority Question', desc: "Move to top of teacher's queue", cost: 100 },
+    { icon: 'notes', name: 'Notes Generator', desc: '5 extra note outline generations', cost: 50 },
+    { icon: 'medal', name: 'Gold Studier Badge', desc: 'Earn the "Gold Studier" profile badge', cost: 500 },
+  ];
+  const rewardsEl = document.getElementById('ptsRewards');
+  if (rewardsEl) {
+    rewardsEl.innerHTML = rewards.map(r => `
+      <div class="pts-reward-item">
+        <div class="pri-info"><div class="pri-name"><i class="ti ti-${r.icon}"></i> ${r.name}</div><div class="pri-desc">${r.desc}</div></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+          <div class="pri-cost">${r.cost} <i class="ti ti-star-filled"></i></div>
+          <button class="btn btn-sm btn-peach" style="margin:0;width:auto;font-size:0.72rem" onclick="redeemReward('${r.name}',${r.cost})">Redeem</button>
+        </div>
+      </div>`).join('');
+  }
+  // Note: the old "leaderboard" showing fabricated names (e.g. "Farhan A.")
+  // was removed — it displayed made-up people as if they were real students,
+  // which was misleading. This panel now only shows the user's own stats.
+  const log = ptsData.log;
+  const logEl = document.getElementById('ptsLog');
+  if (logEl) {
+    logEl.innerHTML = log.length ? log.map(l => `
+      <div class="pts-log-item">
+        <div>${l.desc}</div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end">
+          <div class="pli-pts ${l.pts > 0 ? 'earn' : 'spend'}">${l.pts > 0 ? '+' : ''}${l.pts} <i class="ti ti-star-filled"></i></div>
+          <div style="font-size:0.65rem;color:var(--muted)">${l.time}</div>
+        </div>
+      </div>`).join('') : '<div style="text-align:center;padding:16px;color:var(--muted);font-size:0.85rem">No activity yet!</div>';
+  }
+}
+function redeemReward(name, cost) {
+  if (spendPoints(cost, `Redeemed: ${name}`)) {
+    alert(`🎉 Redeemed: ${name}!\n\nContact your teacher to claim this reward.`);
+    renderPtsPanel();
+  }
+}
+updatePtsDisplay();
+
+// ══════════════════════════════════════════════════════
+//  MULTI-PROVIDER AI FALLBACK ENGINE
+// ══════════════════════════════════════════════════════
+// StudySphere is a static site with no backend/server, which shapes what's
+// actually possible here — worth being upfront about:
+//
+//  • A "free, unlimited, no-key" AI API that's also safe to call straight
+//    from public browser code doesn't exist. Any key baked into this
+//    codebase is visible to every visitor via "View Source" — it WILL get
+//    scraped, drained, and the provider WILL ban it. Providers that used to
+//    offer keyless browser access (e.g. Pollinations) have explicitly
+//    dropped that for new projects because of exactly this abuse.
+//  • The fix for a zero-signup experience is a small serverless proxy that
+//    holds real keys server-side — see /ai-proxy/README.md. Once deployed,
+//    set its URL below and every tool works with no student sign-up at all.
+//  • Until that's set (or if it's ever unreachable), tools fall back to
+//    each student's own free key, pasted into the "AI Keys" panel and kept
+//    only in that browser's localStorage — never in this code, never sent
+//    anywhere but straight to that provider from the student's own browser.
+//  • Multiple providers can be configured at once, on either path. If one
+//    is missing a key, rate-limited, or down, the next configured one is
+//    tried automatically — so a single provider running dry doesn't stop
+//    the feature. If everything fails, callers fall back to a fully
+//    offline mode that never depends on the network at all.
+//
+// This is "as resilient as free tiers allow," not literally infinite — no
+// static site can honestly promise more than that.
+
+// Fill this in after deploying the Worker in /ai-proxy (see its README) —
+// e.g. 'https://studysphere-ai.yourname.workers.dev'. Leave blank to skip
+// straight to the per-student key model below.
+const SS_AI_PROXY_URL = 'https://studysphere-ai.atworkafrida.workers.dev';
+// Only needed if you set PROXY_SHARED_SECRET as a Worker secret too (see
+// /ai-proxy/worker.js) — put the same string here so requests are accepted.
+const SS_AI_PROXY_SECRET = '';
+
+async function ssAIProxyCall(system, messages) {
+  if (!SS_AI_PROXY_URL) return null;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 30000);
+  try {
+    const headers = { 'Content-Type': 'application/json' };
+    if (SS_AI_PROXY_SECRET) headers['X-SS-Secret'] = SS_AI_PROXY_SECRET;
+    const res = await fetch(SS_AI_PROXY_URL, {
+      method: 'POST', signal: controller.signal, headers,
+      body: JSON.stringify({ system, messages })
+    });
+    clearTimeout(timeout);
+    if (!res.ok) throw new Error(`proxy → HTTP ${res.status}`);
+    const data = await res.json();
+    if (!data.text) return null;
+    return { text: data.text, provider: `${data.provider} (shared)`, model: data.model };
+  } catch (err) {
+    clearTimeout(timeout);
+    console.warn('[StudySphere AI] shared proxy unavailable, falling back to personal keys:', err.message || err);
+    return null;
+  }
+}
+
+const SS_AI_PROVIDERS = [
+  {
+    id: 'groq',
+    name: 'Groq',
+    keyPlaceholder: 'gsk_...',
+    signupUrl: 'https://console.groq.com/keys',
+    signupNote: 'No card required · ~30 requests/min, 14,400/day',
+    models: ['openai/gpt-oss-120b', 'openai/gpt-oss-20b'], // Llama 3.x/Gemma were retired on Groq's free tier
+    async call(key, model, system, prompt, signal) {
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST', signal,
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+        body: JSON.stringify({ model, temperature: 0.6, max_tokens: 2500,
+          ...(model.startsWith('openai/gpt-oss') ? { reasoning_effort: 'low' } : {}),
+          messages: [{ role: 'system', content: system }, { role: 'user', content: prompt }] })
+      });
+      if (!res.ok) throw new Error(`Groq/${model} → HTTP ${res.status}`);
+      const data = await res.json();
+      return data.choices?.[0]?.message?.content?.trim() || '';
+    },
+    // Multi-turn variant used by the AI Tutor (keeps `call` above untouched
+    // for the single-turn callers that already depend on it).
+    async chat(key, model, system, messages, signal) {
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST', signal,
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+        body: JSON.stringify({ model, temperature: 0.6, max_tokens: 2500,
+          ...(model.startsWith('openai/gpt-oss') ? { reasoning_effort: 'low' } : {}),
+          messages: [{ role: 'system', content: system }, ...messages] })
+      });
+      if (!res.ok) throw new Error(`Groq/${model} → HTTP ${res.status}`);
+      const data = await res.json();
+      return data.choices?.[0]?.message?.content?.trim() || '';
+    }
+  },
+  {
+    id: 'gemini',
+    name: 'Google Gemini',
+    keyPlaceholder: 'AIza...',
+    signupUrl: 'https://aistudio.google.com/apikey',
+    signupNote: 'No card required · Google AI Studio free tier',
+    models: ['gemini-3.5-flash-lite', 'gemini-3.8-flash', 'gemini-2.5-flash'], // gemini-2.0-flash was shut down 2026-06-01
+    async call(key, model, system, prompt, signal) {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(key)}`, {
+        method: 'POST', signal,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: `${system}\n\n${prompt}` }] }] })
+      });
+      if (!res.ok) throw new Error(`Gemini/${model} → HTTP ${res.status}`);
+      const data = await res.json();
+      return (data.candidates?.[0]?.content?.parts || []).map(p => p.text).join('').trim();
+    },
+    async chat(key, model, system, messages, signal) {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(key)}`, {
+        method: 'POST', signal,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: system }] },
+          contents: messages.map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] }))
+        })
+      });
+      if (!res.ok) throw new Error(`Gemini/${model} → HTTP ${res.status}`);
+      const data = await res.json();
+      return (data.candidates?.[0]?.content?.parts || []).map(p => p.text).join('').trim();
+    }
+  },
+  {
+    id: 'openrouter',
+    name: 'OpenRouter',
+    keyPlaceholder: 'sk-or-...',
+    signupUrl: 'https://openrouter.ai/keys',
+    signupNote: 'No card required · pick any model ending in ":free"',
+    models: ['nvidia/nemotron-3-super-120b-a12b:free', 'google/gemma-4-31b-it:free'],
+    async call(key, model, system, prompt, signal) {
+      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST', signal,
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+        body: JSON.stringify({ model,
+          messages: [{ role: 'system', content: system }, { role: 'user', content: prompt }] })
+      });
+      if (!res.ok) throw new Error(`OpenRouter/${model} → HTTP ${res.status}`);
+      const data = await res.json();
+      return data.choices?.[0]?.message?.content?.trim() || '';
+    },
+    async chat(key, model, system, messages, signal) {
+      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST', signal,
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+        body: JSON.stringify({ model,
+          messages: [{ role: 'system', content: system }, ...messages] })
+      });
+      if (!res.ok) throw new Error(`OpenRouter/${model} → HTTP ${res.status}`);
+      const data = await res.json();
+      return data.choices?.[0]?.message?.content?.trim() || '';
+    }
+  },
+  {
+    id: 'hackclub',
+    name: 'Hack Club AI',
+    keyPlaceholder: 'key from ai.hackclub.com',
+    signupUrl: 'https://ai.hackclub.com',
+    signupNote: 'Free for students — join Hack Club Slack to get a key',
+    models: ['qwen/qwen3-32b'],
+    async call(key, model, system, prompt, signal) {
+      const res = await fetch('https://ai.hackclub.com/proxy/v1/chat/completions', {
+        method: 'POST', signal,
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+        body: JSON.stringify({ model,
+          messages: [{ role: 'system', content: system }, { role: 'user', content: prompt }] })
+      });
+      if (!res.ok) throw new Error(`Hack Club/${model} → HTTP ${res.status}`);
+      const data = await res.json();
+      return data.choices?.[0]?.message?.content?.trim() || '';
+    },
+    async chat(key, model, system, messages, signal) {
+      const res = await fetch('https://ai.hackclub.com/proxy/v1/chat/completions', {
+        method: 'POST', signal,
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+        body: JSON.stringify({ model,
+          messages: [{ role: 'system', content: system }, ...messages] })
+      });
+      if (!res.ok) throw new Error(`Hack Club/${model} → HTTP ${res.status}`);
+      const data = await res.json();
+      return data.choices?.[0]?.message?.content?.trim() || '';
+    }
+  }
+];
+
+function ssGetAIKey(id) { return localStorage.getItem(`ss_ai_key_${id}`) || ''; }
+function ssSetAIKey(id, val) {
+  if (val && val.trim()) localStorage.setItem(`ss_ai_key_${id}`, val.trim());
+  else localStorage.removeItem(`ss_ai_key_${id}`);
+}
+function ssConfiguredAIProviders() { return SS_AI_PROVIDERS.filter(p => ssGetAIKey(p.id)); }
+// True if there's ANY way to reach an AI right now — the shared proxy
+// (once deployed, see /ai-proxy) or at least one personal key. Callers use
+// this instead of checking ssConfiguredAIProviders().length directly, so
+// they don't skip straight to offline mode while a working proxy sits unused.
+function ssHasAnyAIPath() {
+  return !!(typeof SS_AI_PROXY_URL === 'string' && SS_AI_PROXY_URL) || ssConfiguredAIProviders().length > 0;
+}
+
+// Tries every configured provider (in the order above), and within each
+// provider, every model in its list, until one returns text. Returns
+// { text, provider, model } on success, or null if nothing worked (including
+// the case where no keys are configured at all) — callers should always have
+// an offline fallback ready for the null case.
+async function ssAIComplete(system, prompt, onAttempt) {
+  if (onAttempt) onAttempt('shared AI');
+  const proxied = await ssAIProxyCall(system, [{ role: 'user', content: prompt }]);
+  if (proxied) return proxied;
+
+  for (const provider of ssConfiguredAIProviders()) {
+    const key = ssGetAIKey(provider.id);
+    for (const model of provider.models) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 20000);
+      try {
+        if (onAttempt) onAttempt(provider.name);
+        const text = await provider.call(key, model, system, prompt, controller.signal);
+        clearTimeout(timeout);
+        if (text) return { text, provider: provider.name, model };
+      } catch (err) {
+        clearTimeout(timeout);
+        console.warn(`[StudySphere AI] ${provider.name} (${model}) unavailable:`, err.message || err);
+      }
+    }
+  }
+  return null;
+}
+
+// Multi-turn sibling of ssAIComplete, for tools that hold a running
+// conversation (e.g. the AI Tutor) rather than a single one-shot prompt.
+// `messages` is an array of {role:'user'|'assistant', content}. Same
+// provider/model fallback order and same { text, provider, model } | null
+// shape as ssAIComplete.
+async function ssAIChat(system, messages, onAttempt) {
+  if (onAttempt) onAttempt('shared AI');
+  const proxied = await ssAIProxyCall(system, messages);
+  if (proxied) return proxied;
+
+  for (const provider of ssConfiguredAIProviders()) {
+    const key = ssGetAIKey(provider.id);
+    for (const model of provider.models) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 30000);
+      try {
+        if (onAttempt) onAttempt(provider.name);
+        const text = await provider.chat(key, model, system, messages, controller.signal);
+        clearTimeout(timeout);
+        if (text) return { text, provider: provider.name, model };
+      } catch (err) {
+        clearTimeout(timeout);
+        console.warn(`[StudySphere AI] ${provider.name} (${model}) chat unavailable:`, err.message || err);
+      }
+    }
+  }
+  return null;
+}
+
+// ── Settings panel: where a key gets pasted in and saved locally ──
+function openAISettingsModal() {
+  closeAISettingsModal();
+  const modal = document.createElement('div');
+  modal.className = 'tt-add-modal';
+  modal.id = 'aiSettingsModal';
+  modal.innerHTML = `
+    <div class="tt-modal-inner" style="max-width:420px;text-align:left;max-height:85vh;overflow-y:auto">
+      <h3><i class="ti ti-key"></i> AI Provider Keys</h3>
+      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:14px">
+        ${SS_AI_PROXY_URL
+          ? `This site already includes a free shared AI tutor — most students don't need anything below. Only add your own key if you want a private backup for the rare moment the shared one is busy.`
+          : `StudySphere has no server, so AI features run on <strong>your own free API key(s)</strong> —
+        pasted here and saved only in this browser, never uploaded anywhere. Add one or more; if a
+        provider is busy or out of quota, the next one you've added is tried automatically.`}
+      </p>
+      ${SS_AI_PROVIDERS.map(p => `
+        <div style="margin-bottom:12px">
+          <label style="display:flex;justify-content:space-between;align-items:baseline;font-size:0.82rem;font-weight:700;margin-bottom:4px">
+            <span>${p.name}</span>
+            <a href="${p.signupUrl}" target="_blank" rel="noopener noreferrer" style="font-size:0.72rem;font-weight:600">Get a free key <i class="ti ti-external-link"></i></a>
+          </label>
+          <input type="text" id="aiKey_${p.id}" placeholder="${p.keyPlaceholder}" value="${ssGetAIKey(p.id)}" style="margin:0" autocomplete="off">
+          <div style="font-size:0.68rem;color:var(--muted);margin-top:2px">${p.signupNote}</div>
+        </div>
+      `).join('')}
+      <div class="edit-cell-btns" style="margin-top:6px">
+        <button class="btn btn-outline btn-sm" style="width:auto" onclick="closeAISettingsModal()">Cancel</button>
+        <button class="btn btn-sm" style="width:auto" onclick="saveAISettingsModal()">Save <i class="ti ti-check"></i></button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+}
+function closeAISettingsModal() { const m = document.getElementById('aiSettingsModal'); if (m) m.remove(); }
+function saveAISettingsModal() {
+  SS_AI_PROVIDERS.forEach(p => {
+    const el = document.getElementById(`aiKey_${p.id}`);
+    if (el) ssSetAIKey(p.id, el.value);
+  });
+  closeAISettingsModal();
+  const count = ssConfiguredAIProviders().length;
+  if (typeof showPtsToast === 'function') {
+    showPtsToast(count ? `${count} AI provider${count > 1 ? 's' : ''} saved ✓` : 'Keys cleared');
+  }
+}
