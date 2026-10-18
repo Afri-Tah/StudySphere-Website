@@ -284,7 +284,7 @@
     .grade-board-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 3px 0 #15112B; }
     .grade-mode-selector { display: flex; gap: 6px; margin-bottom: 12px; }
     .grade-mode-btn { flex: 1; padding: 7px; border-radius: 10px; border: 2px solid var(--border); background: var(--bg); font-size: 0.8rem; font-weight: 700; cursor: pointer; color: var(--primary); transition: 0.2s; text-align: center; font-family: 'Nunito', sans-serif; }
-    .grade-mode-btn.active { background: var(--peach); border-color: var(--peach); color: var(--primary); }
+    .grade-mode-btn.active { background: var(--peach); border-color: var(--peach); color: #3b2a1c; }
     .grade-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
     .grade-row input, .grade-row select { margin: 0; }
     .grade-row .remove-btn { background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 1.1rem; flex-shrink: 0; }
@@ -929,3 +929,29 @@ body.dark .tutor-msg.tutor { background: #332C55; }
 .ss-figures figcaption strong { color: var(--text); font-weight: 700; }
 .ss-fig-note, .ss-fig-loading { font-size: 0.72rem; color: var(--muted); margin: 6px 0 0; }
 .tutor-msg.rich { white-space: normal; }
+
+/* ── Filled icons ──
+   Tabler's icon font stopped including the "-filled" icons (they now live in a
+   separate font file), so <i class="ti ti-star-filled"> rendered as an empty
+   box. These three are drawn here as self-contained shapes instead, so they
+   work offline, never depend on a CDN version, and take the text colour. */
+.ti-star-filled, .ti-circle-filled, .ti-heart-filled {
+  display: inline-block; width: 1em; height: 1em; line-height: 1; vertical-align: -0.125em;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+}
+.ti-star-filled::before, .ti-circle-filled::before, .ti-heart-filled::before { content: none !important; }
+.ti-star-filled {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.8l3.1 6.4 7 .9-5.1 4.9 1.3 7-6.3-3.4-6.3 3.4 1.3-7L1.9 9.1l7-.9z' stroke='black' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.8l3.1 6.4 7 .9-5.1 4.9 1.3 7-6.3-3.4-6.3 3.4 1.3-7L1.9 9.1l7-.9z' stroke='black' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.ti-circle-filled {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3C/svg%3E");
+}
+.ti-heart-filled {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.2l-8.3-8.1C1 10.5 1.4 6.3 4.4 4.6c2.5-1.4 5.1-.6 7.6 2.2 2.5-2.8 5.1-3.6 7.6-2.2 3 1.7 3.4 5.9.7 8.5z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.2l-8.3-8.1C1 10.5 1.4 6.3 4.4 4.6c2.5-1.4 5.1-.6 7.6 2.2 2.5-2.8 5.1-3.6 7.6-2.2 3 1.7 3.4 5.9.7 8.5z'/%3E%3C/svg%3E");
+}
