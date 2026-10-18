@@ -165,12 +165,13 @@ const SS_AI_PROVIDERS = [
     keyPlaceholder: 'gsk_...',
     signupUrl: 'https://console.groq.com/keys',
     signupNote: 'No card required · ~30 requests/min, 14,400/day',
-    models: ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant', 'gemma2-9b-it'],
+    models: ['openai/gpt-oss-120b', 'openai/gpt-oss-20b'], // Llama 3.x/Gemma were retired on Groq's free tier
     async call(key, model, system, prompt, signal) {
       const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST', signal,
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
-        body: JSON.stringify({ model, temperature: 0.6, max_tokens: 900,
+        body: JSON.stringify({ model, temperature: 0.6, max_tokens: 2500,
+          ...(model.startsWith('openai/gpt-oss') ? { reasoning_effort: 'low' } : {}),
           messages: [{ role: 'system', content: system }, { role: 'user', content: prompt }] })
       });
       if (!res.ok) throw new Error(`Groq/${model} → HTTP ${res.status}`);
@@ -183,7 +184,8 @@ const SS_AI_PROVIDERS = [
       const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST', signal,
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
-        body: JSON.stringify({ model, temperature: 0.6, max_tokens: 700,
+        body: JSON.stringify({ model, temperature: 0.6, max_tokens: 2500,
+          ...(model.startsWith('openai/gpt-oss') ? { reasoning_effort: 'low' } : {}),
           messages: [{ role: 'system', content: system }, ...messages] })
       });
       if (!res.ok) throw new Error(`Groq/${model} → HTTP ${res.status}`);
@@ -197,7 +199,7 @@ const SS_AI_PROVIDERS = [
     keyPlaceholder: 'AIza...',
     signupUrl: 'https://aistudio.google.com/apikey',
     signupNote: 'No card required · Google AI Studio free tier',
-    models: ['gemini-2.0-flash', 'gemini-2.5-flash'],
+    models: ['gemini-3.5-flash-lite', 'gemini-3.8-flash', 'gemini-2.5-flash'], // gemini-2.0-flash was shut down 2026-06-01
     async call(key, model, system, prompt, signal) {
       const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(key)}`, {
         method: 'POST', signal,
@@ -228,7 +230,7 @@ const SS_AI_PROVIDERS = [
     keyPlaceholder: 'sk-or-...',
     signupUrl: 'https://openrouter.ai/keys',
     signupNote: 'No card required · pick any model ending in ":free"',
-    models: ['meta-llama/llama-3.3-70b-instruct:free', 'deepseek/deepseek-chat-v3.1:free'],
+    models: ['nvidia/nemotron-3-super-120b-a12b:free', 'google/gemma-4-31b-it:free'],
     async call(key, model, system, prompt, signal) {
       const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST', signal,

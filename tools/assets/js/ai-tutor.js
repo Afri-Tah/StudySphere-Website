@@ -34,6 +34,8 @@ Use plain, simple language and short paragraphs — many students are learning i
 
 Teach step by step, one small idea at a time. After each idea, ask a short question to check the student understood before moving on — don't dump everything at once. If the student answers wrong, gently correct them and re-explain rather than just handing over the right answer. If they answer right, confirm briefly and move to the next idea. Keep each message under about 120 words unless the student asks for more detail.
 
+You may use light Markdown to keep answers clear: short bullet lists, **bold** for key terms, and a small table when comparing things. Do not use headings or horizontal rules.
+
 ${grounding}`;
 }
 
@@ -52,6 +54,12 @@ function tutRenderMessage(role, text) {
   div.innerHTML = paras;
   log.appendChild(div);
   log.scrollTop = log.scrollHeight;
+  // Tutor replies get real Markdown (bullets, bold, tables). The plain text
+  // above shows instantly; if the renderer can't load, it simply stays.
+  if (role === 'assistant' && typeof ssRenderRich === 'function') {
+    div.classList.add('ss-rich', 'rich');
+    ssRenderRich(div, text, { breaks: true }).then(() => { log.scrollTop = log.scrollHeight; });
+  }
 }
 
 function tutRenderSystemNote(text) {

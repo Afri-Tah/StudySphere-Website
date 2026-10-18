@@ -345,7 +345,7 @@
     .notes-hub-tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
     .notes-hub-tab { flex: 1; min-width: 100px; padding: 9px; border-radius: 12px; border: 2px solid var(--border); background: var(--bg); font-size: 0.78rem; font-weight: 800; cursor: pointer; color: var(--primary); transition: 0.2s; text-align: center; font-family: 'Nunito', sans-serif; }
     .notes-hub-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-    .nh-ai-result { background: var(--card); border: 2px solid var(--border); border-radius: 14px; padding: 18px; margin-top: 14px; font-size: 0.88rem; line-height: 1.7; max-height: 420px; overflow-y: auto; display: none; }
+    .nh-ai-result { background: var(--card); border: 2px solid var(--border); border-radius: 14px; padding: 18px; margin-top: 14px; font-size: 0.88rem; line-height: 1.7; max-height: 75vh; overflow-y: auto; display: none; }
     .nh-ai-result h3 { font-family: 'Nunito', sans-serif; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
     .nh-ai-result h4 { color: var(--primary); margin: 10px 0 4px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.9rem; }
     .nh-ai-result ul { padding-left: 18px; margin: 4px 0; }
@@ -902,3 +902,30 @@ body.dark #hubSearch::placeholder { color: var(--muted); }
 .tutor-session-bar strong { color: var(--primary); }
 body.dark .tutor-chat-inputrow { background: var(--card); }
 body.dark .tutor-msg.tutor { background: #332C55; }
+
+/* ── Rich AI output (rich-output.js): Markdown, tables, diagrams, figures ── */
+.ss-rich h1, .ss-rich h2, .ss-rich h3, .ss-rich h4 { color: var(--primary); font-family: 'Nunito', sans-serif; font-weight: 800; margin: 14px 0 6px; line-height: 1.3; }
+.ss-rich h1, .ss-rich h2 { font-size: 1rem; }
+.ss-rich h3, .ss-rich h4 { font-size: 0.92rem; }
+.ss-rich > :first-child { margin-top: 0; }
+.ss-rich p { margin: 0 0 8px; }
+.ss-rich ul, .ss-rich ol { padding-left: 20px; margin: 4px 0 8px; }
+.ss-rich li { margin-bottom: 3px; }
+.ss-rich strong { font-weight: 800; }
+.ss-rich a { color: var(--primary); }
+.ss-rich code { background: var(--bg); border-radius: 4px; padding: 1px 5px; font-size: 0.85em; }
+.ss-rich blockquote { margin: 8px 0; padding: 4px 12px; border-left: 3px solid var(--primary); color: var(--muted); }
+.ss-rich hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+.ss-table-wrap { overflow-x: auto; margin: 8px 0 12px; -webkit-overflow-scrolling: touch; }
+.ss-rich table { border-collapse: collapse; width: 100%; font-size: 0.82rem; }
+.ss-rich th, .ss-rich td { border: 1px solid var(--border); padding: 7px 10px; text-align: left; vertical-align: top; }
+.ss-rich th { background: var(--primary-light,#EEEBFF); color: var(--primary); font-weight: 800; white-space: nowrap; }
+.ss-diagram { overflow-x: auto; text-align: center; margin: 10px 0 14px; padding: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; }
+.ss-diagram svg { max-width: 100%; height: auto; }
+.ss-figures { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); gap: 12px; margin: 6px 0; }
+.ss-figures figure { margin: 0; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+.ss-figures img { width: 100%; height: auto; max-height: 220px; object-fit: contain; background: #fff; border-radius: 8px; display: block; }
+.ss-figures figcaption { font-size: 0.7rem; color: var(--muted); line-height: 1.35; display: flex; flex-direction: column; }
+.ss-figures figcaption strong { color: var(--text); font-weight: 700; }
+.ss-fig-note, .ss-fig-loading { font-size: 0.72rem; color: var(--muted); margin: 6px 0 0; }
+.tutor-msg.rich { white-space: normal; }

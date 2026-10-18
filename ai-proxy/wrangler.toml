@@ -3,6 +3,7 @@ main = "worker.js"
 compatibility_date = "2024-09-23"
 
 # Secrets are NOT set here (this file can end up in git). Set them with:
+#   wrangler secret put FREELLMAPI_KEY        (optional, see README)
 #   wrangler secret put GROQ_API_KEY
 #   wrangler secret put GEMINI_API_KEY
 #   wrangler secret put OPENROUTER_API_KEY
@@ -12,3 +13,5 @@ compatibility_date = "2024-09-23"
 # Non-secret variables (safe to keep in git) go under [vars]:
 # [vars]
 # ALLOWED_ORIGIN = "https://your-studysphere-domain.com"
+# FREELLMAPI_BASE_URL = "https://llm.your-domain.com"   # public https origin of your FreeLLMAPI router
+# FREELLMAPI_MODEL = "auto"                              # optional: auto, auto:fast, auto:smart ...
