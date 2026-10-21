@@ -1,0 +1,977 @@
+{
+ "board": "pearson",
+ "qual": "ial",
+ "year": 2022,
+ "session": "october",
+ "source": "https://qualifications.pearson.com/content/dam/pdf/Support/Grade-boundaries/International-A-level/2210-ial-subject-grade-boundaries-v1.pdf",
+ "subjects": [
+  {
+   "name": "WAC",
+   "code": "WAC",
+   "units": [
+    {
+     "name": "Unit 1: The Accounting System and Costing Raw",
+     "code": "WAC11",
+     "max": 200,
+     "a2": false,
+     "bounds": {
+      "a": 102,
+      "b": 83,
+      "c": 64,
+      "d": 45,
+      "e": 26
+     }
+    },
+    {
+     "name": "Unit 2: Corporate and Management Accounting Raw 200",
+     "code": "WAC12",
+     "max": 157,
+     "a2": true,
+     "bounds": {
+      "a": 127,
+      "b": 106,
+      "c": 85,
+      "d": 64,
+      "e": 43
+     }
+    }
+   ]
+  },
+  {
+   "name": "XAC",
+   "code": "XAC",
+   "units": [
+    {
+     "name": "International AS Level Accounting UMS",
+     "code": "XAC11",
+     "max": 300,
+     "a2": true,
+     "bounds": {
+      "a": 240,
+      "b": 210,
+      "c": 180,
+      "d": 150,
+      "e": 120
+     }
+    }
+   ]
+  },
+  {
+   "name": "YAC",
+   "code": "YAC",
+   "units": [
+    {
+     "name": "International A Level Accounting UMS",
+     "code": "YAC11",
+     "max": 600,
+     "a2": true,
+     "bounds": {
+      "a": 480,
+      "b": 420,
+      "c": 360,
+      "d": 300,
+      "e": 240
+     }
+    }
+   ]
+  },
+  {
+   "name": "WBI",
+   "code": "WBI",
+   "units": [
+    {
+     "name": "Unit 1: Molecules, Diet, Transport and Health Raw",
+     "code": "WBI11",
+     "max": 80,
+     "a2": false,
+     "bounds": {
+      "a": 37,
+      "b": 32,
+      "c": 27,
+      "d": 23,
+      "e": 19
+     }
+    },
+    {
+     "name": "Unit 2: Cells, Development, Biodiversity and Conservation Raw",
+     "code": "WBI12",
+     "max": 80,
+     "a2": false,
+     "bounds": {
+      "a": 45,
+      "b": 41,
+      "c": 37,
+      "d": 33,
+      "e": 29
+     }
+    },
+    {
+     "name": "Unit 3: Practical Skills in Biology I Raw",
+     "code": "WBI13",
+     "max": 50,
+     "a2": false,
+     "bounds": {
+      "a": 31,
+      "b": 26,
+      "c": 22,
+      "d": 18,
+      "e": 14
+     }
+    },
+    {
+     "name": "Unit 4: Energy, Environment, Microbiology and Immunity Raw 90",
+     "code": "WBI14",
+     "max": 45,
+     "a2": true,
+     "bounds": {
+      "a": 39,
+      "b": 36,
+      "c": 33,
+      "d": 30,
+      "e": 28
+     }
+    },
+    {
+     "name": "Unit 5: Respiration, Internal Environment, Coordination and Gene Raw 90",
+     "code": "WBI15",
+     "max": 46,
+     "a2": true,
+     "bounds": {
+      "a": 39,
+      "b": 35,
+      "c": 31,
+      "d": 27,
+      "e": 23
+     }
+    },
+    {
+     "name": "Unit 6: Practical Skills in Biology II Raw 50",
+     "code": "WBI16",
+     "max": 36,
+     "a2": true,
+     "bounds": {
+      "a": 31,
+      "b": 26,
+      "c": 21,
+      "d": 16,
+      "e": 12
+     }
+    }
+   ]
+  },
+  {
+   "name": "XBI",
+   "code": "XBI",
+   "units": [
+    {
+     "name": "International AS Level Biology UMS",
+     "code": "XBI11",
+     "max": 300,
+     "a2": true,
+     "bounds": {
+      "a": 240,
+      "b": 210,
+      "c": 180,
+      "d": 150,
+      "e": 120
+     }
+    }
+   ]
+  },
+  {
+   "name": "YBI",
+   "code": "YBI",
+   "units": [
+    {
+     "name": "International A Level Biology UMS",
+     "code": "YBI11",
+     "max": 600,
+     "a2": true,
+     "bounds": {
+      "a": 480,
+      "b": 420,
+      "c": 360,
+      "d": 300,
+      "e": 240
+     }
+    }
+   ]
+  },
+  {
+   "name": "WBS",
+   "code": "WBS",
+   "units": [
+    {
+     "name": "Unit 1: Marketing and People Raw",
+     "code": "WBS11",
+     "max": 80,
+     "a2": false,
+     "bounds": {
+      "a": 50,
+      "b": 44,
+      "c": 38,
+      "d": 32,
+      "e": 27
+     }
+    },
+    {
+     "name": "Unit 2: Managing Business Activities Raw",
+     "code": "WBS12",
+     "max": 80,
+     "a2": false,
+     "bounds": {
+      "a": 41,
+      "b": 35,
+      "c": 30,
+      "d": 25,
+      "e": 20
+     }
+    },
+    {
+     "name": "Unit 3: Business Decisions And Strategy Raw 80",
+     "code": "WBS13",
+     "max": 50,
+     "a2": true,
+     "bounds": {
+      "a": 41,
+      "b": 35,
+      "c": 29,
+      "d": 23,
+      "e": 18
+     }
+    },
+    {
+     "name": "Unit 4: Global Business Raw 80",
+     "code": "WBS14",
+     "max": 51,
+     "a2": true,
+     "bounds": {
+      "a": 41,
+      "b": 35,
+      "c": 29,
+      "d": 23,
+      "e": 17
+     }
+    }
+   ]
+  },
+  {
+   "name": "XBS",
+   "code": "XBS",
+   "units": [
+    {
+     "name": "International AS Level Business UMS",
+     "code": "XBS11",
+     "max": 200,
+     "a2": true,
+     "bounds": {
+      "a": 160,
+      "b": 140,
+      "c": 120,
+      "d": 100,
+      "e": 80
+     }
+    }
+   ]
+  },
+  {
+   "name": "YBS",
+   "code": "YBS",
+   "units": [
+    {
+     "name": "International A Level Business UMS",
+     "code": "YBS11",
+     "max": 400,
+     "a2": true,
+     "bounds": {
+      "a": 320,
+      "b": 280,
+      "c": 240,
+      "d": 200,
+      "e": 160
+     }
+    }
+   ]
+  },
+  {
+   "name": "WCH",
+   "code": "WCH",
+   "units": [
+    {
+     "name": "Unit 1: Structure, Bonding and Introducttion to Organic Chemistry Raw",
+     "code": "WCH11",
+     "max": 80,
+     "a2": false,
+     "bounds": {
+      "a": 46,
+      "b": 40,
+      "c": 34,
+      "d": 28,
+      "e": 22
+     }
+    },
+    {
+     "name": "Unit 2: Energetics, Group Chemistry, Halogenoalkanes and Alcohol Raw",
+     "code": "WCH12",
+     "max": 80,
+     "a2": false,
+     "bounds": {
+      "a": 48,
+      "b": 41,
+      "c": 34,
+      "d": 27,
+      "e": 20
+     }
+    },
+    {
+     "name": "Unit 3: Practical Skills in Chemistry I Raw",
+     "code": "WCH13",
+     "max": 50,
+     "a2": false,
+     "bounds": {
+      "a": 27,
+      "b": 23,
+      "c": 19,
+      "d": 15,
+      "e": 12
+     }
+    },
+    {
+     "name": "Unit 4: Rates, Equilibria and Further Organic Chemistry Raw 90",
+     "code": "WCH14",
+     "max": 69,
+     "a2": true,
+     "bounds": {
+      "a": 55,
+      "b": 47,
+      "c": 39,
+      "d": 31,
+      "e": 23
+     }
+    },
+    {
+     "name": "Unit 5: Transition Metals and Organic Nitrogen Chemistry Raw 90",
+     "code": "WCH15",
+     "max": 57,
+     "a2": true,
+     "bounds": {
+      "a": 43,
+      "b": 36,
+      "c": 29,
+      "d": 23,
+      "e": 17
+     }
+    },
+    {
+     "name": "Unit 6: Practical Skills in Chemistry II Raw 50",
+     "code": "WCH16",
+     "max": 34,
+     "a2": true,
+     "bounds": {
+      "a": 25,
+      "b": 21,
+      "c": 17,
+      "d": 13,
+      "e": 10
+     }
+    }
+   ]
+  },
+  {
+   "name": "XCH",
+   "code": "XCH",
+   "units": [
+    {
+     "name": "International AS Level Chemistry UMS",
+     "code": "XCH11",
+     "max": 300,
+     "a2": true,
+     "bounds": {
+      "a": 240,
+      "b": 210,
+      "c": 180,
+      "d": 150,
+      "e": 120
+     }
+    }
+   ]
+  },
+  {
+   "name": "YCH",
+   "code": "YCH",
+   "units": [
+    {
+     "name": "International A Level Chemistry UMS",
+     "code": "YCH11",
+     "max": 600,
+     "a2": true,
+     "bounds": {
+      "a": 480,
+      "b": 420,
+      "c": 360,
+      "d": 300,
+      "e": 240
+     }
+    }
+   ]
+  },
+  {
+   "name": "WEC",
+   "code": "WEC",
+   "units": [
+    {
+     "name": "Unit 1: Markets in Action Raw",
+     "code": "WEC11",
+     "max": 80,
+     "a2": false,
+     "bounds": {
+      "a": 52,
+      "b": 45,
+      "c": 39,
+      "d": 33,
+      "e": 27
+     }
+    },
+    {
+     "name": "Unit 2: Macroeconomic Performance and Policy Raw",
+     "code": "WEC12",
+     "max": 80,
+     "a2": false,
+     "bounds": {
+      "a": 50,
+      "b": 43,
+      "c": 36,
+      "d": 29,
+      "e": 23
+     }
+    },
+    {
+     "name": "Unit 3: Business Behaviour Raw 80",
+     "code": "WEC13",
+     "max": 56,
+     "a2": true,
+     "bounds": {
+      "a": 49,
+      "b": 43,
+      "c": 37,
+      "d": 31,
+      "e": 25
+     }
+    },
+    {
+     "name": "Unit 4: Developments in the Global Economy Raw 80",
+     "code": "WEC14",
+     "max": 60,
+     "a2": true,
+     "bounds": {
+      "a": 52,
+      "b": 45,
+      "c": 39,
+      "d": 33,
+      "e": 27
+     }
+    }
+   ]
+  },
+  {
+   "name": "XEC",
+   "code": "XEC",
+   "units": [
+    {
+     "name": "International AS Level Economics UMS",
+     "code": "XEC11",
+     "max": 200,
+     "a2": true,
+     "bounds": {
+      "a": 160,
+      "b": 140,
+      "c": 120,
+      "d": 100,
+      "e": 80
+     }
+    }
+   ]
+  },
+  {
+   "name": "YEC",
+   "code": "YEC",
+   "units": [
+    {
+     "name": "International A Level Economics UMS",
+     "code": "YEC11",
+     "max": 400,
+     "a2": true,
+     "bounds": {
+      "a": 320,
+      "b": 280,
+      "c": 240,
+      "d": 200,
+      "e": 160
+     }
+    }
+   ]
+  },
+  {
+   "name": "WME",
+   "code": "WME",
+   "units": [
+    {
+     "name": "M1: Mechanics 1 Raw",
+     "code": "WME01",
+     "max": 75,
+     "a2": false,
+     "bounds": {
+      "a": 48,
+      "b": 39,
+      "c": 30,
+      "d": 21,
+      "e": 13
+     }
+    },
+    {
+     "name": "M2: Mechanics 2 Raw 75",
+     "code": "WME02",
+     "max": 68,
+     "a2": true,
+     "bounds": {
+      "a": 59,
+      "b": 50,
+      "c": 41,
+      "d": 32,
+      "e": 24
+     }
+    },
+    {
+     "name": "M1: Mechanics 1 Raw",
+     "code": "WME01",
+     "max": 75,
+     "a2": false,
+     "bounds": {
+      "a": 48,
+      "b": 39,
+      "c": 30,
+      "d": 21,
+      "e": 13
+     }
+    },
+    {
+     "name": "M2: Mechanics 2 Raw 75",
+     "code": "WME02",
+     "max": 68,
+     "a2": true,
+     "bounds": {
+      "a": 59,
+      "b": 50,
+      "c": 41,
+      "d": 32,
+      "e": 24
+     }
+    }
+   ]
+  },
+  {
+   "name": "WST",
+   "code": "WST",
+   "units": [
+    {
+     "name": "S1: Statistics 1 Raw",
+     "code": "WST01",
+     "max": 75,
+     "a2": false,
+     "bounds": {
+      "a": 48,
+      "b": 39,
+      "c": 30,
+      "d": 21,
+      "e": 13
+     }
+    },
+    {
+     "name": "S2: Statistics 2 Raw 75",
+     "code": "WST02",
+     "max": 60,
+     "a2": true,
+     "bounds": {
+      "a": 46,
+      "b": 39,
+      "c": 32,
+      "d": 25,
+      "e": 18
+     }
+    },
+    {
+     "name": "S1: Statistics 1 Raw",
+     "code": "WST01",
+     "max": 75,
+     "a2": false,
+     "bounds": {
+      "a": 48,
+      "b": 39,
+      "c": 30,
+      "d": 21,
+      "e": 13
+     }
+    },
+    {
+     "name": "S2: Statistics 2 Raw 75",
+     "code": "WST02",
+     "max": 60,
+     "a2": true,
+     "bounds": {
+      "a": 46,
+      "b": 39,
+      "c": 32,
+      "d": 25,
+      "e": 18
+     }
+    }
+   ]
+  },
+  {
+   "name": "XFM",
+   "code": "XFM",
+   "units": [
+    {
+     "name": "International AS Level Further Mathematics UMS",
+     "code": "XFM01",
+     "max": 300,
+     "a2": true,
+     "bounds": {
+      "a": 240,
+      "b": 210,
+      "c": 180,
+      "d": 150,
+      "e": 120
+     }
+    }
+   ]
+  },
+  {
+   "name": "YFM",
+   "code": "YFM",
+   "units": [
+    {
+     "name": "International A Level Further Mathematics UMS",
+     "code": "YFM01",
+     "max": 600,
+     "a2": true,
+     "bounds": {
+      "a": 480,
+      "b": 420,
+      "c": 360,
+      "d": 300,
+      "e": 240
+     }
+    }
+   ]
+  },
+  {
+   "name": "WMA",
+   "code": "WMA",
+   "units": [
+    {
+     "name": "P1: Pure Mathematics 1 Raw",
+     "code": "WMA11",
+     "max": 75,
+     "a2": false,
+     "bounds": {
+      "a": 51,
+      "b": 43,
+      "c": 35,
+      "d": 27,
+      "e": 20
+     }
+    },
+    {
+     "name": "P2: Pure Mathematics 2 Raw",
+     "code": "WMA12",
+     "max": 75,
+     "a2": false,
+     "bounds": {
+      "a": 47,
+      "b": 40,
+      "c": 33,
+      "d": 26,
+      "e": 19
+     }
+    },
+    {
+     "name": "P3: Pure Mathematics 3 Raw 75",
+     "code": "WMA13",
+     "max": 60,
+     "a2": true,
+     "bounds": {
+      "a": 47,
+      "b": 39,
+      "c": 31,
+      "d": 23,
+      "e": 16
+     }
+    },
+    {
+     "name": "P4: Pure Mathematics 4 Raw 75",
+     "code": "WMA14",
+     "max": 60,
+     "a2": true,
+     "bounds": {
+      "a": 48,
+      "b": 39,
+      "c": 30,
+      "d": 22,
+      "e": 14
+     }
+    },
+    {
+     "name": "P1: Pure Mathematics 1 Raw",
+     "code": "WMA11",
+     "max": 75,
+     "a2": false,
+     "bounds": {
+      "a": 51,
+      "b": 43,
+      "c": 35,
+      "d": 27,
+      "e": 20
+     }
+    },
+    {
+     "name": "P2: Pure Mathematics 2 Raw",
+     "code": "WMA12",
+     "max": 75,
+     "a2": false,
+     "bounds": {
+      "a": 47,
+      "b": 40,
+      "c": 33,
+      "d": 26,
+      "e": 19
+     }
+    },
+    {
+     "name": "P3: Pure Mathematics 3 Raw 75",
+     "code": "WMA13",
+     "max": 60,
+     "a2": true,
+     "bounds": {
+      "a": 47,
+      "b": 39,
+      "c": 31,
+      "d": 23,
+      "e": 16
+     }
+    },
+    {
+     "name": "P4: Pure Mathematics 4 Raw 75",
+     "code": "WMA14",
+     "max": 60,
+     "a2": true,
+     "bounds": {
+      "a": 48,
+      "b": 39,
+      "c": 30,
+      "d": 22,
+      "e": 14
+     }
+    }
+   ]
+  },
+  {
+   "name": "XMA",
+   "code": "XMA",
+   "units": [
+    {
+     "name": "International AS Level Mathematics UMS",
+     "code": "XMA01",
+     "max": 300,
+     "a2": true,
+     "bounds": {
+      "a": 240,
+      "b": 210,
+      "c": 180,
+      "d": 150,
+      "e": 120
+     }
+    }
+   ]
+  },
+  {
+   "name": "YMA",
+   "code": "YMA",
+   "units": [
+    {
+     "name": "International A Level Mathematics UMS",
+     "code": "YMA01",
+     "max": 600,
+     "a2": true,
+     "bounds": {
+      "a": 480,
+      "b": 420,
+      "c": 360,
+      "d": 300,
+      "e": 240
+     }
+    }
+   ]
+  },
+  {
+   "name": "WPH",
+   "code": "WPH",
+   "units": [
+    {
+     "name": "Unit 1: Mechanics and Materials Raw",
+     "code": "WPH11",
+     "max": 80,
+     "a2": false,
+     "bounds": {
+      "a": 43,
+      "b": 38,
+      "c": 33,
+      "d": 28,
+      "e": 23
+     }
+    },
+    {
+     "name": "Unit 2: Waves and Electricity Raw",
+     "code": "WPH12",
+     "max": 80,
+     "a2": false,
+     "bounds": {
+      "a": 49,
+      "b": 42,
+      "c": 35,
+      "d": 29,
+      "e": 23
+     }
+    },
+    {
+     "name": "Unit 3: Practical Skills in Physics I Raw",
+     "code": "WPH13",
+     "max": 50,
+     "a2": false,
+     "bounds": {
+      "a": 30,
+      "b": 27,
+      "c": 24,
+      "d": 21,
+      "e": 18
+     }
+    },
+    {
+     "name": "Unit 4: Further Mechanics, Fields and Particles Raw 90",
+     "code": "WPH14",
+     "max": 62,
+     "a2": true,
+     "bounds": {
+      "a": 48,
+      "b": 41,
+      "c": 34,
+      "d": 28,
+      "e": 22
+     }
+    },
+    {
+     "name": "Unit 5: Thermodynamics, Radiation, Oscillations and Cosmology Raw 90",
+     "code": "WPH15",
+     "max": 63,
+     "a2": true,
+     "bounds": {
+      "a": 54,
+      "b": 48,
+      "c": 43,
+      "d": 38,
+      "e": 33
+     }
+    },
+    {
+     "name": "Unit 6: Practical Skills in Physics II Raw 50",
+     "code": "WPH16",
+     "max": 35,
+     "a2": true,
+     "bounds": {
+      "a": 29,
+      "b": 25,
+      "c": 21,
+      "d": 18,
+      "e": 15
+     }
+    }
+   ]
+  },
+  {
+   "name": "XPH",
+   "code": "XPH",
+   "units": [
+    {
+     "name": "International AS Level Physics UMS",
+     "code": "XPH11",
+     "max": 300,
+     "a2": true,
+     "bounds": {
+      "a": 240,
+      "b": 210,
+      "c": 180,
+      "d": 150,
+      "e": 120
+     }
+    }
+   ]
+  },
+  {
+   "name": "YPH",
+   "code": "YPH",
+   "units": [
+    {
+     "name": "International A Level Physics UMS",
+     "code": "YPH11",
+     "max": 600,
+     "a2": true,
+     "bounds": {
+      "a": 480,
+      "b": 420,
+      "c": 360,
+      "d": 300,
+      "e": 240
+     }
+    }
+   ]
+  },
+  {
+   "name": "XPM",
+   "code": "XPM",
+   "units": [
+    {
+     "name": "International AS Level Pure Mathematics UMS",
+     "code": "XPM01",
+     "max": 300,
+     "a2": true,
+     "bounds": {
+      "a": 240,
+      "b": 210,
+      "c": 180,
+      "d": 150,
+      "e": 120
+     }
+    }
+   ]
+  },
+  {
+   "name": "YPM",
+   "code": "YPM",
+   "units": [
+    {
+     "name": "International A Level Pure Mathematics UMS",
+     "code": "YPM01",
+     "max": 600,
+     "a2": true,
+     "bounds": {
+      "a": 480,
+      "b": 420,
+      "c": 360,
+      "d": 300,
+      "e": 240
+     }
+    }
+   ]
+  }
+ ]
+}
