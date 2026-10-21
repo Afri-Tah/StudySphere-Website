@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade Calculator — StudySphere Tools</title>
+  <meta name="description" content="Work out your IGCSE, O Level, A Level or IAL grade from your marks.">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/tools-shared.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="pts-overlay" id="ptsOverlay" onclick="closePtsPanel()"></div>
+<div class="pts-panel" id="ptsPanel">
+  <div class="pts-panel-header">
+    <h3><i class="ti ti-star"></i> My Points</h3>
+    <button onclick="closePtsPanel()"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="pts-balance">
+    <div class="pb-lbl">StudySphere Points</div>
+    <div class="pb-val" id="ptsPanelVal">0</div>
+    <div class="pb-sub">Keep studying to earn more!</div>
+  </div>
+  <div class="pts-section">
+    <div class="pts-section-title"><i class="ti ti-gift"></i> Redeem Rewards</div>
+    <div id="ptsRewards"></div>
+  </div>
+  <div class="pts-section">
+    <div class="pts-section-title"><i class="ti ti-list"></i> Activity Log</div>
+    <div class="pts-log" id="ptsLog"></div>
+  </div>
+</div>
+<div class="pts-toast" id="ptsToast">+10 points earned!</div>
+
+<nav class="topnav">
+  <a class="topnav-back" href="index.html"><i class="ti ti-arrow-left"></i> <span>All Tools</span></a>
+  <div class="topnav-title-wrap">
+    <i class="ti ti-calculator"></i>
+    <span class="topnav-title">Grade Calculator</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button class="dark-toggle-btn" id="darkToggleBtn" onclick="toggleDarkMode()" aria-label="Toggle dark mode"><i class="ti ti-moon"></i></button>
+    <div class="topnav-points" onclick="openPtsPanel()">
+      <i class="ti ti-star"></i>
+      <span class="pts-val" id="topnavPts">0</span>
+      <span class="pts-lbl">pts</span>
+    </div>
+  </div>
+</nav>
+
+<main id="main" class="tool-page-main">
+  <div id="ssTicker"></div>
+  <div class="tool-page-header">
+    <div class="tool-page-icon"><i class="ti ti-calculator"></i></div>
+    <div>
+      <h1 class="tool-page-title">Grade Calculator</h1>
+      <p class="tool-page-desc">Choose your exam, type your marks and get your grade from the official boundaries.</p>
+    </div>
+  </div>
+  <style>
+    .gc-row{display:grid;gap:8px;align-items:center;margin-bottom:8px}
+    .gc-sec{grid-template-columns:minmax(0,2fr) 1fr 1fr 1fr 36px}
+    .gc-al{grid-template-columns:minmax(0,2fr) 1fr 1fr auto 36px}
+    .gc-row input[type=text],.gc-row input[type=number]{margin:0;width:100%;padding:10px;min-width:0}
+    .gc-head{font-size:.75rem;color:var(--muted)}
+    .gc-x{border:0;background:none;color:var(--muted);cursor:pointer;font-size:1.1rem}
+    .gc-a2{display:flex;align-items:center;gap:4px;font-size:.8rem;color:var(--muted);white-space:nowrap}
+    .gc-result{margin-top:16px;padding:16px;border:1px solid var(--border);border-radius:12px;display:none}
+    .gc-grade{font-size:3rem;font-weight:900;line-height:1;color:var(--primary)}
+    .gc-err{color:#c0392b;font-size:.85rem;margin:0 0 4px}
+    .gc-bands{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .gc-bands label{font-size:.78rem;color:var(--muted);display:flex;flex-direction:column;gap:2px;width:64px}
+    .gc-bands input{margin:0;padding:6px;width:100%}
+    @media(max-width:560px){.gc-sec{grid-template-columns:1fr 1fr 1fr 36px}.gc-sec .gc-name,.gc-al .gc-name{grid-column:1/-1}.gc-al{grid-template-columns:1fr 1fr auto 36px}.gc-head{display:none}}
+  </style>
+  <div class="tool-card" style="margin-bottom:16px">
+    <div class="tool-header"><div class="tool-icon">&#9733;</div>
+      <div><h2>Official grade checker</h2>
+      <p>Pick your curriculum, session, year and subject, then type your marks. You get your grade straight away.</p></div></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <select id="ocCur" style="width:auto;flex:1;margin:0;padding:10px 12px;min-width:130px" aria-label="Curriculum"></select>
+      <select id="ocSession" style="width:auto;flex:1;margin:0;padding:10px 12px;min-width:130px;display:none" aria-label="Exam session"></select>
+      <select id="ocYear" style="width:auto;flex:1;margin:0;padding:10px 12px;min-width:100px;display:none" aria-label="Year"></select>
+      <select id="ocSubject" style="width:auto;flex:2;margin:0;padding:10px 12px;min-width:180px;display:none" aria-label="Subject"></select>
+    </div>
+    <div class="gc-result" id="ocStatus"></div>
+    <div id="ocInputs" style="margin-top:14px"></div>
+    <div class="gc-result" id="ocResult"></div>
+  </div>
+  <div class="tool-card" >
+    <div class="tool-header"><div class="tool-icon"><i class="ti ti-external-link"></i></div>
+      <div><h2>Official boundary pages (Cambridge &amp; Pearson)</h2>
+      <p>Pick your exam board and series to open the boundaries on Cambridge or Pearson's own website.</p></div></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <select id="blBoard" style="width:auto;flex:1;margin:0;padding:10px 12px;min-width:140px" aria-label="Exam board">
+        <option value="">Exam board</option><option value="cambridge">Cambridge (CAIE)</option><option value="edexcel">Edexcel (Pearson)</option></select>
+      <select id="blQual" style="width:auto;flex:1;margin:0;padding:10px 12px;min-width:140px;display:none" aria-label="Qualification"></select>
+      <select id="blSession" style="width:auto;flex:1;margin:0;padding:10px 12px;min-width:140px;display:none" aria-label="Exam session"></select>
+      <select id="blYear" style="width:auto;flex:1;margin:0;padding:10px 12px;min-width:110px;display:none" aria-label="Year"></select>
+    </div>
+    <div class="gc-result" id="blResult" aria-live="polite"></div>
+  </div>
+</main>
+
+<div class="tools-footer">
+  <p>Built with <i class="ti ti-heart" style="color:#e74c3c"></i> by <a href="../index.html">StudySphere</a> · All tools run in your browser · Data saved locally · <a href="https://wa.me/8801558070225" target="_blank" rel="noopener noreferrer">Contact us</a></p>
+</div>
+
+<a href="https://wa.me/8801558070225" id="whatsappButton" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+  <img src="../whatsapp-icon.png" alt="WhatsApp">
+</a>
+
+<script src="assets/tools-common.js"></script>
+<script src="assets/site-config.js"></script>
+<script src="assets/gradedata/boundary-links.js"></script>
+<script src="assets/gradedata/series-calendar.js"></script>
+<script src="assets/js/grade-engine.js"></script>
+<script src="assets/news-ticker.js"></script>
+<script src="assets/js/official-calculator.js"></script>
+<script src="assets/js/boundary-finder.js"></script>
+</body>
+</html>

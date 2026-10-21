@@ -1,0 +1,29 @@
+{
+ "_readme": "Copy to pearson-ial-YYYY-session.json (session = january | june | october). 'bounds' are the unit's raw-mark boundaries a-e from the PDF. a2:true for units 4-6. umsMax defaults to 100.",
+ "board": "pearson",
+ "qual": "ial",
+ "year": 2026,
+ "session": "june",
+ "source": "https://qualifications.pearson.com/...pdf",
+ "subjects": [
+  {
+   "name": "Subject name",
+   "code": "YXX01",
+   "units": [
+    {
+     "name": "Unit 1",
+     "code": "WXX11",
+     "max": 0,
+     "a2": false,
+     "bounds": {
+      "a": 0,
+      "b": 0,
+      "c": 0,
+      "d": 0,
+      "e": 0
+     }
+    }
+   ]
+  }
+ ]
+}
