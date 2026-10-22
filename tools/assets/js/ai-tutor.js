@@ -14,6 +14,9 @@ let tutMessages = [];      // {role:'user'|'assistant', content}
 let tutSystemPrompt = '';
 let tutSessionLabel = '';
 
+let tutLevelTouched = false;
+document.getElementById('tutLevel')?.addEventListener('change', () => { tutLevelTouched = true; });
+
 function tutToggleNotes() {
   const wrap = document.getElementById('tutNotesWrap');
   const chevron = document.getElementById('tutNotesChevron');
@@ -23,12 +26,14 @@ function tutToggleNotes() {
 }
 
 function tutBuildSystemPrompt(level, subject, topic, notes) {
-  const focus = topic ? `${subject} — specifically "${topic}"` : subject;
+  const focus = subject
+    ? (topic ? `${subject} — specifically "${topic}"` : subject)
+    : (topic ? `"${topic}", using the study material below` : 'the study material they have provided (work out the subject and the right difficulty from the material itself)');
   const grounding = notes
     ? `The student has pasted their own study material below. Teach from THIS material — don't bring in outside facts unless the student explicitly asks you to go beyond it. If their question isn't covered by it, say so plainly rather than guessing.\n\n--- STUDY MATERIAL ---\n${notes}\n--- END STUDY MATERIAL ---`
     : `The student hasn't pasted any source material, so you're teaching from general knowledge rather than a specific text. Be upfront if you're unsure about something instead of inventing facts — this is a static website with no live search, so nothing here has been double-checked against a source. Encourage the student to confirm important details against their own textbook or teacher.`;
 
-  return `You are a patient, encouraging personal tutor for a ${level} student studying ${focus}.
+  return `You are a patient, encouraging personal tutor for ${level ? 'a ' + level + ' student' : 'a student'} studying ${focus}.
 
 Use plain, simple language and short paragraphs — many students are learning in a second language, so avoid jargon, and briefly define any technical term you have to use.
 
@@ -95,19 +100,21 @@ async function tutStartSession() {
   }
   notice.style.display = 'none';
 
-  const level = document.getElementById('tutLevel').value;
+  let level = document.getElementById('tutLevel').value;
   const subject = document.getElementById('tutSubject').value.trim();
   const topic = document.getElementById('tutTopic').value.trim();
   const NOTES_MAX = 30000;
   let notes = document.getElementById('tutNotes').value.trim();
   const notesCut = notes.length > NOTES_MAX;
   if (notesCut) notes = notes.slice(0, NOTES_MAX);
-  if (!subject) { alert('Please tell the tutor what subject you want to study!'); return; }
+  // Notes pasted/uploaded are enough on their own: subject, topic and level become optional.
+  if (!subject && !notes) { alert('Add a subject, or paste/upload your notes, so the tutor knows what to teach.'); return; }
+  if (notes && !tutLevelTouched) level = '';
 
   tutSystemPrompt = tutBuildSystemPrompt(level, subject, topic, notes);
   tutMessages = [];
-  tutSessionLabel = topic ? `${subject} — ${topic}` : subject;
-  document.getElementById('tutSessionLabel').textContent = `${tutSessionLabel} · ${level}`;
+  tutSessionLabel = subject ? (topic ? `${subject} — ${topic}` : subject) : (topic || 'Your notes');
+  document.getElementById('tutSessionLabel').textContent = level ? `${tutSessionLabel} · ${level}` : tutSessionLabel;
 
   document.getElementById('tutorSetupCard').style.display = 'none';
   const chatCard = document.getElementById('tutorChatCard');
@@ -121,7 +128,9 @@ async function tutStartSession() {
 
   tutSetLoading(true);
   tutShowTyping(true);
-  const kickoff = 'Please start the session now: give a short, friendly introduction to the topic, then teach the first small idea and ask your first check question.';
+  const kickoff = (notes && !subject && !topic)
+    ? 'Please start the session now: in one or two sentences say what my notes are about, then teach the first small idea from them and ask your first check question.'
+    : 'Please start the session now: give a short, friendly introduction to the topic, then teach the first small idea and ask your first check question.';
   tutMessages.push({ role: 'user', content: kickoff });
   const result = await ssAIChat(tutSystemPrompt, tutMessages, (name) => {
     const el = document.getElementById('tutTyping');
