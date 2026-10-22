@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
   <link rel="stylesheet" href="assets/tools-shared.css">
+  <link rel="stylesheet" href="assets/quick-notes.css">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -67,22 +68,22 @@
       <div class="tool-icon"><i class="ti ti-note"></i></div>
       <div>
         <h2>Quick Notes <span class="tool-badge badge-both">Everyone</span></h2>
-        <p>Colourful sticky notes — saved locally</p>
+        <p>Pick a template, write, and save — notes stay in your browser</p>
       </div>
     </div>
-    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center">
-      <input type="text" id="noteInput" placeholder="Write a note..." style="flex:1;margin:0" onkeydown="if(event.key==='Enter')addNote()">
-      <div class="color-picker" id="notePicker">
-        <div class="color-dot selected" style="background:#ffd6a5" data-color="#ffd6a5" onclick="selectNoteColor(this)"></div>
-        <div class="color-dot" style="background:#caffbf" data-color="#caffbf" onclick="selectNoteColor(this)"></div>
-        <div class="color-dot" style="background:#9bf6ff" data-color="#9bf6ff" onclick="selectNoteColor(this)"></div>
-        <div class="color-dot" style="background:#ffc6ff" data-color="#ffc6ff" onclick="selectNoteColor(this)"></div>
-        <div class="color-dot" style="background:#ffadad" data-color="#ffadad" onclick="selectNoteColor(this)"></div>
-        <div class="color-dot" style="background:#fdffb6" data-color="#fdffb6" onclick="selectNoteColor(this)"></div>
+    <p class="qn-picker-label">1 · Choose a template</p>
+    <div class="qn-templates" id="qnTemplates"></div>
+    <p class="qn-picker-label">2 · Write your note</p>
+    <div class="qn-editor-wrap">
+      <div class="qn-colors" id="qnColors"></div>
+      <div id="qnEditor" style="width:100%;display:flex;justify-content:center"></div>
+      <div class="qn-actions-bar">
+        <button class="btn btn-sm btn-peach" id="qnSaveBtn" onclick="addNote()"><i class="ti ti-device-floppy"></i> Save note</button>
+        <button class="btn btn-sm btn-outline" id="qnCancelBtn" onclick="cancelEdit()" style="display:none">Cancel</button>
       </div>
-      <button class="btn btn-sm btn-peach" onclick="addNote()" style="margin:0">Add</button>
     </div>
-    <div class="notes-grid" id="notesGrid"><div class="notes-empty">Your notes will appear here <i class="ti ti-pencil"></i></div></div>
+    <p class="qn-picker-label">Your saved notes</p>
+    <div class="qn-grid" id="notesGrid"></div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
       <span style="font-size:0.78rem;color:var(--muted)" id="notesCount">0 notes saved</span>
       <button class="btn btn-sm btn-outline" style="color:#e74c3c;border-color:#e74c3c;width:auto" onclick="clearAllNotes()"><i class="ti ti-trash"></i> Clear All</button>
