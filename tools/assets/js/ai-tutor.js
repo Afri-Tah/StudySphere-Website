@@ -98,7 +98,10 @@ async function tutStartSession() {
   const level = document.getElementById('tutLevel').value;
   const subject = document.getElementById('tutSubject').value.trim();
   const topic = document.getElementById('tutTopic').value.trim();
-  const notes = document.getElementById('tutNotes').value.trim();
+  const NOTES_MAX = 30000;
+  let notes = document.getElementById('tutNotes').value.trim();
+  const notesCut = notes.length > NOTES_MAX;
+  if (notesCut) notes = notes.slice(0, NOTES_MAX);
   if (!subject) { alert('Please tell the tutor what subject you want to study!'); return; }
 
   tutSystemPrompt = tutBuildSystemPrompt(level, subject, topic, notes);
@@ -111,7 +114,7 @@ async function tutStartSession() {
   chatCard.style.display = 'block';
   document.getElementById('tutorChat').style.display = 'flex';
   document.getElementById('tutorLog').innerHTML = '';
-  if (notes) tutRenderSystemNote('Teaching from the notes you pasted.');
+  if (notes) tutRenderSystemNote(notesCut ? 'Teaching from the first 30,000 characters of your notes.' : 'Teaching from the notes you pasted.');
   else tutRenderSystemNote('No notes pasted — teaching from general knowledge. Double-check key facts yourself.');
 
   addPoints(5, `Started tutoring: ${tutSessionLabel}`);
