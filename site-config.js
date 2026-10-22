@@ -1,6 +1,6 @@
 // Edit this file only. Used by the news ticker and the Grade Calculator.
 window.SS_CONFIG = {
-  whatsapp: '',            // your number with country code, digits only, e.g. '8801XXXXXXXXX'
+  whatsapp: '8801558070225',            // your number with country code, digits only, e.g. '8801XXXXXXXXX'
   whatsappText: 'Hello StudySphere, I would like to know about admission.',
   admissionsText: 'Admission going on',
   courses: ['IGCSE', 'IAL'],
