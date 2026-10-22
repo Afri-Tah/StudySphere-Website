@@ -1,0 +1,73 @@
+/* Weekly Planner — printable planner styles (pure CSS, no images, free to use) */
+.pl-picker-label { font-size: .78rem; font-weight: 800; color: var(--muted); margin: 0 0 8px; letter-spacing: .04em; text-transform: uppercase; }
+.pl-templates { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px; }
+.pl-tpl-btn { flex: 0 0 auto; width: 104px; background: none; border: 2px solid transparent; border-radius: 14px; padding: 5px; cursor: pointer; text-align: center; font-family: inherit; transition: transform .15s, border-color .15s; }
+.pl-tpl-btn:hover { transform: translateY(-2px); }
+.pl-tpl-btn.selected { border-color: var(--primary); background: rgba(217,139,163,.12); }
+.pl-tpl-btn span { display: block; font-size: .72rem; font-weight: 800; color: var(--text); margin-top: 5px; line-height: 1.15; }
+.pl-thumb { width: 92px; height: 120px; margin: 0 auto; overflow: hidden; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,.2); position: relative; pointer-events: none; background: #fff; }
+.pl-thumb .pl-page { width: 540px; max-width: none; margin: 0; transform: scale(.17); transform-origin: top left; box-shadow: none; }
+.pl-thumb-table { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; padding: 8px 6px; }
+.pl-thumb-table i { display: block; height: 10px; border-radius: 2px; background: #eceaf8; }
+.pl-thumb-table i:nth-child(7n+2) { background: #fde8e8; } .pl-thumb-table i:nth-child(5n) { background: #e8f5ee; } .pl-thumb-table i.h { background: var(--primary); height: 8px; }
+
+.pl-toolbar { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin: 12px 0; }
+.pl-toolbar .btn { width: auto; margin: 0; }
+.pl-hint { text-align: center; font-size: .75rem; color: var(--muted); margin: 0 0 10px; }
+
+/* ---------- shared page bits ---------- */
+.pl-page { box-sizing: border-box; width: 100%; max-width: 680px; margin: 0 auto; padding: 28px 28px 26px; border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.18); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.pl-page *, .pl-page *::before, .pl-page *::after { box-sizing: border-box; }
+.pl-txt { outline: none; min-width: 0; word-break: break-word; }
+.pl-txt:focus { background: rgba(255,255,255,.55); }
+.pl-chk, .pl-dot, .pl-star { user-select: none; cursor: pointer; }
+
+/* ---------- Weekly Journal (green, serif) ---------- */
+.pl-j { background: #e9f0df; color: #44563a; font-family: 'Nunito', system-ui, sans-serif; --j: #44563a; }
+.pl-j-title { text-align: center; font: 700 clamp(2.3rem, 9vw, 3.6rem)/1 'Playfair Display', Georgia, serif; letter-spacing: -.035em; margin: 0; white-space: nowrap; }
+.pl-j-title em { font: 400 1.18em/1 'Great Vibes', 'Brush Script MT', cursive; letter-spacing: 0; margin-left: .12em; }
+.pl-j-box { border: 1px solid var(--j); text-align: center; padding: 12px 10px; margin: 16px 0 6px; font: italic 500 clamp(1rem, 4vw, 1.3rem)/1.25 'Playfair Display', Georgia, serif; }
+.pl-j-h { font: italic 500 1.45rem/1.1 'Playfair Display', Georgia, serif; margin: 16px 0 8px; }
+.pl-j-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 4px 0; }
+.pl-j-row > .pl-txt { flex: 1; font-size: .92rem; font-weight: 600; }
+.pl-dots { display: flex; gap: 5px; flex: 0 0 auto; }
+.pl-dot { width: 26px; height: 26px; border: 1px solid var(--j); border-radius: 50%; display: grid; place-items: center; font-size: .6rem; font-weight: 800; color: var(--j); line-height: 1; }
+.pl-dot.on { background: var(--j); color: #e9f0df; }
+.pl-dot.rest { opacity: .45; border-style: dashed; }
+.pl-j-hr { border: 0; border-top: 1px solid var(--j); margin: 18px 0 4px; }
+.pl-two { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.pl-stars { display: flex; gap: 1px; }
+.pl-star { font-size: 1.05rem; color: #aebc9f; line-height: 1; }
+.pl-star.on { color: var(--j); }
+.pl-todo-line { border-bottom: 1px dashed var(--j); min-height: 28px; padding: 5px 2px 2px; font-size: .86rem; font-weight: 600; }
+.pl-note { border: 1px solid var(--j); margin-top: 20px; padding: 12px 14px; min-height: 90px; font-size: .9rem; font-weight: 600; }
+.pl-note b { font-weight: 600; }
+
+/* ---------- Weekly Planner (red, bold) ---------- */
+.pl-r { background: #ece3d6; color: #5a4a40; font-family: 'Nunito', system-ui, sans-serif; --r: #d1381f; --rule: #8a7a6c; }
+.pl-r-title { margin: 0; text-align: center; color: var(--r); text-transform: uppercase; font: 400 clamp(2.1rem, 10vw, 3.9rem)/1 'Anton', Impact, 'Arial Narrow', sans-serif; letter-spacing: .01em; }
+.pl-r-sub { display: block; position: relative; z-index: 1; margin-top: -.3em; text-align: center; color: #2a2220; font: 400 clamp(1.5rem, 7vw, 2.4rem)/1.1 'Great Vibes', 'Brush Script MT', cursive; }
+.pl-r-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; align-items: start; }
+.pl-col { display: flex; flex-direction: column; gap: 14px; }
+.pl-box { border: 1px solid var(--rule); padding: 8px 10px 6px; background: rgba(255,255,255,.22); }
+.pl-box h4 { margin: 0 0 4px; font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #5a4a40; }
+.pl-box.rest { opacity: .6; }
+.pl-line { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+.pl-chk { flex: 0 0 16px; width: 16px; height: 16px; border: 1.3px solid #6d5d52; border-radius: 50%; display: grid; place-items: center; font-size: .85rem; font-weight: 900; color: var(--r); line-height: 1; }
+.pl-chk.on { border-color: var(--r); } .pl-chk.on::after { content: '✓'; }
+.pl-line .pl-txt { flex: 1; border-bottom: 1px dashed var(--rule); font-size: .76rem; font-weight: 600; min-height: 18px; padding: 0 2px; }
+.pl-goal { margin: 8px 0 4px; }
+.pl-goal .pl-txt { border-bottom: 1px dashed var(--rule); font-size: .74rem; font-weight: 600; min-height: 18px; padding: 0 2px; margin-bottom: 4px; }
+.pl-r .pl-dots { gap: 3px; justify-content: flex-end; }
+.pl-r .pl-dot { width: 17px; height: 17px; border-color: #6d5d52; color: #6d5d52; font-size: .5rem; }
+.pl-r .pl-dot.on { background: var(--r); border-color: var(--r); color: #fff; }
+
+@media (max-width: 520px) {
+  .pl-page { padding: 20px 16px; }
+  .pl-two { grid-template-columns: 1fr; gap: 6px; }
+  .pl-dot { width: 23px; height: 23px; }
+  .pl-dots { gap: 3px; }
+  .pl-r-grid { grid-template-columns: 1fr; }
+}
+@media print { .pl-page { box-shadow: none; max-width: none; } }
+.pl-txt:empty::before { content: "\200b"; }
