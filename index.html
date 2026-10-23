@@ -686,6 +686,7 @@ body.dark #about {
   font-size: 1.4rem;
   flex-shrink: 0;
 }
+.price-ask { color: var(--primary); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .ams-num {
   font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 1.5rem;
@@ -1770,28 +1771,28 @@ body.dark footer { background: #16181A; }
       <div class="about-card scroll-reveal">
         <img src="assets/img/cat-mascot.png" alt="" style="width:100%;border-radius:14px;margin-bottom:6px" loading="lazy">
         <div class="about-mini-stat">
-          <div class="ams-icon" style="background:var(--primary-light)"><i class="ti ti-school"></i></div>
+          <div class="ams-icon" style="background:var(--primary-light);color:var(--primary)"><i class="ti ti-school"></i></div>
           <div>
             <div class="ams-num">50+</div>
             <div class="ams-lbl">Students mentored successfully</div>
           </div>
         </div>
         <div class="about-mini-stat">
-          <div class="ams-icon" style="background:#FFF1EC"><i class="ti ti-world"></i></div>
+          <div class="ams-icon" style="background:#FFF1EC;color:#c0583a"><i class="ti ti-world"></i></div>
           <div>
             <div class="ams-num">100%</div>
             <div class="ams-lbl">Online via Google Meet</div>
           </div>
         </div>
         <div class="about-mini-stat">
-          <div class="ams-icon" style="background:#fef9e8"><i class="ss-ico ss-ico-star"></i></div>
+          <div class="ams-icon" style="background:#fef9e8;color:#d9a21f"><i class="ss-ico ss-ico-star"></i></div>
           <div>
             <div class="ams-num">5.0</div>
             <div class="ams-lbl">Average student rating</div>
           </div>
         </div>
         <div class="about-mini-stat">
-          <div class="ams-icon" style="background:#F5EFE0"><i class="ti ti-pencil"></i></div>
+          <div class="ams-icon" style="background:#F5EFE0;color:#8a6a3a"><i class="ti ti-pencil"></i></div>
           <div>
             <div class="ams-num">4</div>
             <div class="ams-lbl">Dedicated subject instructors</div>
@@ -1876,11 +1877,11 @@ body.dark footer { background: #16181A; }
           <span class="tag tag-subject">All Subjects</span>
         </div>
         <h3>Regular Course</h3>
-        <p><strong>Price:</strong> BDT 3,500</p>
+        <p><strong>Price:</strong> <a href="#" class="price-ask" onclick="askPrice('Regular Course - O-Level');return false;">Ask on WhatsApp</a></p>
         <p><strong>Duration:</strong> 1 year – 1 year 5 months</p>
         <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
         <div class="card-buttons">
-          <button class="enroll-btn" onclick="enroll('Regular Course - O-Level', 3500)">Enroll Now (O-Level)</button>
+          <button class="enroll-btn" onclick="enroll('Regular Course - O-Level')">Enroll Now (O-Level)</button>
           <button class="trial-card-btn" onclick="bookTrial()"><i class="ti ti-sparkles"></i> Free Trial</button>
         </div>
       </div>
@@ -1892,12 +1893,12 @@ body.dark footer { background: #16181A; }
           <span class="tag tag-subject">AS &amp; A2</span>
         </div>
         <h3>Regular Course</h3>
-        <p><strong>Price:</strong> BDT 5,000</p>
+        <p><strong>Price:</strong> <a href="#" class="price-ask" onclick="askPrice('Regular Course - A-Level');return false;">Ask on WhatsApp</a></p>
         <p><strong>Duration:</strong> 1 year – 1 year 5 months</p>
         <p><strong>AS Subjects:</strong> Physics · Chemistry · Maths (P1, P2, M1) · Biology · IT · Accounting · Business Studies · Economics</p>
         <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
         <div class="card-buttons">
-          <button class="enroll-btn" onclick="enroll('Regular Course - A-Level', 5000)">Enroll Now (A-Level)</button>
+          <button class="enroll-btn" onclick="enroll('Regular Course - A-Level')">Enroll Now (A-Level)</button>
           <button class="trial-card-btn" onclick="bookTrial()"><i class="ti ti-sparkles"></i> Free Trial</button>
         </div>
       </div>
@@ -1909,11 +1910,11 @@ body.dark footer { background: #16181A; }
           <span class="tag tag-subject">All Subjects</span>
         </div>
         <h3>Crash Course</h3>
-        <p><strong>Price:</strong> BDT 5,000</p>
+        <p><strong>Price:</strong> <a href="#" class="price-ask" onclick="askPrice('Crash Course - O-Level');return false;">Ask on WhatsApp</a></p>
         <p><strong>Duration:</strong> 3 – 5 months</p>
         <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
         <div class="card-buttons">
-          <button class="enroll-btn" onclick="enroll('Crash Course - O-Level', 5000)">Enroll Now (O-Level)</button>
+          <button class="enroll-btn" onclick="enroll('Crash Course - O-Level')">Enroll Now (O-Level)</button>
         </div>
       </div>
 
@@ -1924,12 +1925,12 @@ body.dark footer { background: #16181A; }
           <span class="tag tag-subject">AS &amp; A2</span>
         </div>
         <h3>Crash Course</h3>
-        <p><strong>Price:</strong> BDT 6,000</p>
+        <p><strong>Price:</strong> <a href="#" class="price-ask" onclick="askPrice('Crash Course - A-Level');return false;">Ask on WhatsApp</a></p>
         <p><strong>Duration:</strong> 3 – 5 months</p>
         <p><strong>AS Subjects:</strong> Physics · Chemistry · Maths (P1, P2, M1) · Biology · IT · Accounting · Business Studies · Economics</p>
         <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
         <div class="card-buttons">
-          <button class="enroll-btn" onclick="enroll('Crash Course - A-Level', 6000)">Enroll Now (A-Level)</button>
+          <button class="enroll-btn" onclick="enroll('Crash Course - A-Level')">Enroll Now (A-Level)</button>
         </div>
       </div>
 
@@ -1940,11 +1941,11 @@ body.dark footer { background: #16181A; }
           <span class="tag tag-subject">All Subjects</span>
         </div>
         <h3>Past Paper Solving</h3>
-        <p><strong>Price:</strong> BDT 2,500</p>
+        <p><strong>Price:</strong> <a href="#" class="price-ask" onclick="askPrice('Past Paper Solving - O-Level');return false;">Ask on WhatsApp</a></p>
         <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
         <p>Timed practice with real exam papers and detailed answer walkthroughs.</p>
         <div class="card-buttons">
-          <button class="enroll-btn" onclick="enroll('Past Paper Solving - O-Level', 2500)">Enroll Now (O-Level)</button>
+          <button class="enroll-btn" onclick="enroll('Past Paper Solving - O-Level')">Enroll Now (O-Level)</button>
         </div>
       </div>
 
@@ -1955,12 +1956,12 @@ body.dark footer { background: #16181A; }
           <span class="tag tag-subject">AS &amp; A2</span>
         </div>
         <h3>Past Paper Solving</h3>
-        <p><strong>Price:</strong> BDT 2,500</p>
+        <p><strong>Price:</strong> <a href="#" class="price-ask" onclick="askPrice('Past Paper Solving - A-Level');return false;">Ask on WhatsApp</a></p>
         <p><strong>AS Subjects:</strong> Physics · Chemistry · Maths (P1, P2, M1) · Biology · IT · Accounting · Business Studies · Economics</p>
         <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
         <p>Timed practice with real exam papers and detailed answer walkthroughs.</p>
         <div class="card-buttons">
-          <button class="enroll-btn" onclick="enroll('Past Paper Solving - A-Level', 2500)">Enroll Now (A-Level)</button>
+          <button class="enroll-btn" onclick="enroll('Past Paper Solving - A-Level')">Enroll Now (A-Level)</button>
         </div>
       </div>
 
@@ -1971,11 +1972,11 @@ body.dark footer { background: #16181A; }
           <span class="tag tag-subject">All Subjects</span>
         </div>
         <h3>Hourly Rate Course</h3>
-        <p><strong>Price:</strong> BDT 1,000 / hour</p>
+        <p><strong>Price:</strong> <a href="#" class="price-ask" onclick="askPrice('Hourly Rate Course - O-Level');return false;">Ask on WhatsApp</a></p>
         <p><strong>Subjects:</strong> Biology · Human Biology · Physics · Maths B · Pure Maths · CS/IT · Chemistry · English · Business · Accounting · Economics · Bangla</p>
         <p>Flexible one-off sessions. Perfect for quick topic help or exam prep.</p>
         <div class="card-buttons">
-          <button class="enroll-btn" onclick="enroll('Hourly Rate Course - O-Level', 1000)">Book a Session</button>
+          <button class="enroll-btn" onclick="enroll('Hourly Rate Course - O-Level')">Book a Session</button>
         </div>
       </div>
 
@@ -1986,12 +1987,12 @@ body.dark footer { background: #16181A; }
           <span class="tag tag-subject">AS &amp; A2</span>
         </div>
         <h3>Hourly Rate Course</h3>
-        <p><strong>Price:</strong> BDT 1,000 / hour</p>
+        <p><strong>Price:</strong> <a href="#" class="price-ask" onclick="askPrice('Hourly Rate Course - A-Level');return false;">Ask on WhatsApp</a></p>
         <p><strong>AS Subjects:</strong> Physics · Chemistry · Maths (P1, P2, M1) · Biology · IT · Accounting · Business Studies · Economics</p>
         <p><strong>A2 Subjects:</strong> Physics · Biology · Maths (P3, P4, S1) · Chemistry · IT · Accounting · Business Studies · Economics</p>
         <p>Flexible one-off sessions. Perfect for quick topic help or exam prep.</p>
         <div class="card-buttons">
-          <button class="enroll-btn" onclick="enroll('Hourly Rate Course - A-Level', 1000)">Book a Session</button>
+          <button class="enroll-btn" onclick="enroll('Hourly Rate Course - A-Level')">Book a Session</button>
         </div>
       </div>
 
@@ -2469,8 +2470,12 @@ function updateSummary() {
 // ============================================================
 //  ENROLL & TRIAL — WHATSAPP
 // ============================================================
-function enroll(courseName, price) {
-  const msg = `Hello, I want to enroll in "${courseName}" priced at BDT ${price}.`;
+function askPrice(courseName) {
+  const msg = `Hello, could you please share the price for "${courseName}"?`;
+  window.open(`https://wa.me/8801558070225?text=${encodeURIComponent(msg)}`, '_blank');
+}
+function enroll(courseName) {
+  const msg = `Hello, I'd like to enroll in "${courseName}". Could you please share the price and the next steps?`;
   window.open(`https://wa.me/8801558070225?text=${encodeURIComponent(msg)}`, '_blank');
 }
 

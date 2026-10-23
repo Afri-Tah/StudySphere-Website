@@ -1,9 +1,9 @@
 // ==========================
 //  Enroll via WhatsApp
 // ==========================
-function enroll(courseName, price) {
+function enroll(courseName) {
   const phoneNumber = "8801558070225";
-  const message = `Hello, I want to enroll in "${courseName}" priced at BDT ${price}.`;
+  const message = `Hello, I'd like to enroll in "${courseName}". Could you please share the price and the next steps?`;
   const encodedMessage = encodeURIComponent(message);
   window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
 }
