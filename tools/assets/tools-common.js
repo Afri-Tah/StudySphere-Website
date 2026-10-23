@@ -70,7 +70,7 @@ function renderPtsPanel() {
       <div class="pts-reward-item">
         <div class="pri-info"><div class="pri-name"><i class="ti ti-${r.icon}"></i> ${r.name}</div><div class="pri-desc">${r.desc}</div></div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-          <div class="pri-cost">${r.cost} <i class="ti ti-star-filled"></i></div>
+          <div class="pri-cost">${r.cost} <i class="ss-ico ss-ico-star"></i></div>
           <button class="btn btn-sm btn-peach" style="margin:0;width:auto;font-size:0.72rem" onclick="redeemReward('${r.name}',${r.cost})">Redeem</button>
         </div>
       </div>`).join('');
@@ -85,7 +85,7 @@ function renderPtsPanel() {
       <div class="pts-log-item">
         <div>${l.desc}</div>
         <div style="display:flex;flex-direction:column;align-items:flex-end">
-          <div class="pli-pts ${l.pts > 0 ? 'earn' : 'spend'}">${l.pts > 0 ? '+' : ''}${l.pts} <i class="ti ti-star-filled"></i></div>
+          <div class="pli-pts ${l.pts > 0 ? 'earn' : 'spend'}">${l.pts > 0 ? '+' : ''}${l.pts} <i class="ss-ico ss-ico-star"></i></div>
           <div style="font-size:0.65rem;color:var(--muted)">${l.time}</div>
         </div>
       </div>`).join('') : '<div style="text-align:center;padding:16px;color:var(--muted);font-size:0.85rem">No activity yet!</div>';

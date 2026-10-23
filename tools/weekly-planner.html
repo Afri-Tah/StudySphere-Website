@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weekly Study Planner — StudySphere Tools</title>
-  <meta name="description" content="Turn a list of tasks into a balanced weekly study schedule.">
+  <meta name="description" content="Printable weekly and daily planner templates you can type or draw on, save and download.">
   <link rel="icon" type="image/png" href="../logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
   <link rel="stylesheet" href="assets/tools-shared.css">
   <link rel="stylesheet" href="assets/weekly-planner.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Great+Vibes&family=Anton&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600&family=Fraunces:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Great+Vibes&family=Anton&display=swap" rel="stylesheet">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -58,7 +58,7 @@
     <div class="tool-page-icon"><i class="ti ti-calendar-week"></i></div>
     <div>
       <h1 class="tool-page-title">Weekly Study Planner</h1>
-      <p class="tool-page-desc">Turn a list of tasks into a balanced weekly study schedule.</p>
+      <p class="tool-page-desc">Printable weekly and daily planner templates — type or draw on them, save and download.</p>
       <div class="tool-page-badges"><span class="hub-card-tag" style="background:var(--primary-light,#EEEBFF);color:var(--primary)">Student</span></div>
     </div>
   </div>
@@ -68,49 +68,15 @@
       <div class="tool-icon"><i class="ti ti-calendar-week"></i></div>
       <div>
         <h2>Weekly Study Planner <span class="tool-badge badge-student">Student</span></h2>
-        <p>Enter tasks by priority — get a weekly planner in the style you choose</p>
+        <p>Pick a planner template, fill it in, then save or download it</p>
       </div>
     </div>
     <div class="planner-step">
-      <label><i class="ti ti-pin"></i> Step 1 — Add your tasks</label>
-      <div class="task-input-row">
-        <input type="text" id="taskInput" placeholder="e.g. Biology past paper, Maths P1 revision...">
-        <select id="taskPriority" style="width:auto;margin:0;padding:10px 8px;flex-shrink:0;font-family:'Nunito',sans-serif">
-          <option value="high">High</option>
-          <option value="medium">Medium</option>
-          <option value="low">Low</option>
-        </select>
-        <input type="number" id="taskHours" min="0.5" max="20" step="0.5" value="2" style="width:70px;margin:0;flex-shrink:0">
-        <span style="font-size:0.78rem;color:var(--muted);flex-shrink:0">hrs/wk</span>
-        <button class="btn btn-sm" style="flex-shrink:0;margin:0" onclick="addTask()">+ Add</button>
-      </div>
-      <div id="taskList" style="margin-top:8px;min-height:28px"></div>
-    </div>
-    <div class="planner-step">
-      <label><i class="ti ti-clock"></i> Step 2 — Set your daily study window</label>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:0.85rem;color:var(--muted)">From</span><input type="time" id="studyStart" value="09:00" style="width:110px;margin:0"></div>
-        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:0.85rem;color:var(--muted)">To</span><input type="time" id="studyEnd" value="21:00" style="width:110px;margin:0"></div>
-      </div>
-    </div>
-    <div class="planner-step">
-      <label><i class="ti ti-moon"></i> Step 3 — Mark rest days</label>
-      <div style="display:flex;gap:6px;flex-wrap:wrap" id="restDayBtns">
-        <button class="rest-day-btn" data-day="Mon" onclick="toggleRest(this)">Mon</button>
-        <button class="rest-day-btn" data-day="Tue" onclick="toggleRest(this)">Tue</button>
-        <button class="rest-day-btn" data-day="Wed" onclick="toggleRest(this)">Wed</button>
-        <button class="rest-day-btn" data-day="Thu" onclick="toggleRest(this)">Thu</button>
-        <button class="rest-day-btn" data-day="Fri" onclick="toggleRest(this)">Fri</button>
-        <button class="rest-day-btn" data-day="Sat" onclick="toggleRest(this)">Sat</button>
-        <button class="rest-day-btn" data-day="Sun" onclick="toggleRest(this)">Sun</button>
-      </div>
-    </div>
-    <div class="planner-step">
-      <label><i class="ti ti-layout-board"></i> Step 4 — Choose your planner style</label>
+      <label><i class="ti ti-layout-board"></i> Step 1 — Choose a planner template</label>
       <div class="pl-templates" id="plTemplates"></div>
     </div>
-    <button class="btn btn-peach" onclick="generatePlan()"><i class="ti ti-calendar-week"></i> Generate My Schedule</button>
-    <div id="plannerOutput" style="overflow-x:auto;margin-top:12px"></div>
+    <div class="planner-step"><label><i class="ti ti-pencil"></i> Step 2 — Write or draw on it</label></div>
+    <div id="plannerOutput" style="overflow-x:auto;margin-top:4px"></div>
     <div id="plSaved"></div>
   </div>
 <div class="related-tools">

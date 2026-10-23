@@ -35,20 +35,20 @@ const CAIE_SITES = [
   { name: 'Dilan Papers', icon:'<i class=\'ti ti-folder\'></i>', desc: 'Well-organised Cambridge past papers and mark schemes', url: 'https://dilanpapers.com/', color: '#EEEBFF' },
   { name: 'SaveMyExams', icon:'<i class=\'ti ti-book\'></i>', desc: 'Topic questions, past papers & revision notes for CAIE', url: 'https://www.savemyexams.com/', color: '#e8f5ee' },
   { name: 'XtremePapers', icon:'<i class=\'ti ti-notebook\'></i>', desc: 'Community forum with IGCSE/A Level papers & discussion', url: 'https://community.xtremepapers.com/', color: '#fde8e8' },
-  { name: 'Cambridge Official', icon:'<i class=\'ti ti-circle-filled\'></i>', desc: 'Official past papers direct from CAIE', url: 'https://www.cambridgeinternational.org/exam-administration/exam-resources/past-papers/', color: '#e8eeff' },
-  { name: 'Smart Exam Resources', icon:'<i class=\'ti ti-circle-filled\'></i>', desc: 'Topical questions organised by chapter', url: 'https://www.smartexamresources.com/', color: '#e8f5ee' },
+  { name: 'Cambridge Official', icon:'<i class=\'ss-ico ss-ico-circle\'></i>', desc: 'Official past papers direct from CAIE', url: 'https://www.cambridgeinternational.org/exam-administration/exam-resources/past-papers/', color: '#e8eeff' },
+  { name: 'Smart Exam Resources', icon:'<i class=\'ss-ico ss-ico-circle\'></i>', desc: 'Topical questions organised by chapter', url: 'https://www.smartexamresources.com/', color: '#e8f5ee' },
   { name: 'Physics & Maths Tutor', icon:'<i class=\'ti ti-ruler-2\'></i>', desc: 'IGCSE & A Level topic questions and past papers', url: 'https://www.physicsandmathstutor.com/', color: '#fff3cd' },
   { name: 'ZNotes', icon:'<i class=\'ti ti-book\'></i>', desc: 'Free concise notes + past paper links for all CAIE subjects', url: 'https://znotes.org/', color: '#f5e8ff' },
 ];
 const EDEX_SITES = [
-  { name: 'Edexcel Official', icon:'<i class=\'ti ti-circle-filled\'></i>', desc: 'Official Edexcel past papers & mark schemes from Pearson', url: 'https://qualifications.pearson.com/en/support/support-topics/exams/past-papers.html', color: '#fde8e8' },
+  { name: 'Edexcel Official', icon:'<i class=\'ss-ico ss-ico-circle\'></i>', desc: 'Official Edexcel past papers & mark schemes from Pearson', url: 'https://qualifications.pearson.com/en/support/support-topics/exams/past-papers.html', color: '#fde8e8' },
   { name: 'PapaCambridge', icon:'<i class=\'ti ti-book\'></i>', desc: 'Large collection of Edexcel IGCSE & IAL past papers', url: 'https://pastpapers.papacambridge.com/', color: '#e8f0fd' },
   { name: 'SaveMyExams', icon:'<i class=\'ti ti-book\'></i>', desc: 'Edexcel topic questions, past papers & model answers', url: 'https://www.savemyexams.com/', color: '#e8f5ee' },
   { name: 'Physics & Maths Tutor', icon:'<i class=\'ti ti-ruler-2\'></i>', desc: 'Edexcel IGCSE & A Level past papers and topic questions', url: 'https://www.physicsandmathstutor.com/', color: '#fff3cd' },
   { name: 'Maths Made Easy', icon:'<i class=\'ti ti-123\'></i>', desc: 'Edexcel IGCSE maths past papers with solutions', url: 'https://mathsmadeeasy.co.uk/', color: '#e8f5ee' },
   { name: 'Revisely', icon:'<i class=\'ti ti-circle-check\'></i>', desc: 'Edexcel IGCSE & A Level revision notes and past papers', url: 'https://www.revisely.co.uk/', color: '#EEEBFF' },
-  { name: 'Smart Exam Resources', icon:'<i class=\'ti ti-circle-filled\'></i>', desc: 'Topical practice for Edexcel IGCSE subjects', url: 'https://www.smartexamresources.com/', color: '#e8f5ee' },
-  { name: 'Pearson Active Learn', icon:'<i class=\'ti ti-circle-filled\'></i>', desc: 'Official Edexcel digital resources and practice', url: 'https://www.pearsonactivelearn.com/', color: '#E0DCFF' },
+  { name: 'Smart Exam Resources', icon:'<i class=\'ss-ico ss-ico-circle\'></i>', desc: 'Topical practice for Edexcel IGCSE subjects', url: 'https://www.smartexamresources.com/', color: '#e8f5ee' },
+  { name: 'Pearson Active Learn', icon:'<i class=\'ss-ico ss-ico-circle\'></i>', desc: 'Official Edexcel digital resources and practice', url: 'https://www.pearsonactivelearn.com/', color: '#E0DCFF' },
 ];
 const SERIES_KEYS = {
   '2025': ['jun_2025','oct_2025'],

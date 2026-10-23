@@ -1600,28 +1600,28 @@ body.dark footer { background: #16181A; }
   #whatsappButton { width: 52px; height: 52px; bottom: 18px; right: 18px; }
 }
 
-  /* ── Filled icons ──
-   Tabler's icon font stopped including the "-filled" icons (they now live in a
-   separate font file), so <i class="ti ti-star-filled"> rendered as an empty
-   box. These three are drawn here as self-contained shapes instead, so they
-   work offline, never depend on a CDN version, and take the text colour. */
-.ti-star-filled, .ti-circle-filled, .ti-heart-filled {
-  display: inline-block; width: 1em; height: 1em; line-height: 1; vertical-align: -0.125em;
+  /* ── Self-drawn icons: star, dot, heart (class "ss-ico ss-ico-star|circle|heart") ──
+   Tabler's icon font has no "-filled" glyphs, so these three are drawn here as
+   plain CSS shapes. They deliberately do NOT use Tabler's "ti" class, so no
+   version of the Tabler stylesheet can blank them out. They take the text colour
+   and size (1em). The old ".ti-*-filled" names stay as aliases. */
+.ss-ico, .ti-star-filled, .ti-circle-filled, .ti-heart-filled {
+  display: inline-block; width: 1em; height: 1em; flex-shrink: 0; line-height: 1; vertical-align: -0.125em;
   background-color: currentColor;
   -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
   -webkit-mask-position: center; mask-position: center;
   -webkit-mask-size: contain; mask-size: contain;
 }
 .ti-star-filled::before, .ti-circle-filled::before, .ti-heart-filled::before { content: none !important; }
-.ti-star-filled {
+.ss-ico-star, .ti-star-filled {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.8l3.1 6.4 7 .9-5.1 4.9 1.3 7-6.3-3.4-6.3 3.4 1.3-7L1.9 9.1l7-.9z' stroke='black' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.8l3.1 6.4 7 .9-5.1 4.9 1.3 7-6.3-3.4-6.3 3.4 1.3-7L1.9 9.1l7-.9z' stroke='black' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
-.ti-circle-filled {
+.ss-ico-circle, .ti-circle-filled {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3C/svg%3E");
 }
-.ti-heart-filled {
+.ss-ico-heart, .ti-heart-filled {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.2l-8.3-8.1C1 10.5 1.4 6.3 4.4 4.6c2.5-1.4 5.1-.6 7.6 2.2 2.5-2.8 5.1-3.6 7.6-2.2 3 1.7 3.4 5.9.7 8.5z'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.2l-8.3-8.1C1 10.5 1.4 6.3 4.4 4.6c2.5-1.4 5.1-.6 7.6 2.2 2.5-2.8 5.1-3.6 7.6-2.2 3 1.7 3.4 5.9.7 8.5z'/%3E%3C/svg%3E");
 }
@@ -1686,7 +1686,6 @@ body.dark footer { background: #16181A; }
 </div>
 
 <!-- ██ HERO ██ -->
-<div class="container" style="padding-top:12px"><div id="ssTicker"></div></div>
 <section id="home">
   <div class="hero-blob hero-blob-1"></div>
   <div class="hero-blob hero-blob-2"></div>
@@ -1719,7 +1718,7 @@ body.dark footer { background: #16181A; }
         <span class="hero-stat-lbl">Students Tutored</span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-num">5<i class="ti ti-star-filled" style="font-size:0.8em"></i></span>
+        <span class="hero-stat-num">5<i class="ss-ico ss-ico-star" style="font-size:0.8em"></i></span>
         <span class="hero-stat-lbl">Student Rated</span>
       </div>
       <div class="hero-stat">
@@ -1785,7 +1784,7 @@ body.dark footer { background: #16181A; }
           </div>
         </div>
         <div class="about-mini-stat">
-          <div class="ams-icon" style="background:#fef9e8"><i class="ti ti-star-filled"></i></div>
+          <div class="ams-icon" style="background:#fef9e8"><i class="ss-ico ss-ico-star"></i></div>
           <div>
             <div class="ams-num">5.0</div>
             <div class="ams-lbl">Average student rating</div>
@@ -2052,7 +2051,7 @@ body.dark footer { background: #16181A; }
     <p class="section-sub" style="color:var(--text-muted);margin-top:12px;font-size:0.95rem">Real feedback from real students</p>
     <div class="reviews-grid">
       <div class="review-card">
-        <div class="stars"><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i></div>
+        <div class="stars"><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i></div>
         <p class="review-text">"The one-to-one sessions made such a huge difference. My Chemistry grade went from a D to an A in just 3 months!"</p>
         <div class="reviewer">
           <div class="reviewer-avatar">S</div>
@@ -2063,7 +2062,7 @@ body.dark footer { background: #16181A; }
         </div>
       </div>
       <div class="review-card">
-        <div class="stars"><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i></div>
+        <div class="stars"><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i></div>
         <p class="review-text">"Afrida ma'am's Biology classes are incredibly clear. She explains every concept patiently and the past paper practice really helped."</p>
         <div class="reviewer">
           <div class="reviewer-avatar">T</div>
@@ -2074,7 +2073,7 @@ body.dark footer { background: #16181A; }
         </div>
       </div>
       <div class="review-card">
-        <div class="stars"><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i></div>
+        <div class="stars"><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i></div>
         <p class="review-text">"The crash course was exactly what I needed before my exams. Focused, fast and very effective. Highly recommend StudySphere!"</p>
         <div class="reviewer">
           <div class="reviewer-avatar">N</div>
@@ -2085,7 +2084,7 @@ body.dark footer { background: #16181A; }
         </div>
       </div>
       <div class="review-card">
-        <div class="stars"><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i></div>
+        <div class="stars"><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i><i class="ss-ico ss-ico-star"></i></div>
         <p class="review-text">"Best tutoring platform I've tried. The Google Meet sessions are smooth and the instructors are always well prepared."</p>
         <div class="reviewer">
           <div class="reviewer-avatar">S</div>
@@ -2270,7 +2269,7 @@ body.dark footer { background: #16181A; }
   <div class="footer-bottom">
     <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
       <span>© StudySphere 2026 — All rights reserved</span>
-      <span>Made with <i class="ti ti-heart-filled"></i> for students</span>
+      <span>Made with <i class="ss-ico ss-ico-heart"></i> for students</span>
     </div>
   </div>
 </footer>
@@ -2535,8 +2534,5 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
-<script src="tools/assets/site-config.js"></script>
-<script src="tools/assets/gradedata/series-calendar.js"></script>
-<script src="tools/assets/news-ticker.js"></script>
 </body>
 </html>

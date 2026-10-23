@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grade Calculator — StudySphere Tools</title>
-  <meta name="description" content="Work out your IGCSE, O Level, A Level or IAL grade from your marks.">
+  <meta name="description" content="Work out your current grade and what you need on what's left to hit a target.">
   <link rel="icon" type="image/png" href="../logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
@@ -52,57 +52,80 @@
 </nav>
 
 <main id="main" class="tool-page-main">
-  <div id="ssTicker"></div>
   <div class="tool-page-header">
     <div class="tool-page-icon"><i class="ti ti-calculator"></i></div>
     <div>
       <h1 class="tool-page-title">Grade Calculator</h1>
-      <p class="tool-page-desc">Choose your exam, type your marks and get your grade from the official boundaries.</p>
+      <p class="tool-page-desc">Work out your current grade and what you need on what's left to hit a target.</p>
+      <div class="tool-page-badges"><span class="hub-card-tag" style="background:var(--primary-light,#EEEBFF);color:var(--primary)">Student</span></div>
     </div>
   </div>
-  <style>
-    .gc-row{display:grid;gap:8px;align-items:center;margin-bottom:8px}
-    .gc-sec{grid-template-columns:minmax(0,2fr) 1fr 1fr 1fr 36px}
-    .gc-al{grid-template-columns:minmax(0,2fr) 1fr 1fr auto 36px}
-    .gc-row input[type=text],.gc-row input[type=number]{margin:0;width:100%;padding:10px;min-width:0}
-    .gc-head{font-size:.75rem;color:var(--muted)}
-    .gc-x{border:0;background:none;color:var(--muted);cursor:pointer;font-size:1.1rem}
-    .gc-a2{display:flex;align-items:center;gap:4px;font-size:.8rem;color:var(--muted);white-space:nowrap}
-    .gc-result{margin-top:16px;padding:16px;border:1px solid var(--border);border-radius:12px;display:none}
-    .gc-grade{font-size:3rem;font-weight:900;line-height:1;color:var(--primary)}
-    .gc-err{color:#c0392b;font-size:.85rem;margin:0 0 4px}
-    .gc-bands{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-    .gc-bands label{font-size:.78rem;color:var(--muted);display:flex;flex-direction:column;gap:2px;width:64px}
-    .gc-bands input{margin:0;padding:6px;width:100%}
-    @media(max-width:560px){.gc-sec{grid-template-columns:1fr 1fr 1fr 36px}.gc-sec .gc-name,.gc-al .gc-name{grid-column:1/-1}.gc-al{grid-template-columns:1fr 1fr auto 36px}.gc-head{display:none}}
-  </style>
-  <div class="tool-card" style="margin-bottom:16px">
-    <div class="tool-header"><div class="tool-icon">&#9733;</div>
-      <div><h2>Official grade checker</h2>
-      <p>Pick your curriculum, session, year and subject, then type your marks. You get your grade straight away.</p></div></div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <select id="ocCur" style="width:auto;flex:1;margin:0;padding:10px 12px;min-width:130px" aria-label="Curriculum"></select>
-      <select id="ocSession" style="width:auto;flex:1;margin:0;padding:10px 12px;min-width:130px;display:none" aria-label="Exam session"></select>
-      <select id="ocYear" style="width:auto;flex:1;margin:0;padding:10px 12px;min-width:100px;display:none" aria-label="Year"></select>
-      <select id="ocSubject" style="width:auto;flex:2;margin:0;padding:10px 12px;min-width:180px;display:none" aria-label="Subject"></select>
+<!-- 9. GRADE CALCULATOR -->
+  <div class="tool-card" style="grid-column: span 2;" data-category="student">
+    <div class="tool-header">
+      <div class="tool-icon"><i class="ti ti-calculator"></i></div>
+      <div>
+        <h2>Grade Calculator <span class="tool-badge badge-student">Student</span></h2>
+        <p>Calculate weighted grades + target grade predictor</p>
+      </div>
     </div>
-    <div class="gc-result" id="ocStatus"></div>
-    <div id="ocInputs" style="margin-top:14px"></div>
-    <div class="gc-result" id="ocResult"></div>
-  </div>
-  <div class="tool-card" >
-    <div class="tool-header"><div class="tool-icon"><i class="ti ti-external-link"></i></div>
-      <div><h2>Official boundary pages (Cambridge &amp; Pearson)</h2>
-      <p>Pick your exam board and series to open the boundaries on Cambridge or Pearson's own website.</p></div></div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <select id="blBoard" style="width:auto;flex:1;margin:0;padding:10px 12px;min-width:140px" aria-label="Exam board">
-        <option value="">Exam board</option><option value="cambridge">Cambridge (CAIE)</option><option value="edexcel">Edexcel (Pearson)</option></select>
-      <select id="blQual" style="width:auto;flex:1;margin:0;padding:10px 12px;min-width:140px;display:none" aria-label="Qualification"></select>
-      <select id="blSession" style="width:auto;flex:1;margin:0;padding:10px 12px;min-width:140px;display:none" aria-label="Exam session"></select>
-      <select id="blYear" style="width:auto;flex:1;margin:0;padding:10px 12px;min-width:110px;display:none" aria-label="Year"></select>
+    <div class="grade-board-tabs">
+      <button class="grade-board-tab active" id="gbTabCaie" onclick="setGradeBoard('caie',this)"><i class="ss-ico ss-ico-circle"></i> Cambridge</button>
+      <button class="grade-board-tab" id="gbTabEdex" onclick="setGradeBoard('edexcel',this)"><i class="ss-ico ss-ico-circle"></i> Edexcel</button>
     </div>
-    <div class="gc-result" id="blResult" aria-live="polite"></div>
+    <div class="grade-mode-selector">
+      <button class="grade-mode-btn active" id="gmBtnWeighted" onclick="setGradeMode('weighted',this)">Weighted Components</button>
+      <button class="grade-mode-btn" id="gmBtnSimple" onclick="setGradeMode('simple',this)">Simple Average</button>
+    </div>
+    <div id="gradeLevel" style="margin-bottom:10px">
+      <select id="gradeLevelSel" style="margin:0" onchange="updateBoundaries()">
+        <option value="igcse">IGCSE / O Level</option>
+        <option value="alevel">A Level / IAL</option>
+      </select>
+    </div>
+    <div id="gradeRows"></div>
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="btn btn-outline btn-sm" style="width:auto" onclick="addGradeRow()">+ Add Component</button>
+      <button class="btn btn-sm" style="width:auto" onclick="calculateGrade()">Calculate →</button>
+    </div>
+    <div class="boundary-info" id="boundaryInfo" style="display:none"></div>
+    <div id="gradeResult" style="display:none">
+      <div class="grade-result-box">
+        <div class="grade-letter" id="gradeLetter">A</div>
+        <div class="grade-pct" id="gradePct">85.0%</div>
+        <div class="grade-lbl" id="gradeMsg"></div>
+        <div class="grade-bar"><div class="grade-bar-fill" id="gradeBarFill" style="width:85%"></div></div>
+      </div>
+      <div id="gradeCompare" style="display:none">
+        <table class="boundary-table" id="gradeBoundaryTable"></table>
+        <div class="ums-info">Grade boundaries shown are typical estimates. Actual boundaries vary by session.</div>
+      </div>
+      <div class="target-grade-section">
+        <label><i class="ti ti-target-arrow"></i> Target Grade Predictor</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <select id="targetGradeSelect" style="width:auto;margin:0;padding:8px 10px;font-family:'Nunito',sans-serif">
+            <option value="">Target grade...</option>
+            <option value="astar">A*</option><option value="a">A</option>
+            <option value="b">B</option><option value="c">C</option><option value="d">D</option>
+          </select>
+          <input type="number" id="targetCompWeight" placeholder="Remaining weight %" style="width:140px;margin:0">
+          <input type="text" id="targetCompName" placeholder="e.g. Paper 2" style="flex:1;margin:0;min-width:100px">
+          <button class="btn btn-sm" style="width:auto;margin:0" onclick="calcTarget()">Predict</button>
+        </div>
+        <div class="target-result" id="targetResult"></div>
+      </div>
+    </div>
   </div>
+<div class="related-tools">
+  <h3>Other tools</h3>
+  <div class="related-grid">
+    <a class="related-card" href="past-papers.html"><i class="ti ti-file-search"></i><span>Past Papers Hub</span></a>
+    <a class="related-card" href="resources-hub.html"><i class="ti ti-books"></i><span>Notes & Resources Hub</span></a>
+    <a class="related-card" href="attendance-tracker.html"><i class="ti ti-user-check"></i><span>Attendance Tracker</span></a>
+    <a class="related-card" href="quick-notes.html"><i class="ti ti-note"></i><span>Quick Notes</span></a>
+  </div>
+</div>
+
 </main>
 
 <div class="tools-footer">
@@ -114,12 +137,6 @@
 </a>
 
 <script src="assets/tools-common.js"></script>
-<script src="assets/site-config.js"></script>
-<script src="assets/gradedata/boundary-links.js"></script>
-<script src="assets/gradedata/series-calendar.js"></script>
-<script src="assets/js/grade-engine.js"></script>
-<script src="assets/news-ticker.js"></script>
-<script src="assets/js/official-calculator.js"></script>
-<script src="assets/js/boundary-finder.js"></script>
+<script src="assets/js/grade-calculator.js"></script>
 </body>
 </html>
