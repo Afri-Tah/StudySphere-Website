@@ -70,7 +70,7 @@ function renderPtsPanel() {
       <div class="pts-reward-item">
         <div class="pri-info"><div class="pri-name"><i class="ti ti-${r.icon}"></i> ${r.name}</div><div class="pri-desc">${r.desc}</div></div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-          <div class="pri-cost">${r.cost} <i class="ss-ico ss-ico-star"></i></div>
+          <div class="pri-cost">${r.cost} <i class="ti ti-star-filled"></i></div>
           <button class="btn btn-sm btn-peach" style="margin:0;width:auto;font-size:0.72rem" onclick="redeemReward('${r.name}',${r.cost})">Redeem</button>
         </div>
       </div>`).join('');
@@ -85,7 +85,7 @@ function renderPtsPanel() {
       <div class="pts-log-item">
         <div>${l.desc}</div>
         <div style="display:flex;flex-direction:column;align-items:flex-end">
-          <div class="pli-pts ${l.pts > 0 ? 'earn' : 'spend'}">${l.pts > 0 ? '+' : ''}${l.pts} <i class="ss-ico ss-ico-star"></i></div>
+          <div class="pli-pts ${l.pts > 0 ? 'earn' : 'spend'}">${l.pts > 0 ? '+' : ''}${l.pts} <i class="ti ti-star-filled"></i></div>
           <div style="font-size:0.65rem;color:var(--muted)">${l.time}</div>
         </div>
       </div>`).join('') : '<div style="text-align:center;padding:16px;color:var(--muted);font-size:0.85rem">No activity yet!</div>';
@@ -135,16 +135,16 @@ const SS_AI_PROXY_URL = 'https://studysphere-ai.atworkafrida.workers.dev';
 // /ai-proxy/worker.js) — put the same string here so requests are accepted.
 const SS_AI_PROXY_SECRET = '';
 
-async function ssAIProxyCall(system, messages) {
+async function ssAIProxyCall(system, messages, opts) {
   if (!SS_AI_PROXY_URL) return null;
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 30000);
+  const timeout = setTimeout(() => controller.abort(), (opts && opts.timeoutMs) || 30000);
   try {
     const headers = { 'Content-Type': 'application/json' };
     if (SS_AI_PROXY_SECRET) headers['X-SS-Secret'] = SS_AI_PROXY_SECRET;
     const res = await fetch(SS_AI_PROXY_URL, {
       method: 'POST', signal: controller.signal, headers,
-      body: JSON.stringify({ system, messages })
+      body: JSON.stringify({ system, messages, effort: opts && opts.effort, maxTokens: opts && opts.maxTokens })
     });
     clearTimeout(timeout);
     if (!res.ok) throw new Error(`proxy → HTTP ${res.status}`);
@@ -166,12 +166,12 @@ const SS_AI_PROVIDERS = [
     signupUrl: 'https://console.groq.com/keys',
     signupNote: 'No card required · ~30 requests/min, 14,400/day',
     models: ['openai/gpt-oss-120b', 'openai/gpt-oss-20b'], // Llama 3.x/Gemma were retired on Groq's free tier
-    async call(key, model, system, prompt, signal) {
+    async call(key, model, system, prompt, signal, opts) {
       const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST', signal,
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
-        body: JSON.stringify({ model, temperature: 0.6, max_tokens: 2500,
-          ...(model.startsWith('openai/gpt-oss') ? { reasoning_effort: 'low' } : {}),
+        body: JSON.stringify({ model, temperature: 0.6, max_tokens: (opts && opts.maxTokens) || 2500,
+          ...(model.startsWith('openai/gpt-oss') ? { reasoning_effort: (opts && opts.effort) || 'low' } : {}),
           messages: [{ role: 'system', content: system }, { role: 'user', content: prompt }] })
       });
       if (!res.ok) throw new Error(`Groq/${model} → HTTP ${res.status}`);
@@ -180,12 +180,12 @@ const SS_AI_PROVIDERS = [
     },
     // Multi-turn variant used by the AI Tutor (keeps `call` above untouched
     // for the single-turn callers that already depend on it).
-    async chat(key, model, system, messages, signal) {
+    async chat(key, model, system, messages, signal, opts) {
       const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST', signal,
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
-        body: JSON.stringify({ model, temperature: 0.6, max_tokens: 2500,
-          ...(model.startsWith('openai/gpt-oss') ? { reasoning_effort: 'low' } : {}),
+        body: JSON.stringify({ model, temperature: 0.6, max_tokens: (opts && opts.maxTokens) || 2500,
+          ...(model.startsWith('openai/gpt-oss') ? { reasoning_effort: (opts && opts.effort) || 'low' } : {}),
           messages: [{ role: 'system', content: system }, ...messages] })
       });
       if (!res.ok) throw new Error(`Groq/${model} → HTTP ${res.status}`);
@@ -305,9 +305,9 @@ function ssHasAnyAIPath() {
 // { text, provider, model } on success, or null if nothing worked (including
 // the case where no keys are configured at all) — callers should always have
 // an offline fallback ready for the null case.
-async function ssAIComplete(system, prompt, onAttempt) {
+async function ssAIComplete(system, prompt, onAttempt, opts) {
   if (onAttempt) onAttempt('shared AI');
-  const proxied = await ssAIProxyCall(system, [{ role: 'user', content: prompt }]);
+  const proxied = await ssAIProxyCall(system, [{ role: 'user', content: prompt }], opts);
   if (proxied) return proxied;
 
   for (const provider of ssConfiguredAIProviders()) {
@@ -317,7 +317,7 @@ async function ssAIComplete(system, prompt, onAttempt) {
       const timeout = setTimeout(() => controller.abort(), 20000);
       try {
         if (onAttempt) onAttempt(provider.name);
-        const text = await provider.call(key, model, system, prompt, controller.signal);
+        const text = await provider.call(key, model, system, prompt, controller.signal, opts);
         clearTimeout(timeout);
         if (text) return { text, provider: provider.name, model };
       } catch (err) {
@@ -334,9 +334,9 @@ async function ssAIComplete(system, prompt, onAttempt) {
 // `messages` is an array of {role:'user'|'assistant', content}. Same
 // provider/model fallback order and same { text, provider, model } | null
 // shape as ssAIComplete.
-async function ssAIChat(system, messages, onAttempt) {
+async function ssAIChat(system, messages, onAttempt, opts) {
   if (onAttempt) onAttempt('shared AI');
-  const proxied = await ssAIProxyCall(system, messages);
+  const proxied = await ssAIProxyCall(system, messages, opts);
   if (proxied) return proxied;
 
   for (const provider of ssConfiguredAIProviders()) {
@@ -346,7 +346,7 @@ async function ssAIChat(system, messages, onAttempt) {
       const timeout = setTimeout(() => controller.abort(), 30000);
       try {
         if (onAttempt) onAttempt(provider.name);
-        const text = await provider.chat(key, model, system, messages, controller.signal);
+        const text = await provider.chat(key, model, system, messages, controller.signal, opts);
         clearTimeout(timeout);
         if (text) return { text, provider: provider.name, model };
       } catch (err) {

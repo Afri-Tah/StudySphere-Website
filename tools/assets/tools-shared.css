@@ -930,28 +930,123 @@ body.dark .tutor-msg.tutor { background: #332C55; }
 .ss-fig-note, .ss-fig-loading { font-size: 0.72rem; color: var(--muted); margin: 6px 0 0; }
 .tutor-msg.rich { white-space: normal; }
 
-/* ── Self-drawn icons: star, dot, heart (class "ss-ico ss-ico-star|circle|heart") ──
-   Tabler's icon font has no "-filled" glyphs, so these three are drawn here as
-   plain CSS shapes. They deliberately do NOT use Tabler's "ti" class, so no
-   version of the Tabler stylesheet can blank them out. They take the text colour
-   and size (1em). The old ".ti-*-filled" names stay as aliases. */
-.ss-ico, .ti-star-filled, .ti-circle-filled, .ti-heart-filled {
-  display: inline-block; width: 1em; height: 1em; flex-shrink: 0; line-height: 1; vertical-align: -0.125em;
+/* ── Filled icons ──
+   Tabler's icon font stopped including the "-filled" icons (they now live in a
+   separate font file), so <i class="ti ti-star-filled"> rendered as an empty
+   box. These three are drawn here as self-contained shapes instead, so they
+   work offline, never depend on a CDN version, and take the text colour. */
+.ti-star-filled, .ti-circle-filled, .ti-heart-filled {
+  display: inline-block; width: 1em; height: 1em; line-height: 1; vertical-align: -0.125em;
   background-color: currentColor;
   -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
   -webkit-mask-position: center; mask-position: center;
   -webkit-mask-size: contain; mask-size: contain;
 }
 .ti-star-filled::before, .ti-circle-filled::before, .ti-heart-filled::before { content: none !important; }
-.ss-ico-star, .ti-star-filled {
+.ti-star-filled {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.8l3.1 6.4 7 .9-5.1 4.9 1.3 7-6.3-3.4-6.3 3.4 1.3-7L1.9 9.1l7-.9z' stroke='black' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.8l3.1 6.4 7 .9-5.1 4.9 1.3 7-6.3-3.4-6.3 3.4 1.3-7L1.9 9.1l7-.9z' stroke='black' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
-.ss-ico-circle, .ti-circle-filled {
+.ti-circle-filled {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3C/svg%3E");
 }
-.ss-ico-heart, .ti-heart-filled {
+.ti-heart-filled {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.2l-8.3-8.1C1 10.5 1.4 6.3 4.4 4.6c2.5-1.4 5.1-.6 7.6 2.2 2.5-2.8 5.1-3.6 7.6-2.2 3 1.7 3.4 5.9.7 8.5z'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.2l-8.3-8.1C1 10.5 1.4 6.3 4.4 4.6c2.5-1.4 5.1-.6 7.6 2.2 2.5-2.8 5.1-3.6 7.6-2.2 3 1.7 3.4 5.9.7 8.5z'/%3E%3C/svg%3E");
 }
+
+/* ══ Upload zone, tutor controls, downloads, diagrams (doc-tools.js / ss-download.js / rich-output.js) ══ */
+.ss-up { margin-bottom: 12px; }
+.ss-up-drop { border: 2px dashed var(--border); border-radius: 16px; padding: 18px 14px; text-align: center; cursor: pointer; background: var(--bg); transition: border-color .15s, background .15s; display: flex; flex-direction: column; gap: 4px; align-items: center; }
+.ss-up-drop i { font-size: 1.9rem; color: var(--primary); }
+.ss-up-drop b { color: var(--text); } .ss-up-drop u { color: var(--primary); }
+.ss-up-drop small { color: var(--muted); font-size: .74rem; max-width: 520px; }
+.ss-up-drop:hover, .ss-up-drop:focus-visible, .ss-up-drop.over { border-color: var(--primary); background: var(--primary-light, #EEEBFF); outline: none; }
+.ss-up-drop.busy { opacity: .6; pointer-events: none; }
+.ss-up-status { font-size: .8rem; color: var(--muted); min-height: 1.1em; margin: 6px 2px 0; } .ss-up-status.bad { color: #c0392b; }
+.ss-up-files { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+.ss-up-chip { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 12px; background: var(--card, #fff); font-size: .82rem; }
+.ss-up-chip .nm { font-weight: 800; flex: 1; min-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ss-up-chip small { color: var(--muted); } .ss-up-chip em { flex-basis: 100%; font-style: normal; color: #a86b00; font-size: .72rem; }
+.ss-up-chip button { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 1rem; padding: 2px 4px; }
+.ss-up-paste { margin-top: 8px; font-size: .82rem; } .ss-up-paste summary { cursor: pointer; color: var(--primary); font-weight: 700; padding: 4px 0; }
+.ss-up-paste textarea { margin-top: 6px; }
+
+.tut-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.tut-row select, .tut-row input { flex: 1; min-width: 150px; margin: 0; }
+.tut-modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; }
+.tut-mode { cursor: pointer; } .tut-mode input { position: absolute; opacity: 0; pointer-events: none; }
+.tut-mode span { display: grid; grid-template-columns: auto 1fr; column-gap: 8px; align-items: center; border: 2px solid var(--border); border-radius: 14px; padding: 10px 12px; background: var(--bg); transition: .15s; }
+.tut-mode i { grid-row: span 2; font-size: 1.4rem; color: var(--primary); } .tut-mode b { font-size: .86rem; } .tut-mode small { color: var(--muted); font-size: .72rem; }
+.tut-mode input:checked + span { border-color: var(--primary); background: var(--primary-light, #EEEBFF); }
+.tut-mode input:focus-visible + span { outline: 2px solid var(--primary); outline-offset: 2px; }
+.tut-bar-btns { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; } .tut-bar-btns .btn { width: auto; margin: 0; }
+.tutor-chat { height: min(72vh, 680px); max-height: none; }
+.tutor-msg.tutor { white-space: normal; max-width: 94%; }
+.tutor-msg.tutor .tutor-msg-body > :first-child { margin-top: 0; } .tutor-msg.tutor .ss-rich p:last-child { margin-bottom: 0; }
+.tutor-sources { font-size: .74rem; color: var(--muted); margin-top: 8px; }
+.tutor-msg-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.tutor-msg-actions button, .ss-mini-btn { background: var(--card, #fff); border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px; font: 700 .72rem 'Nunito', sans-serif; color: var(--primary); cursor: pointer; display: inline-flex; gap: 4px; align-items: center; }
+.tutor-msg-actions button:hover, .ss-mini-btn:hover { background: var(--primary-light, #EEEBFF); } .tutor-msg-actions button:disabled { opacity: .5; }
+.tutor-figs:empty { display: none; } .tutor-figs { margin-top: 8px; }
+.tutor-quick { display: flex; gap: 6px; padding: 8px 10px 0; overflow-x: auto; background: var(--card, #fff); border-top: 2px solid var(--border); }
+.tutor-quick button { flex: 0 0 auto; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; font: 700 .76rem 'Nunito', sans-serif; color: var(--text); cursor: pointer; }
+.tutor-quick button:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); } .tutor-quick button:disabled { opacity: .5; }
+.tutor-chat-inputrow { border-top: none; }
+.tut-notes-panel { margin-top: 14px; padding: 14px; border: 2px solid var(--border); border-radius: 16px; background: var(--card, #fff); }
+.tut-notes-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; } .tut-notes-head h3 { margin: 0; font-size: 1rem; color: var(--primary); } .tut-notes-sub { font-size: .76rem; color: var(--muted); margin: 4px 0 10px; }
+
+.ss-dl { position: relative; display: inline-block; }
+.ss-dl-btn { width: auto !important; margin: 0 !important; display: inline-flex; gap: 6px; align-items: center; }
+.ss-dl-menu { position: absolute; right: 0; top: calc(100% + 6px); z-index: 60; min-width: 250px; background: var(--card, #fff); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 12px 30px rgba(40, 30, 90, .22); padding: 6px; }
+.ss-dl-menu[hidden] { display: none; }
+.ss-dl-menu button { display: flex; gap: 10px; align-items: center; width: 100%; text-align: left; background: none; border: none; border-radius: 10px; padding: 8px 10px; cursor: pointer; font-family: inherit; color: var(--text); }
+.ss-dl-menu button:hover { background: var(--primary-light, #EEEBFF); } .ss-dl-menu i { font-size: 1.25rem; color: var(--primary); }
+.ss-dl-menu b { display: block; font-size: .84rem; } .ss-dl-menu small { display: block; font-size: .7rem; color: var(--muted); }
+.tut-bar-btns .ss-dl-menu { right: auto; left: 0; }
+
+.ss-diagram { position: relative; } .ss-diagram svg { min-width: min(100%, 360px); }
+.ss-diagram-bar { display: flex; gap: 6px; justify-content: flex-end; margin-top: 6px; }
+.ss-figures figure .ss-mini-btn { align-self: flex-start; }
+.ss-math-fb { font-family: 'Cambria Math', 'Segoe UI Symbol', serif; } div.ss-math-fb { text-align: center; margin: 8px 0; }
+.ss-rich .katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; } .ss-rich .katex { font-size: 1.08em; }
+body.dark .tutor-quick, body.dark .tut-notes-panel, body.dark .ss-dl-menu, body.dark .ss-up-chip { background: var(--card); }
+body.dark .tutor-msg-actions button, body.dark .ss-mini-btn { background: var(--card); }
+@media (max-width: 600px) { .tutor-msg { max-width: 96%; } .tut-bar-btns { justify-content: flex-start; } .ss-dl-menu { min-width: 230px; } }
+
+/* ══ Notes Generator ══ */
+.nh-ai-result { max-height: none; overflow: visible; }
+.nh-tabs { display: flex; gap: 6px; margin-bottom: 12px; background: var(--bg); padding: 4px; border-radius: 14px; border: 1px solid var(--border); }
+.nh-tab { flex: 1; border: none; background: none; padding: 9px 10px; border-radius: 10px; font: 800 .84rem 'Nunito', sans-serif; color: var(--muted); cursor: pointer; display: flex; gap: 6px; align-items: center; justify-content: center; }
+.nh-tab.active { background: var(--card, #fff); color: var(--primary); box-shadow: 0 2px 8px rgba(60, 50, 140, .15); }
+.nh-options { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin-bottom: 12px; font-size: .82rem; font-weight: 700; }
+.nh-options label { display: flex; gap: 6px; align-items: center; } .nh-options select { width: auto; margin: 0; padding: 6px 10px; font-size: .82rem; }
+.nh-check input { width: auto; margin: 0; }
+.nh-result-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.nh-result-head h3 { margin: 0 !important; font-size: 1.05rem; }
+.nh-sub { font-size: .8rem; color: var(--muted); margin: 6px 0 10px; }
+.nh-progress { font-size: .82rem; color: var(--muted); margin: 6px 0; } .nh-progress:empty { display: none; }
+.nh-block + .nh-block { margin-top: 10px; padding-top: 6px; }
+.nh-part-fail { font-size: .8rem; color: #a86b00; background: #fff6e0; border-radius: 10px; padding: 8px 10px; }
+.ss-diagram svg { max-width: min(100%, 560px); height: auto; margin: 0 auto; display: block; }
+
+/* ══ Notes Generator: syllabus box, textbook, spec check ══ */
+.nh-spec { border: 2px solid var(--primary); border-radius: 16px; padding: 12px 14px; margin-bottom: 10px; background: var(--primary-light, #EEEBFF); }
+.nh-spec-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.nh-spec-head label { display: flex; gap: 6px; align-items: center; font-size: .78rem; font-weight: 800; } .nh-spec-head select { width: auto; margin: 0; padding: 6px 10px; font-size: .8rem; }
+.nh-spec-badge { display: inline-flex; gap: 5px; align-items: center; background: var(--primary); color: #fff; border-radius: 999px; padding: 3px 11px; font: 800 .72rem 'Nunito', sans-serif; }
+.nh-spec-badge.book { background: #2f8f5b; } .nh-spec-badge.none { background: #8a8a99; }
+.nh-spec-body { font-size: .82rem; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.nh-spec-hint { color: var(--muted); } .nh-spec-warn { color: #b42318; font-weight: 700; }
+.nh-chip { background: var(--card, #fff); border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px; font-size: .76rem; }
+.nh-spec-src { display: inline-block; margin-top: 8px; font-size: .72rem; color: var(--primary); text-decoration: underline; }
+.nh-book { border: 1px dashed var(--border); border-radius: 16px; padding: 10px 14px; margin-bottom: 12px; background: var(--bg); }
+.nh-book summary { cursor: pointer; font-size: .86rem; } .nh-book summary small { color: var(--muted); display: block; font-weight: 600; margin-top: 2px; }
+.nh-book #nhUploader { margin-top: 10px; } .nh-book-note { font-size: .74rem; color: var(--muted); margin: 6px 0 0; }
+.nh-plan { font-size: .8rem; color: var(--muted); margin: 0 0 10px; min-height: 1.2em; }
+.nh-badge-line { margin: 6px 0 2px; display: flex; gap: 6px; flex-wrap: wrap; }
+.nh-checkbox { margin-top: 16px; padding: 12px 14px; border-radius: 14px; font-size: .84rem; border: 2px solid var(--border); }
+.nh-checkbox.ok { background: #e6f7ee; border-color: #2fb36f; } .nh-checkbox.warn { background: #fff4d9; border-color: #f5a524; }
+.nh-checkbox h4 { margin: 0 0 6px; font-size: .92rem; } .nh-checkbox h4 small { font-weight: 600; color: var(--muted); font-size: .72rem; }
+.nh-checkbox p { margin: 4px 0; } .nh-checkbox ul { margin: 4px 0 4px 18px; padding: 0; }

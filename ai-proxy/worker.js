@@ -77,12 +77,12 @@ const PROVIDERS = [
     needsEnv: ['FREELLMAPI_BASE_URL'],
     timeoutMs: 25000,
     models: (env) => [env.FREELLMAPI_MODEL || 'auto'],
-    async call(key, model, system, messages, signal, env) {
+    async call(key, model, system, messages, signal, env, opts) {
       const base = String(env.FREELLMAPI_BASE_URL).replace(/\/+$/, '').replace(/\/v1$/, '');
       const res = await fetch(`${base}/v1/chat/completions`, {
         method: 'POST', signal,
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
-        body: JSON.stringify({ model, temperature: 0.6, max_tokens: 2500,
+        body: JSON.stringify({ model, temperature: 0.6, max_tokens: (opts && opts.maxTokens) || 2500,
           messages: [{ role: 'system', content: system }, ...messages] })
       });
       if (!res.ok) throw new Error(`FreeLLMAPI/${model} → HTTP ${res.status}`);
@@ -97,14 +97,14 @@ const PROVIDERS = [
     // Groq retired the Llama 3.x/Gemma models on its free tier; its own
     // deprecations page names these gpt-oss models as the replacements.
     models: (env) => modelsFrom(env, 'GROQ_MODELS', ['openai/gpt-oss-120b', 'openai/gpt-oss-20b']),
-    async call(key, model, system, messages, signal) {
-      const reasoning = model.startsWith('openai/gpt-oss') ? { reasoning_effort: 'low' } : {};
+    async call(key, model, system, messages, signal, env, opts) {
+      const reasoning = model.startsWith('openai/gpt-oss') ? { reasoning_effort: (opts && opts.effort) || 'low' } : {};
       const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST', signal,
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
         // gpt-oss models "think" first; a small max_tokens can be used up before
         // any answer text appears, so leave room.
-        body: JSON.stringify({ model, temperature: 0.6, max_tokens: 2500, ...reasoning,
+        body: JSON.stringify({ model, temperature: 0.6, max_tokens: (opts && opts.maxTokens) || 2500, ...reasoning,
           messages: [{ role: 'system', content: system }, ...messages] })
       });
       if (!res.ok) throw new Error(`Groq/${model} → HTTP ${res.status}`);
@@ -120,12 +120,13 @@ const PROVIDERS = [
     // listed because failures just move on to the next one; override with
     // GEMINI_MODELS once you see which one your key can use.
     models: (env) => modelsFrom(env, 'GEMINI_MODELS', ['gemini-3.5-flash-lite', 'gemini-3.8-flash', 'gemini-2.5-flash']),
-    async call(key, model, system, messages, signal) {
+    async call(key, model, system, messages, signal, env, opts) {
       const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(key)}`, {
         method: 'POST', signal,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           system_instruction: { parts: [{ text: system }] },
+          generationConfig: { maxOutputTokens: (opts && opts.maxTokens) || 2500 },
           contents: messages.map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] }))
         })
       });
@@ -142,11 +143,11 @@ const PROVIDERS = [
     // Check https://openrouter.ai/models?q=free and set OPENROUTER_MODELS to
     // update without touching code.
     models: (env) => modelsFrom(env, 'OPENROUTER_MODELS', ['nvidia/nemotron-3-super-120b-a12b:free', 'google/gemma-4-31b-it:free']),
-    async call(key, model, system, messages, signal) {
+    async call(key, model, system, messages, signal, env, opts) {
       const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST', signal,
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
-        body: JSON.stringify({ model, messages: [{ role: 'system', content: system }, ...messages] })
+        body: JSON.stringify({ model, max_tokens: (opts && opts.maxTokens) || 2500, messages: [{ role: 'system', content: system }, ...messages] })
       });
       if (!res.ok) throw new Error(`OpenRouter/${model} → HTTP ${res.status}`);
       const data = await res.json();
@@ -158,11 +159,11 @@ const PROVIDERS = [
     name: 'Hack Club AI',
     envKey: 'HACKCLUB_API_KEY',
     models: (env) => modelsFrom(env, 'HACKCLUB_MODELS', ['qwen/qwen3-32b']),
-    async call(key, model, system, messages, signal) {
+    async call(key, model, system, messages, signal, env, opts) {
       const res = await fetch('https://ai.hackclub.com/proxy/v1/chat/completions', {
         method: 'POST', signal,
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
-        body: JSON.stringify({ model, messages: [{ role: 'system', content: system }, ...messages] })
+        body: JSON.stringify({ model, max_tokens: (opts && opts.maxTokens) || 2500, messages: [{ role: 'system', content: system }, ...messages] })
       });
       if (!res.ok) throw new Error(`Hack Club/${model} → HTTP ${res.status}`);
       const data = await res.json();
@@ -213,6 +214,11 @@ export default {
     // trying new providers once ~27s have passed — otherwise a long run of
     // failures would make the browser abandon a request that might have
     // succeeded a moment later.
+    // Optional hints from the site: more careful reasoning for maths, longer answers for notes.
+    const opts = {
+      effort: ['low', 'medium', 'high'].includes(body.effort) ? body.effort : 'low',
+      maxTokens: Math.min(Math.max(parseInt(body.maxTokens, 10) || 2500, 500), 6000)
+    };
     const deadline = Date.now() + 27000;
     const tried = [];
 
@@ -227,7 +233,7 @@ export default {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), Math.min(provider.timeoutMs || 30000, remaining));
         try {
-          const text = await provider.call(key, model, system, messages, controller.signal, env);
+          const text = await provider.call(key, model, system, messages, controller.signal, env, opts);
           clearTimeout(timeout);
           if (text) {
             return new Response(JSON.stringify({ text, provider: provider.name, model }), { headers });

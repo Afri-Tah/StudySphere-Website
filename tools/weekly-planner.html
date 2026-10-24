@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weekly Study Planner — StudySphere Tools</title>
-  <meta name="description" content="Printable weekly and daily planner templates you can type or draw on, save and download.">
+  <meta name="description" content="Pick your subjects and study days, and get a balanced weekly schedule you can tick off, print or add to your calendar.">
   <link rel="icon" type="image/png" href="../logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
   <link rel="stylesheet" href="assets/tools-shared.css">
   <link rel="stylesheet" href="assets/weekly-planner.css">
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600&family=Fraunces:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Great+Vibes&family=Anton&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Great+Vibes&family=Anton&display=swap" rel="stylesheet">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -58,7 +58,7 @@
     <div class="tool-page-icon"><i class="ti ti-calendar-week"></i></div>
     <div>
       <h1 class="tool-page-title">Weekly Study Planner</h1>
-      <p class="tool-page-desc">Printable weekly and daily planner templates — type or draw on them, save and download.</p>
+      <p class="tool-page-desc">Pick your subjects and study days, and get a balanced weekly schedule you can tick off, print or add to your calendar.</p>
       <div class="tool-page-badges"><span class="hub-card-tag" style="background:var(--primary-light,#EEEBFF);color:var(--primary)">Student</span></div>
     </div>
   </div>
@@ -68,15 +68,50 @@
       <div class="tool-icon"><i class="ti ti-calendar-week"></i></div>
       <div>
         <h2>Weekly Study Planner <span class="tool-badge badge-student">Student</span></h2>
-        <p>Pick a planner template, fill it in, then save or download it</p>
+        <p>Pick your subjects and study days — your plan builds itself, in the style you choose</p>
       </div>
     </div>
-    <div class="planner-step">
-      <label><i class="ti ti-layout-board"></i> Step 1 — Choose a planner template</label>
-      <div class="pl-templates" id="plTemplates"></div>
+    <div class="pb">
+      <section class="pb-sec">
+        <h3><span class="pb-n">1</span> What do you need to study?</h3>
+        <div class="pb-presets"><span>Quick start:</span>
+          <button type="button" data-preset="exam"><i class="ti ti-flame"></i> Exam week</button>
+          <button type="button" data-preset="balanced"><i class="ti ti-scale"></i> Balanced week</button>
+          <button type="button" data-preset="light"><i class="ti ti-leaf"></i> Light revision</button>
+          <button type="button" data-preset="clear" class="ghost"><i class="ti ti-trash"></i> Clear all</button>
+        </div>
+        <p class="pb-label">Tap to add a subject</p>
+        <div class="pb-chips" id="pbChips"></div>
+        <div class="pb-add">
+          <input type="text" id="taskInput" placeholder="…or type your own, e.g. Maths past paper" maxlength="60" autocomplete="off">
+          <button type="button" class="btn btn-sm" id="pbAddBtn"><i class="ti ti-plus"></i> Add</button>
+        </div>
+        <div id="taskList" class="pb-tasks" aria-live="polite"></div>
+      </section>
+
+      <section class="pb-sec">
+        <h3><span class="pb-n">2</span> When can you study?</h3>
+        <p class="pb-label">Study days — tap to switch a day on or off</p>
+        <div class="pb-days" id="pbDays" role="group" aria-label="Study days"></div>
+        <div class="pb-day-presets"><button type="button" data-days="weekdays">Weekdays</button><button type="button" data-days="weekdays-sat">Mon–Sat</button><button type="button" data-days="all">Every day</button></div>
+        <div class="pb-time">
+          <label>Start <input type="time" id="studyStart" value="16:00"></label>
+          <label>Finish by <input type="time" id="studyEnd" value="21:00"></label>
+          <label>Most per day
+            <span class="pb-step"><button type="button" id="pbMaxDown" aria-label="Fewer hours per day">−</button><b id="pbMaxVal">4h</b><button type="button" id="pbMaxUp" aria-label="More hours per day">+</button></span>
+          </label>
+        </div>
+      </section>
+
+      <div class="pb-summary" id="pbSummary" aria-live="polite"></div>
+
+      <section class="pb-sec">
+        <h3><span class="pb-n">3</span> Pick a style</h3>
+        <div class="pl-templates" id="plTemplates"></div>
+      </section>
     </div>
-    <div class="planner-step"><label><i class="ti ti-pencil"></i> Step 2 — Write or draw on it</label></div>
-    <div id="plannerOutput" style="overflow-x:auto;margin-top:4px"></div>
+    <button class="btn btn-peach" id="pbBuildBtn" onclick="generatePlan(true)"><i class="ti ti-calendar-week"></i> Build my plan</button>
+    <div id="plannerOutput" style="overflow-x:auto;margin-top:12px"></div>
     <div id="plSaved"></div>
   </div>
 <div class="related-tools">

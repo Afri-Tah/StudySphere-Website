@@ -16,8 +16,11 @@ const SS_RICH_LIBS = {
   purify:  ['https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js',
             'https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js'],
   mermaid: ['https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js',
-            'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js']
+            'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js'],
+  katex:   ['https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js',
+            'https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js']
 };
+const SS_KATEX_CSS = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css';
 
 const _ssScriptCache = {};
 // Loads the first URL in the list that works (the second is a fallback if the
@@ -52,6 +55,125 @@ function ssEscapeHTML(s) {
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
+// ══ MATHS ══
+// The AI writes maths as LaTeX ($x^2$, $$\frac{a}{b}$$). Markdown would mangle
+// it, so it is lifted out into placeholders first, then drawn with KaTeX after
+// the Markdown is rendered. If KaTeX can't load, a Unicode version is shown
+// instead (x², √, π, ×, ≤ ...) so symbols are never raw backslash code.
+const _SS_TEX_SYMBOLS = {
+  alpha:'α',beta:'β',gamma:'γ',delta:'δ',epsilon:'ε',varepsilon:'ε',zeta:'ζ',eta:'η',theta:'θ',vartheta:'ϑ',iota:'ι',kappa:'κ',lambda:'λ',mu:'μ',nu:'ν',xi:'ξ',pi:'π',rho:'ρ',sigma:'σ',tau:'τ',upsilon:'υ',phi:'φ',varphi:'φ',chi:'χ',psi:'ψ',omega:'ω',
+  Gamma:'Γ',Delta:'Δ',Theta:'Θ',Lambda:'Λ',Xi:'Ξ',Pi:'Π',Sigma:'Σ',Phi:'Φ',Psi:'Ψ',Omega:'Ω',
+  times:'×',div:'÷',cdot:'·',pm:'±',mp:'∓',le:'≤',leq:'≤',ge:'≥',geq:'≥',ne:'≠',neq:'≠',approx:'≈',equiv:'≡',sim:'∼',propto:'∝',infty:'∞',
+  to:'→',rightarrow:'→',leftarrow:'←',leftrightarrow:'↔',Rightarrow:'⇒',Leftarrow:'⇐',Leftrightarrow:'⇔',rightleftharpoons:'⇌',uparrow:'↑',downarrow:'↓',
+  int:'∫',sum:'∑',prod:'∏',partial:'∂',nabla:'∇',degree:'°',circ:'°',angle:'∠',triangle:'△',perp:'⊥',parallel:'∥',therefore:'∴',because:'∵',
+  in:'∈',notin:'∉',subset:'⊂',subseteq:'⊆',cup:'∪',cap:'∩',emptyset:'∅',forall:'∀',exists:'∃',neg:'¬',land:'∧',lor:'∨',
+  ldots:'…',cdots:'⋯',dots:'…',quad:' ',qquad:'  ',',':' ',';':' ','!':'',' ':' ',lbrace:'{',rbrace:'}',
+  sin:'sin',cos:'cos',tan:'tan',sec:'sec',csc:'csc',cot:'cot',log:'log',ln:'ln',lim:'lim',exp:'exp',max:'max',min:'min',
+  mathbb:'',displaystyle:'',left:'',right:'',big:'',Big:'',bigg:''
+};
+const _SS_SUP = { '0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹','+':'⁺','-':'⁻','−':'⁻','=':'⁼','(':'⁽',')':'⁾','n':'ⁿ','i':'ⁱ','x':'ˣ','a':'ᵃ','b':'ᵇ','c':'ᶜ','d':'ᵈ','e':'ᵉ','k':'ᵏ','m':'ᵐ','t':'ᵗ','y':'ʸ' };
+const _SS_SUB = { '0':'₀','1':'₁','2':'₂','3':'₃','4':'₄','5':'₅','6':'₆','7':'₇','8':'₈','9':'₉','+':'₊','-':'₋','=':'₌','(':'₍',')':'₎','a':'ₐ','e':'ₑ','i':'ᵢ','n':'ₙ','o':'ₒ','x':'ₓ','m':'ₘ','t':'ₜ' };
+function _ssScript(s, map, mark) {
+  if (s === '°' || s === '∘') return '°';
+  const chars = Array.from(s);
+  return chars.every(c => map[c]) ? chars.map(c => map[c]).join('') : mark + (chars.length > 1 ? '(' + s + ')' : s);
+}
+// Reads one {...} group (or one character) starting at index i; returns [content, nextIndex].
+function _ssTexArg(t, i) {
+  while (t[i] === ' ') i++;
+  if (t[i] === '{') {
+    let d = 0, j = i;
+    for (; j < t.length; j++) { if (t[j] === '{') d++; else if (t[j] === '}' && --d === 0) break; }
+    return [t.slice(i + 1, j), j + 1];
+  }
+  if (t[i] === '\\') { const m = /^\\[A-Za-z]+/.exec(t.slice(i)); if (m) return [m[0], i + m[0].length]; }
+  return [t[i] || '', i + 1];
+}
+function ssTexToUnicode(tex) {
+  let t = String(tex || '');
+  let out = '', i = 0;
+  while (i < t.length) {
+    const c = t[i];
+    if (c === '\\') {
+      const m = /^\\([A-Za-z]+|.)/.exec(t.slice(i));
+      const cmd = m[1]; i += m[0].length;
+      if (cmd === 'frac' || cmd === 'dfrac' || cmd === 'tfrac') {
+        const [a, j] = _ssTexArg(t, i); const [b, k] = _ssTexArg(t, j); i = k;
+        const A = ssTexToUnicode(a), B = ssTexToUnicode(b);
+        out += (/^[\w.²³]+$/.test(A) ? A : '(' + A + ')') + '/' + (/^[\w.²³]+$/.test(B) ? B : '(' + B + ')');
+      } else if (cmd === 'sqrt') {
+        let root = '';
+        if (t[i] === '[') { const e = t.indexOf(']', i); root = t.slice(i + 1, e); i = e + 1; }
+        const [a, j] = _ssTexArg(t, i); i = j;
+        const A = ssTexToUnicode(a);
+        out += (root === '3' ? '∛' : root === '4' ? '∜' : '√') + (/^[\w.]+$/.test(A) ? A : '(' + A + ')');
+      } else if (cmd === 'text' || cmd === 'mathrm' || cmd === 'textbf' || cmd === 'mathbf' || cmd === 'operatorname' || cmd === 'mathit' || cmd === 'boldsymbol') {
+        const [a, j] = _ssTexArg(t, i); i = j; out += ssTexToUnicode(a);
+      } else if (cmd === 'vec' || cmd === 'overrightarrow') { const [a, j] = _ssTexArg(t, i); i = j; out += ssTexToUnicode(a) + '⃗';
+      } else if (cmd === 'hat') { const [a, j] = _ssTexArg(t, i); i = j; out += ssTexToUnicode(a) + '̂';
+      } else if (cmd === 'bar' || cmd === 'overline') { const [a, j] = _ssTexArg(t, i); i = j; out += ssTexToUnicode(a) + '̄';
+      } else if (cmd === 'dot') { const [a, j] = _ssTexArg(t, i); i = j; out += ssTexToUnicode(a) + '̇';
+      } else if (cmd === '\\') { out += ' ';
+      } else if (Object.prototype.hasOwnProperty.call(_SS_TEX_SYMBOLS, cmd)) {
+        out += _SS_TEX_SYMBOLS[cmd]; if (t[i] === ' ' && /[A-Za-z0-9]/.test(t[i + 1] || '') && !/^(sin|cos|tan|sec|csc|cot|log|ln|lim|exp|max|min)$/.test(cmd)) i++; if (/^[a-z]+$/i.test(cmd) && /^(sin|cos|tan|sec|csc|cot|log|ln|lim|exp|max|min)$/.test(cmd) && t[i] !== '(' && t[i] !== ' ') out += ' ';
+      } else { out += cmd.length === 1 ? cmd : ''; }
+    } else if (c === '^' || c === '_') {
+      const [a, j] = _ssTexArg(t, i + 1); i = j;
+      out += _ssScript(ssTexToUnicode(a), c === '^' ? _SS_SUP : _SS_SUB, c === '^' ? '^' : '_');
+    } else if (c === '{' || c === '}') { i++;
+    } else if (c === '~') { out += ' '; i++;
+    } else { out += c; i++; }
+  }
+  return out.replace(/\s{2,}/g, ' ').trim();
+}
+
+// Lifts $...$, $$...$$, \(...\) and \[...\] out of the text (not inside code
+// fences) and returns the text with placeholders, plus the list of formulas.
+// Written without regex look-behind so it also runs on older phones.
+function ssProtectMath(text) {
+  const store = [];
+  const put = (tex, display) => { store.push({ tex: tex.trim(), display }); return '@@SSMATH' + (store.length - 1) + '@@'; };
+  const protectSeg = (seg) => {
+    seg = seg.replace(/\$\$([\s\S]+?)\$\$/g, (m, t) => put(t, true))
+             .replace(/\\\[([\s\S]+?)\\\]/g, (m, t) => put(t, true))
+             .replace(/\\\(([\s\S]+?)\\\)/g, (m, t) => put(t, false));
+    let out = '', i = 0;
+    while (i < seg.length) {
+      const c = seg[i];
+      if (c === '$' && seg[i + 1] !== undefined && !/\s|\$/.test(seg[i + 1])) {
+        let j = i + 1, found = -1;
+        while (j < seg.length && seg[j] !== '\n') {
+          if (seg[j] === '$' && seg[j - 1] !== '\\' && !/\s/.test(seg[j - 1]) && !/\d/.test(seg[j + 1] || '')) { found = j; break; }
+          j++;
+        }
+        if (found > 0) { out += put(seg.slice(i + 1, found), false); i = found + 1; continue; }
+      }
+      out += c; i++;
+    }
+    return out;
+  };
+  const parts = String(text || '').split(/(```[\s\S]*?```|`[^`\n]+`)/g);
+  const out = parts.map((seg, k) => (k % 2 === 1 ? seg : protectSeg(seg))).join('');
+  return { text: out, store };
+}
+function ssRestoreMath(html, store, mode) {
+  return html.replace(/@@SSMATH(\d+)@@/g, (m, n) => {
+    const it = store[+n]; if (!it) return '';
+    if (mode === 'katex' && window.katex) {
+      try {
+        return window.katex.renderToString(it.tex, { displayMode: it.display, throwOnError: false, strict: 'ignore', trust: false,
+          macros: { '\\degree': '^{\\circ}', '\\R': '\\mathbb{R}', '\\N': '\\mathbb{N}', '\\Z': '\\mathbb{Z}' } });
+      } catch (e) { /* fall through */ }
+    }
+    const u = ssEscapeHTML(ssTexToUnicode(it.tex));
+    return it.display ? '<div class="ss-math-fb">' + u + '</div>' : '<span class="ss-math-fb">' + u + '</span>';
+  });
+}
+function ssEnsureKatexCSS() {
+  if (typeof document === 'undefined' || document.getElementById('ssKatexCss')) return;
+  const l = document.createElement('link'); l.id = 'ssKatexCss'; l.rel = 'stylesheet'; l.href = SS_KATEX_CSS; document.head.appendChild(l);
+}
+
 // The notes prompt asks the AI to end with "DIAGRAM_SEARCH: <keywords>" so the
 // image search uses precise terms ("mitosis stages") instead of the raw topic.
 // Returns the answer without that line, plus the keywords (or '' if absent).
@@ -66,7 +188,7 @@ function ssSplitDiagramQuery(text) {
 
 // Minimal Markdown → HTML used instantly while the real renderer loads, and
 // as the fallback if it can't. Handles headings, bullets, bold, paragraphs.
-function ssSimpleMarkdown(text) {
+function _ssSimpleMarkdownCore(text) {
   const inline = (s) => s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   let html = '', inList = false, fence = null; // fence: null | 'mermaid' | 'code'
   for (const raw of String(text || '').split('\n')) {
@@ -90,6 +212,11 @@ function ssSimpleMarkdown(text) {
   return html;
 }
 
+function ssSimpleMarkdown(text) {
+  const p = ssProtectMath(text);
+  return ssRestoreMath(_ssSimpleMarkdownCore(p.text), p.store, 'plain');
+}
+
 // Renders `markdown` into element `el` as sanitized HTML. Returns true if the
 // full renderer was used, false if it fell back to the simple one.
 async function ssRenderRich(el, markdown, opts) {
@@ -97,13 +224,19 @@ async function ssRenderRich(el, markdown, opts) {
   try {
     await Promise.all([ssLoadScript(SS_RICH_LIBS.marked), ssLoadScript(SS_RICH_LIBS.purify)]);
     if (!window.marked || !window.DOMPurify) throw new Error('renderer missing');
-    const rawHtml = window.marked.parse(String(markdown || ''), { gfm: true, breaks });
+    const prot = ssProtectMath(String(markdown || ''));
+    const rawHtml = window.marked.parse(prot.text, { gfm: true, breaks });
     // The AI's text is untrusted: sanitize it, and drop <img> so only the
     // verified Wikimedia figures below ever show pictures (the AI can
     // hallucinate image links that would just appear broken).
-    el.innerHTML = window.DOMPurify.sanitize(rawHtml, {
+    const clean = window.DOMPurify.sanitize(rawHtml, {
       FORBID_TAGS: ['img', 'style', 'form', 'input', 'button', 'iframe', 'object', 'embed']
     });
+    let mathMode = 'plain';
+    if (prot.store.length) {
+      try { await ssLoadScript(SS_RICH_LIBS.katex); ssEnsureKatexCSS(); if (window.katex) mathMode = 'katex'; } catch (e) { /* Unicode fallback */ }
+    }
+    el.innerHTML = ssRestoreMath(clean, prot.store, mathMode);
     el.querySelectorAll('a[href]').forEach(a => { a.target = '_blank'; a.rel = 'noopener noreferrer'; });
     el.querySelectorAll('table').forEach(t => {
       const wrap = document.createElement('div');
@@ -119,9 +252,57 @@ async function ssRenderRich(el, markdown, opts) {
   }
 }
 
-// Turns ```mermaid code blocks into drawn diagrams. A diagram that fails to
-// parse (models sometimes write invalid syntax) is removed rather than shown
-// as an ugly error.
+// Models often write labels with brackets, colons or slashes that Mermaid
+// rejects. Wrapping every plain [label] in quotes fixes most failures.
+function ssFixMermaid(code) {
+  return String(code || '')
+    .replace(/[\u201C\u201D]/g, '"').replace(/[\u2018\u2019]/g, "'")
+    .split('\n').map(line => line.replace(/(\b[A-Za-z][\w-]*)\[([^\]\["]+)\]/g, (m, id, label) => id + '["' + label.replace(/"/g, "'") + '"]')).join('\n');
+}
+
+function _ssSvgToCanvas(svgEl, scale) {
+  return new Promise((resolve, reject) => {
+    const clone = svgEl.cloneNode(true);
+    const vb = (svgEl.getAttribute('viewBox') || '').split(/[\s,]+/).map(Number);
+    const w = vb.length === 4 ? vb[2] : svgEl.getBoundingClientRect().width;
+    const h = vb.length === 4 ? vb[3] : svgEl.getBoundingClientRect().height;
+    clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    clone.setAttribute('width', w); clone.setAttribute('height', h);
+    clone.removeAttribute('style');
+    const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    bg.setAttribute('x', vb[0] || 0); bg.setAttribute('y', vb[1] || 0); bg.setAttribute('width', w); bg.setAttribute('height', h); bg.setAttribute('fill', '#ffffff');
+    clone.insertBefore(bg, clone.firstChild);
+    const url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(clone));
+    const img = new Image();
+    img.onload = () => {
+      const c = document.createElement('canvas'); c.width = Math.round(w * scale); c.height = Math.round(h * scale);
+      const ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height); ctx.drawImage(img, 0, 0, c.width, c.height);
+      resolve(c);
+    };
+    img.onerror = () => reject(new Error('could not draw diagram'));
+    img.src = url;
+  });
+}
+function ssSaveBlob(blob, name) {
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+}
+async function ssDownloadDiagram(wrap, kind) {
+  const svg = wrap.querySelector('svg'); if (!svg) return;
+  try {
+    if (kind === 'svg') {
+      const clone = svg.cloneNode(true); clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      ssSaveBlob(new Blob([new XMLSerializer().serializeToString(clone)], { type: 'image/svg+xml' }), 'studysphere-diagram.svg');
+    } else {
+      const canvas = await _ssSvgToCanvas(svg, 2.5);
+      canvas.toBlob(b => b && ssSaveBlob(b, 'studysphere-diagram.png'), 'image/png');
+    }
+  } catch (e) { alert('Could not save that diagram. Try the SVG button, or take a screenshot.'); }
+}
+
+// Turns ```mermaid code blocks into drawn diagrams, each with Download SVG/PNG
+// buttons. A diagram that still fails to parse after one automatic repair is
+// removed rather than shown as an ugly error.
 async function ssRenderMermaid(root) {
   const blocks = Array.from(root.querySelectorAll('pre > code.language-mermaid'));
   if (!blocks.length) return;
@@ -133,22 +314,34 @@ async function ssRenderMermaid(root) {
     return;
   }
   const dark = document.body.classList.contains('dark');
-  window.mermaid.initialize({ startOnLoad: false, securityLevel: 'strict', theme: dark ? 'dark' : 'neutral' });
+  window.mermaid.initialize({
+    startOnLoad: false, securityLevel: 'strict', theme: dark ? 'dark' : 'neutral',
+    fontFamily: 'Nunito, Arial, sans-serif', themeVariables: { fontSize: '16px' },
+    flowchart: { htmlLabels: false, useMaxWidth: true, curve: 'basis', nodeSpacing: 40, rankSpacing: 45 }
+  });
   let n = 0;
   for (const code of blocks) {
     const pre = code.closest('pre');
-    const id = `ssMermaid${Date.now()}_${n++}`;
-    try {
-      const { svg } = await window.mermaid.render(id, code.textContent);
-      const wrap = document.createElement('div');
-      wrap.className = 'ss-diagram';
-      wrap.innerHTML = svg;
-      pre.replaceWith(wrap);
-    } catch (err) {
-      const leftover = document.getElementById('d' + id) || document.getElementById(id);
-      if (leftover) leftover.remove();
-      pre.remove();
+    const src = code.textContent;
+    let svg = null;
+    for (const attempt of [src, ssFixMermaid(src)]) {
+      const id = `ssMermaid${Date.now()}_${n++}`;
+      try { svg = (await window.mermaid.render(id, attempt)).svg; break; }
+      catch (err) { const leftover = document.getElementById('d' + id) || document.getElementById(id); if (leftover) leftover.remove(); }
     }
+    if (!svg) { pre.remove(); continue; }
+    const wrap = document.createElement('div');
+    wrap.className = 'ss-diagram';
+    wrap.innerHTML = svg;
+    const bar = document.createElement('div');
+    bar.className = 'ss-diagram-bar'; bar.setAttribute('data-nodl', '1');
+    [['svg', 'Download SVG'], ['png', 'Download PNG']].forEach(([k, label]) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'ss-mini-btn';
+      b.innerHTML = '<i class="ti ti-download"></i> ' + label; b.addEventListener('click', () => ssDownloadDiagram(wrap, k));
+      bar.appendChild(b);
+    });
+    wrap.appendChild(bar);
+    pre.replaceWith(wrap);
   }
 }
 
@@ -199,19 +392,19 @@ async function ssShowDiagrams(container, query) {
   try {
     const params = new URLSearchParams({
       action: 'query', format: 'json', origin: '*',
-      generator: 'search', gsrnamespace: '6', gsrlimit: '12',
+      generator: 'search', gsrnamespace: '6', gsrlimit: '15',
       gsrsearch: `${q} filetype:bitmap|drawing`,
-      prop: 'imageinfo', iiprop: 'url|mime|extmetadata', iiurlwidth: '700'
+      prop: 'imageinfo', iiprop: 'url|mime|extmetadata', iiurlwidth: '900'
     });
     const res = await fetch('https://commons.wikimedia.org/w/api.php?' + params.toString(), { signal: controller.signal });
     clearTimeout(timer);
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    const items = ssParseCommonsResults(await res.json(), 3);
+    const items = ssParseCommonsResults(await res.json(), 4);
     container.textContent = '';
     if (!items.length) return 0;
 
     const title = document.createElement('h4');
-    title.innerHTML = '<i class="ti ti-photo"></i> Diagrams from the web';
+    title.innerHTML = '<i class="ti ti-photo"></i> Labelled diagrams from the web';
     const grid = document.createElement('div');
     grid.className = 'ss-figures';
     items.forEach(it => {
@@ -228,7 +421,13 @@ async function ssShowDiagrams(container, query) {
       const credit = document.createElement('span');
       credit.textContent = [it.credit, it.license].filter(Boolean).join(' · ');
       cap.append(strong, credit);
-      fig.append(link, cap);
+      const dl = document.createElement('button'); dl.type = 'button'; dl.className = 'ss-mini-btn'; dl.setAttribute('data-nodl', '1');
+      dl.innerHTML = '<i class="ti ti-download"></i> Save image';
+      dl.addEventListener('click', async () => {
+        try { const r = await fetch(it.thumb); if (!r.ok) throw 0; ssSaveBlob(await r.blob(), (it.title || 'diagram').replace(/[^\w-]+/g, '-').slice(0, 50) + '.' + (/\.svg/i.test(it.thumb) ? 'png' : (it.thumb.split('.').pop().split('?')[0] || 'png'))); }
+        catch (e) { window.open(it.page, '_blank', 'noopener'); }
+      });
+      fig.append(link, cap, dl);
       grid.appendChild(fig);
     });
     const note = document.createElement('p');
@@ -245,5 +444,5 @@ async function ssShowDiagrams(container, query) {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { ssEscapeHTML, ssSplitDiagramQuery, ssSimpleMarkdown, ssParseCommonsResults };
+  module.exports = { ssEscapeHTML, ssSplitDiagramQuery, ssSimpleMarkdown, ssParseCommonsResults, ssTexToUnicode, ssProtectMath, ssRestoreMath, ssFixMermaid };
 }

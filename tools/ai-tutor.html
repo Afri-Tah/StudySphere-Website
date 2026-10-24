@@ -56,57 +56,72 @@
     <div class="tool-page-icon"><i class="ti ti-brain"></i></div>
     <div>
       <h1 class="tool-page-title">AI Study Tutor</h1>
-      <p class="tool-page-desc">Pick a level and a topic, and it teaches you step by step — explaining a bit, then checking you understood.</p>
+      <p class="tool-page-desc">Upload your notes (PDF, Word, PowerPoint, photos…) or pick a topic, and it teaches you step by step — with correct maths, clear diagrams, and notes you can download.</p>
       <div class="tool-page-badges"><span class="hub-card-tag" style="background:var(--primary-light,#EEEBFF);color:var(--primary)">Student</span></div>
     </div>
   </div>
 
   <!-- SETUP CARD -->
-  <div class="tool-card" id="tutorSetupCard" data-category="student">
+  <div class="tool-card" id="tutorSetupCard" data-category="student" style="grid-column:1/-1">
     <div class="tool-header">
       <div class="tool-icon"><i class="ti ti-brain"></i></div>
       <div>
         <h2>Start a Session <span class="tool-badge badge-student">Student</span></h2>
-        <p>A few details so the tutor can pitch things right for you</p>
+        <p>Upload your notes, or just type a subject — the tutor does the rest</p>
       </div>
     </div>
 
-    <select id="tutLevel" style="margin-bottom:10px">
-      <option value="Primary / Elementary school">Primary / Elementary school</option>
-      <option value="O Level / IGCSE (roughly age 14–16)" selected>O Level / IGCSE (roughly age 14–16)</option>
-      <option value="A Level / IAL (roughly age 16–18)">A Level / IAL (roughly age 16–18)</option>
-      <option value="Undergraduate">Undergraduate</option>
-      <option value="Graduate / postgraduate">Graduate / postgraduate</option>
-    </select>
-    <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
-      <input type="text" id="tutSubject" placeholder="Subject (optional if you add notes)" style="flex:1;min-width:160px;margin:0">
-      <input type="text" id="tutTopic" placeholder="Topic (optional)" style="flex:1;min-width:160px;margin:0">
+    <div id="tutUploader"></div>
+
+    <div class="tut-row">
+      <select id="tutLevel" aria-label="Your level">
+        <option value="Primary / Elementary school">Primary / Elementary school</option>
+        <option value="O Level / IGCSE (roughly age 14–16)" selected>O Level / IGCSE (roughly age 14–16)</option>
+        <option value="A Level / IAL (roughly age 16–18)">A Level / IAL (roughly age 16–18)</option>
+        <option value="Undergraduate">Undergraduate</option>
+        <option value="Graduate / postgraduate">Graduate / postgraduate</option>
+      </select>
+      <input type="text" id="tutSubject" placeholder="Subject (optional if you upload notes)">
+      <input type="text" id="tutTopic" placeholder="Topic (optional)">
     </div>
 
-    <button type="button" class="tutor-notes-toggle" onclick="tutToggleNotes()"><i class="ti ti-chevron-right" id="tutNotesChevron"></i> Paste your own notes to study from (optional)</button>
-    <div id="tutNotesWrap" style="display:none;margin-top:8px">
-      <textarea id="tutNotes" rows="5" placeholder="Paste a textbook excerpt, lecture notes, or slide text here. The tutor will teach from this instead of guessing — and say so if your question isn't covered by it."></textarea>
+    <div class="tut-modes" role="radiogroup" aria-label="How should the tutor help?">
+      <label class="tut-mode"><input type="radio" name="tutMode" value="teach" checked><span><i class="ti ti-school"></i><b>Teach me</b><small>Step by step, with quick checks</small></span></label>
+      <label class="tut-mode"><input type="radio" name="tutMode" value="quiz"><span><i class="ti ti-help-circle"></i><b>Quiz me</b><small>Exam-style questions, marked</small></span></label>
+      <label class="tut-mode"><input type="radio" name="tutMode" value="explain"><span><i class="ti ti-bulb"></i><b>Explain it</b><small>Clear explanations and summaries</small></span></label>
     </div>
 
-    <button class="btn" id="tutStartBtn" style="margin-top:10px" onclick="tutStartSession()"><i class="ti ti-player-play"></i> Start Tutoring Session</button>
+    <button class="btn" id="tutStartBtn" style="margin-top:12px" onclick="tutStartSession()"><i class="ti ti-player-play"></i> Start Tutoring Session</button>
     <div id="tutNoKeyNotice" style="display:none;margin-top:10px;padding:12px 14px;background:var(--primary-light,#EEEBFF);border-radius:12px;font-size:0.82rem">
       <i class="ti ti-info-circle"></i> The AI tutor is temporarily unavailable — please try again in a few minutes.
     </div>
   </div>
 
   <!-- CHAT CARD -->
-  <div class="tool-card" id="tutorChatCard" style="grid-column: span 2;display:none" data-category="student">
+  <div class="tool-card" id="tutorChatCard" style="grid-column:1/-1;display:none" data-category="student">
     <div class="tutor-session-bar">
       <span><strong id="tutSessionLabel"></strong></span>
-      <button class="btn btn-outline btn-sm" style="width:auto;margin:0" onclick="tutRestart()"><i class="ti ti-refresh"></i> New session</button>
+      <span class="tut-bar-btns" id="tutBarBtns">
+        <button class="btn btn-outline btn-sm" id="tutNotesBtn" onclick="tutMakeNotes()"><i class="ti ti-notes"></i> Make study notes</button>
+        <button class="btn btn-outline btn-sm" onclick="tutRestart()"><i class="ti ti-refresh"></i> New session</button>
+      </span>
     </div>
     <div class="tutor-chat" id="tutorChat">
       <div class="tutor-chat-log" id="tutorLog"></div>
+      <div class="tutor-quick" id="tutQuick">
+        <button type="button" data-q="Next, please.">Next ➜</button>
+        <button type="button" data-q="Can you explain that more simply?">Explain simpler</button>
+        <button type="button" data-q="Can you give me a worked example?">Worked example</button>
+        <button type="button" data-q="Please draw a diagram to help me understand this.">Draw a diagram</button>
+        <button type="button" data-q="Quiz me on what we have covered so far.">Quiz me</button>
+        <button type="button" data-q="Please look this up online and add extra information beyond my notes.">Look it up online</button>
+      </div>
       <div class="tutor-chat-inputrow">
         <textarea id="tutInput" rows="1" placeholder="Type your answer or question..." onkeydown="tutHandleKey(event)"></textarea>
-        <button class="btn btn-sm" id="tutSendBtn" onclick="tutSend()"><i class="ti ti-send"></i></button>
+        <button class="btn btn-sm" id="tutSendBtn" onclick="tutSend()" aria-label="Send"><i class="ti ti-send"></i></button>
       </div>
     </div>
+    <div id="tutNotesPanel" class="tut-notes-panel" style="display:none"></div>
   </div>
 
 <div class="related-tools">
@@ -131,7 +146,8 @@
 
 <script src="assets/tools-common.js"></script>
 <script src="assets/rich-output.js"></script>
+<script src="assets/ss-download.js"></script>
+<script src="assets/doc-tools.js"></script>
 <script src="assets/js/ai-tutor.js"></script>
-<script src="assets/js/doc-reader.js"></script>
 </body>
 </html>
